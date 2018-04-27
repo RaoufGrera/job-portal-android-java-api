@@ -1,0 +1,211 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorWhite"
+
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/loader"
+
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/imgWifi"
+            android:drawableRight="@drawable/ic_wifi"
+            android:visibility="invisible"
+            android:paddingRight="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:text="@string/noConnection"
+            android:background="@drawable/btnedit"
+            android:layout_height="wrap_content" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/form_container"
+
+            android:orientation="vertical"
+            >
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="1dp"
+
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:id="@+id/lvvItems"
+
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="6dp">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/job_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="1dp">
+
+                        <ImageView
+                            android:id="@+id/imgCompany"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lblJobName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:padding="4dp"
+                            android:text="المسمي الوظيفي" />
+                        <TextView
+                            android:id="@+id/lblCompanyName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:drawableRight="@drawable/ic_domain_black_24dp"
+                            android:drawablePadding="10dp"
+                            android:padding="4dp"
+                            android:text="الشركة"
+                            android:textDirection="rtl"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/lblCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:drawableRight="@drawable/ic_place_black_18dp"
+                            android:drawablePadding="10dp"
+                            android:padding="4dp"
+                            android:text="المدينة"
+                            android:textDirection="rtl"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/lblEndDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:drawableRight="@drawable/ic_remove_circle_outline_black_24dp"
+                            android:drawablePadding="10dp"
+                            android:padding="4dp"
+                            android:text="أخر موعد"
+                            android:textDirection="rtl"
+                            android:textSize="14dp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+            <TextView
+                android:id="@+id/lblEsndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:layout_marginTop="10dp"
+                android:text="الوصف الوظيفي"
+                android:textDirection="rtl"
+                android:textSize="16dp" />
+            <View
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
+            <TextView
+                android:id="@+id/txtDesc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.6"
+
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:gravity="top"
+                android:fitsSystemWindows="true"
+                android:inputType="textMultiLine"
+                android:layout_marginBottom="10dp"
+                />
+
+            <TextView
+                android:id="@+id/lblddde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:lineSpacingMultiplier="1.6"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:padding="4dp"
+                android:text="المهارات"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+
+                android:textDirection="rtl"
+                android:textSize="16dp" />
+            <View
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
+            <TextView
+                android:id="@+id/txtSkillsJob"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:gravity="top"
+                android:fitsSystemWindows="true"
+                android:lineSpacingMultiplier="1.6"
+
+                />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

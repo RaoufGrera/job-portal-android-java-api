@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingRight="4dp"
+
+    android:paddingLeft="4dp"
+    android:background="@color/colorWhite"
+
+    >
+
+    <TextView
+        android:id="@+id/tvItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:text="جامعة جامعة   جامعة جامعة طرابلس"
+        android:layout_toEndOf="@+id/line"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textDirection="rtl"
+        android:textSize="14dp"
+        android:layout_toRightOf="@+id/line" />
+
+    <Button
+        android:id="@+id/btn_Delete"
+         android:layout_width="58dp"
+        android:layout_height="38dp"
+        android:paddingRight="17dp"
+        android:layout_marginRight="18px"
+        android:layout_alignParentRight="false"
+        android:background="@drawable/btnedit"
+
+        android:drawableRight="@drawable/ic_delete_forever_black_24dp"
+         />
+
+    <Button
+        android:id="@+id/btnOnlineData"
+        android:layout_width="58dp"
+        android:layout_height="38dp"
+       android:paddingRight="16dp"
+        android:layout_alignParentTop="true"
+         android:background="@drawable/btnedit"
+        android:drawableRight="@drawable/ic_edit_black_24dp"
+         android:layout_toEndOf="@+id/btn_Delete"
+        android:layout_toRightOf="@+id/btn_Delete"
+        />
+<View
+    android:id="@+id/line"
+    android:layout_width="1dp"
+    android:layout_height="38dp"
+    android:layout_marginLeft="10dp"
+    android:background="@color/colorLine"
+    android:layout_toEndOf="@+id/btnOnlineData"
+    android:layout_toRightOf="@+id/btnOnlineData"
+    >
+
+</View>
+
+
+</RelativeLayout>

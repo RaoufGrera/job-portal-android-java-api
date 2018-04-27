@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <ProgressBar
+        android:id="@+id/loader"
+
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/imgWifi"
+        android:drawableRight="@drawable/ic_wifi"
+        android:visibility="invisible"
+        android:paddingRight="8dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:text="@string/noConnection"
+        android:background="@drawable/btnedit"
+        android:layout_height="wrap_content" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/form_container"
+
+        android:orientation="vertical"
+        >
+
+        <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_height="150dp"
+    android:gravity="bottom"
+    android:paddingTop="4dp"
+    android:clipToPadding="false"
+    android:hint="الهدف الوظيفي"
+    >
+    <EditText
+        android:id="@+id/txtGoals"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+
+        android:background="@drawable/select_edit_text"
+        android:gravity="top"
+        android:fitsSystemWindows="true"
+        android:inputType="textMultiLine"
+
+
+        />
+</android.support.design.widget.TextInputLayout>
+
+
+<Button
+android:id="@+id/btnSave"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+
+android:text="حفظ" />
+
+    </LinearLayout>
+
+    </RelativeLayout>

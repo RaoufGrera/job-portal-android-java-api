@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorBackgroundActivity"
+    android:layout_height="fill_parent"
+    android:fadingEdgeLength="0dp"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+        <Button
+            android:id="@+id/imgWifi"
+            android:drawableRight="@drawable/ic_wifi"
+            android:visibility="gone"
+            android:paddingRight="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:text="@string/noConnection"
+            android:background="@drawable/btnedit"
+            android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/loader"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:id="@+id/form_container"
+
+            android:gravity="right"
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            android:textDirection="anyRtl">
+
+
+            <libyacvpro.libya_cv.NonScrollListView
+                android:id="@+id/lvItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:layoutDirection="ltr" />
+
+            <Button
+                android:id="@+id/btnNew"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="12px"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_gravity="right"
+                android:text="إضافة"
+                android:background="@drawable/btnedit"
+                android:drawableRight="@drawable/ic_add_black_24dp"
+                />
+        </LinearLayout>
+    </RelativeLayout></ScrollView>

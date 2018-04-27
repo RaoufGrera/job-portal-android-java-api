@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/framcontainer"
+
+    tools:context="libyacvpro.libya_cv.NoteFragment">
+    <RelativeLayout
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:id="@+id/form_container"
+
+        android:gravity="right"
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        android:textDirection="anyRtl">
+
+        <TextView
+            android:id="@+id/contact_form_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:drawableTop="@drawable/ic_ring"
+            android:drawablePadding="10dp"
+            android:text="أخر 20 إشعار"
+
+            android:textColor="#4f4f4f"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/colorLine"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            ></View>
+
+    <ListView
+        android:id="@+id/lvItems"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        />
+    </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

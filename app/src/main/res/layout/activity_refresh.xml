@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/container"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="libyacvpro.libya_cv.RefreshActivity"
+android:padding="8dp">
+
+<ProgressBar
+    android:id="@+id/loader"
+
+    android:visibility="invisible"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/form_container"
+
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/contact_form_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="تحديث السيرة الذاتية"
+        android:textColor="#4f4f4f"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+
+    <TextView
+        android:id="@+id/lablRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="يمكنك تحديث السيرة الذاتية في نتائج البحث بعد 10 ايام من تاريخ اخر تحديث"
+
+        />
+
+
+    <TextView
+        android:id="@+id/lablLastUpdated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="25-7-2017"
+        android:textColor="#4f4f4f"
+        android:textStyle="bold"
+
+
+        />
+
+    <Button
+        android:id="@+id/btnSaveRefresh"
+
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorInfo"
+        android:elevation="4dp"
+        android:paddingLeft="70dp"
+
+        android:paddingRight="70dp"
+        android:text="تحديث"
+
+        android:textColor="#fff" />
+</LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layoutDirection="rtl"
+    android:background="@color/colorWhite"
+    >
+
+
+        <ProgressBar
+            android:id="@+id/loader"
+
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/imgWifi"
+            android:drawableRight="@drawable/ic_wifi"
+            android:visibility="invisible"
+            android:paddingRight="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:text="@string/noConnection"
+            android:background="@drawable/btnedit"
+            android:layout_height="wrap_content" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/form_container"
+            android:orientation="vertical"
+            >
+                <LinearLayout
+                    android:background="@color/colorWhite"
+
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingTop="10dp"
+                    >
+   <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+       android:paddingRight="4dp"
+
+                    android:layout_weight="1"
+                    android:text="حفـــظ"
+                     android:background="@drawable/btnedit"
+
+       android:layout_margin="4dp"
+
+
+                    android:drawableRight="@drawable/ic_check_black_24dp"
+
+                    />
+
+                        <Button
+                            android:id="@+id/btnDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="38dp"
+                            android:paddingRight="4dp"
+                            android:layout_weight="1"
+                            android:text="حذف"
+
+                            android:layout_margin="4dp"
+
+                            android:background="@drawable/btnedit"
+
+
+                            android:drawableRight="@drawable/ic_delete_forever_black_24dp"
+
+                            />
+                </LinearLayout>
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            map:cameraTilt="30"
+            map:cameraZoom="12"
+            map:mapType="normal"
+            map:uiCompass="true"
+            map:uiRotateGestures="true"
+            map:uiScrollGestures="true"
+            map:uiTiltGestures="true"
+            map:uiZoomControls="false"
+            map:uiZoomGestures="true"/>
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

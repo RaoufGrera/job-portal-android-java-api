@@ -1,0 +1,11 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:drawable="@drawable/edit_text"
+
+        android:state_focused="true"/>
+    <item
+        android:drawable="@drawable/mynotactive_text"
+        android:state_enabled="true"/>
+
+
+</selector>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "133458970559",
+    "firebase_url": "https://libyacproject.firebaseio.com",
+    "project_id": "libyacproject",
+    "storage_bucket": "libyacproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133458970559:android:a7cd13e65a9f45ae",
+        "android_client_info": {
+          "package_name": "libyacvpro.libya_cv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133458970559-e4tbd57pl3t68pjbu9c2niidcjn369de.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc2Agetf8CPP89DWCRy1egUtelzJ_225M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

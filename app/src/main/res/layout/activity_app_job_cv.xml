@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="fill_parent"
+    android:fadingEdgeLength="0dp"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingTop="8dp"
+    android:textSize="@dimen/textSizeXXL"
+    android:textColor="@color/colorPrimaryDark"
+    android:text="عرض 20 متقدم"
+
+    />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:paddingBottom="4dp"
+            android:textSize="@dimen/textSize"
+            android:text="قم بحذف وقبول طلبات التوظيف لرؤية طلبات اكثر"
+
+            />
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/colorLine"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            ></View>
+    <libyacvpro.libya_cv.NonScrollListView
+        android:id="@+id/listView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" >
+    </libyacvpro.libya_cv.NonScrollListView>
+
+    </LinearLayout>
+</ScrollView>

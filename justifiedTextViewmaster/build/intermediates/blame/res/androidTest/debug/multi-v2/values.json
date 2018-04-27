@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Asasna\\Desktop\\libyacv\\justifiedTextViewmaster\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Asasna\\Desktop\\libyacv\\justifiedTextViewmaster\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,10",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,117,408",
+                        "endLines": "2,9,12",
+                        "endColumns": "61,12,12",
+                        "endOffsets": "112,403,563"
+                    }
+                }
+            ]
+        }
+    ]
+}

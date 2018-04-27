@@ -1,0 +1,336 @@
+<android.support.constraint.ConstraintLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorBackgroundActivity"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:background="@color/colorBackgroundActivity"
+
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/framcontainer"
+            android:background="@color/colorWhite"
+
+            tools:context="libyacvpro.libya_cv.NoteFragment">
+            <Button
+                android:id="@+id/imgWifi"
+                android:drawableRight="@drawable/ic_wifi"
+                android:visibility="gone"
+                android:paddingRight="8dp"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:text="@string/noConnection"
+                android:background="@drawable/btnedit"
+                android:layout_height="wrap_content" />
+
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:visibility="invisible"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:id="@+id/form_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/linerAddCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:visibility="gone"
+
+                android:orientation="vertical">
+
+            <Button
+                android:id="@+id/addCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+
+                 android:background="@drawable/btnsave"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/textBtn"
+                android:text="إضافة شركة"
+                />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linerControlCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+
+
+                        <Button
+                            android:id="@+id/btnChangeCompany"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:drawableLeft="@drawable/ic_more_vert_black_24dp"
+                             android:background="@drawable/btnsave"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="@dimen/textBtn"
+                            android:text="أختر الشركة"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="5dp"
+                            android:background="@color/colorLine" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/btnEditCompany"
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="86dp"
+                                android:layout_height="86dp"
+
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/ic_browser" />
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="5dp"
+                                android:background="@color/colorLine" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="@dimen/mainSize"
+                                android:text="بيانات الشركة"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/btnImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="86dp"
+                                android:layout_height="86dp"
+
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/ic_management" />
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="5dp"
+                                android:background="@color/colorLine" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="@dimen/mainSize"
+                                android:padding="5dp"
+                                android:text="تعديل الصورة"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/btnJobList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="86dp"
+                                android:layout_height="86dp"
+
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/ic_ads"
+                                />
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="5dp"
+                                android:background="@color/colorLine" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="@dimen/mainSize"
+                                android:padding="5dp"
+                                android:text="أعلانات التوظيف"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/btn_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="86dp"
+                                android:layout_height="86dp"
+
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:src="@drawable/ic_smartphone"
+                                />
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="5dp"
+                                android:background="@color/colorLine" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="@dimen/mainSize"
+                                android:text="تحديد الموقع الجغرافي"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

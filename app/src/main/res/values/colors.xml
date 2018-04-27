@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorInfo">#4ca9c5</color>
+
+    <color name="colorPrimaryDark">#383838</color>
+    <color name="colorPrimaryDarkTow">#232323</color>
+
+    <color name="colorAccent">#676767</color>
+    <color name="textInputErrorColor">#ff3737</color>
+    <color name="textInputErrorColorFirst">#d95a5a</color>
+
+    <color name="txtBackGrTitleColor">#0f988b</color>
+    <color name="colorGreenLand">#0f758f</color>
+    <color name="colorBackgroundActivity">#252b8da6</color>
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="colorLine">#ececec</color>
+
+</resources>

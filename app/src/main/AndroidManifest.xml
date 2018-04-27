@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="libyacvpro.libya_cv">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+      <meta-data android:name="com.facebook.sdk.ApplicationId"
+          android:value="@string/facebook_app_id"/>
+
+      <activity android:name="com.facebook.FacebookActivity"
+          android:configChanges=
+              "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+          android:label="@string/app_name" />
+      <activity
+          android:name="com.facebook.CustomTabActivity"
+          android:exported="true">
+          <intent-filter>
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <data android:scheme="@string/fb_login_protocol_scheme" />
+          </intent-filter>
+      </activity>
+        -->
+
+        <activity android:name=".PostActivity" />
+        <activity
+            android:name=".SeekerActivity"
+            android:label="البيانات الاساسية" />
+        <activity
+            android:name=".EducationActivity"
+            android:label="المؤهل العلمي" />
+        <activity
+            android:name=".EditAddEducationActivity"
+            android:label="إضافة وتعديل" />
+        <activity android:name=".DeleteActivity" />
+        <activity
+            android:name=".ExperienceActivity"
+            android:label="الخبرة" />
+        <activity
+            android:name=".AddEditExperienceActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".LanguageActivity"
+            android:label="اللغات" />
+        <activity
+            android:name=".AddEditLanguageActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".SkillsActivity"
+            android:label="المهارات" />
+        <activity
+            android:name=".AddEditSkillsActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".CertificateActivity"
+            android:label="الشهادات" />
+        <activity
+            android:name=".AddEditCertificateActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".HobbyActivity"
+            android:label="@string/HobbyActivity" />
+        <activity
+            android:name=".AddEditHobbyActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".SpecialtyActivity"
+            android:label="التخصصات" />
+        <activity
+            android:name=".AddEditSpecialtyActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".TrainingActivity"
+            android:label="الدورات" />
+        <activity
+            android:name=".AddEditTrainingActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".InfoActivity"
+            android:label="معلومات إضافية" />
+        <activity
+            android:name=".AddEditInfoActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="نتائج البحث" />
+        <activity
+            android:name=".JobActivity"
+            android:label="وظيفة شاغرة" />
+        <activity
+            android:name=".SeekerPDFActivity"
+            android:label="طباعة السيرة الذاتية" />
+        <activity android:name=".GolaActivity" />
+        <activity
+            android:name=".MainNavigationActivity"
+            android:label="@string/title_activity_main_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RefreshActivity" />
+
+        <service android:name=".FCMCallbackService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".AddCompanyActivity"
+            android:label="إضافة شركة " />
+        <activity
+            android:name=".CompanyJobsActivity"
+            android:label="وظائف الشركة" />
+        <activity
+            android:name=".EditCompanyActivity"
+            android:label="تعديل بيانات الشركة" />
+        <activity
+            android:name=".EditImageCompanyActivity"
+            android:label="تعديل شعار الشركة" />
+        <activity
+            android:name=".MyJobActivity"
+            android:label="وظائف الشركة" />
+        <activity
+            android:name=".AddJobActivity"
+            android:label="إضافة وتعديل" />
+        <activity
+            android:name=".AppJobCVActivity"
+            android:label="طلبات التوظيف" />
+        <activity
+            android:name=".ShowCVActivity"
+            android:label="السيرة الذاتية للمتقدم" />
+        <activity
+            android:name=".CVActivity"
+            android:label="السيرة الذاتية للمتقدم" />
+        <activity android:name=".SearchCompanyActivity" />
+        <activity android:name=".ShowCompanyActivity" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ShowMapCompanyActivity" />
+        <activity android:name=".ShowCompanyMapActivity"></activity>
+    </application>
+
+</manifest>

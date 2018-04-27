@@ -1,0 +1,236 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorBackgroundActivity"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/loader"
+
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/imgWifi"
+            android:drawableRight="@drawable/ic_wifi"
+            android:visibility="invisible"
+            android:paddingRight="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:text="@string/noConnection"
+android:background="@drawable/btnedit"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/form_container"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/contact_form_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:drawableTop="@drawable/ic_mortarboard_color"
+                android:drawablePadding="8dp"
+
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/colorLine"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                ></View>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:padding="0dp"
+                android:background="@drawable/select_edit_text"
+                android:clipToPadding="false"
+                >
+
+            <Spinner
+                android:id="@+id/spEdt"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                android:layoutDirection="rtl"
+           />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:padding="0dp"
+                android:background="@drawable/select_edit_text"
+                android:clipToPadding="false"
+                >
+            <Spinner
+                android:id="@+id/spDomain"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                android:layoutDirection="rtl"
+             />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="الجامعة"
+                >
+                <EditText
+                android:id="@+id/txtUniv"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/select_edit_text"
+                android:inputType="textPersonName" />
+</android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="الكلية"
+                >
+                <EditText
+                android:id="@+id/txtFaculty"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                 android:paddingRight="8dp"
+
+                android:background="@drawable/select_edit_text"
+                android:inputType="textPersonName" />
+</android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="التخصص"
+                >
+                <EditText
+                android:id="@+id/txtSed"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+
+
+                    android:background="@drawable/select_edit_text"
+                android:inputType="textPersonName"
+                />
+</android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="المعدل"
+                >
+                <EditText
+                android:id="@+id/txtAvg"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                    android:paddingRight="8dp"
+
+                     android:inputType="textNoSuggestions|number"
+                    android:maxLength="4"
+                    android:background="@drawable/select_edit_text"
+                 />
+</android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="من سنة"
+                >
+                <EditText
+                android:id="@+id/txtStart"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                    android:paddingRight="8dp"
+
+                    android:background="@drawable/select_edit_text"
+                    android:inputType="textNoSuggestions|number"
+                    android:maxLength="4"
+                />
+</android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="الي سنة"
+                >
+        <EditText
+                android:id="@+id/txtEnd"
+            android:layout_width="fill_parent"
+            android:layout_height="58dp"
+            android:paddingRight="8dp"
+
+            android:background="@drawable/select_edit_text"
+            android:inputType="textNoSuggestions|number"
+            android:maxLength="4"
+            />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/backgroudspeener"
+                android:paddingLeft="70dp"
+                android:textSize="@dimen/textBtn"
+                android:paddingRight="70dp"
+                android:text="حفـظ"
+
+                android:textColor="#fff" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

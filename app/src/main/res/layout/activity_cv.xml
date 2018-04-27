@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorBackgroundActivity"
+    android:layout_height="fill_parent"
+    android:fadingEdgeLength="0dp"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+        <Button
+            android:id="@+id/imgWifi"
+            android:drawableRight="@drawable/ic_wifi"
+            android:visibility="gone"
+            android:paddingRight="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:text="@string/noConnection"
+            android:background="@drawable/btnedit"
+            android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/loader"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:id="@+id/form_container"
+
+            android:gravity="right"
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            android:textDirection="anyRtl">
+
+            <android.support.v7.widget.CardView
+                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:id="@+id/lvvItems"
+                android:background="@color/colorWhite"
+
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:layout_marginBottom="2dp"
+                android:paddingTop="8dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/job_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/imgCompany"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+                        <TextView
+                            android:id="@+id/lblMatch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+
+                            android:textAlignment="center"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp"
+                            android:text="2154" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/lblName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:padding="4dp"
+                        android:textColor="#4a8198"
+                        android:text="الاسم" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorLine"
+                        android:layout_marginBottom="2dp"
+                       />
+                    <TextView
+                        android:id="@+id/lblDomain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:drawableRight="@drawable/ic_apps_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:padding="3dp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        android:text="المجال"
+                        android:textDirection="rtl"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/lblCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:drawableRight="@drawable/ic_place_black_18dp"
+                        android:drawablePadding="10dp"
+                        android:padding="3dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="المدينة"
+                        android:textDirection="rtl"
+                        android:textSize="14dp" />
+
+
+                    <TextView
+                        android:id="@+id/lblEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:drawableRight="@drawable/ic_email_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:padding="3dp"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        android:text="البريد الإلكتروني"
+                        android:textDirection="rtl"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/lblPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:drawableRight="@drawable/ic_phone_iphone_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:padding="3dp"
+                        android:text="الهاتف"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        android:textDirection="rtl"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <TextView
+                    android:id="@+id/txtEdu"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_mortarboard_color_24dp"
+                    android:drawablePadding="8dp"
+                    android:text="المؤهل العلمي"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXXL"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+
+             <android.support.v7.widget.CardView
+                 android:id="@+id/eduCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+            <libyacvpro.libya_cv.NonScrollListView
+        android:id="@+id/eduItem"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+
+        />
+            </android.support.v7.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/txtExp"
+
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_employee_color_24dp"
+                android:drawablePadding="8dp"
+                android:text="الخبرة"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/expCard"
+                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+            <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/expItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/txtLang"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_translation_blue_24dp"
+                android:drawablePadding="8dp"
+                android:text="اللغات"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/langCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+        <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/langItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/txtSpec"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_boss_24dp"
+                android:drawablePadding="8dp"
+                android:text="التخصصات"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/specCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+            <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/specItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/txtSkills"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_skills_24dp"
+                android:drawablePadding="8dp"
+                android:text="المهارات"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/skillsCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+
+            <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/skillsItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/txtCert"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_diploma_24dp"
+                android:drawablePadding="8dp"
+                android:text="الشهادات"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/certCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+        <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/certItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/txtTra"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_report_24dp"
+                android:drawablePadding="8dp"
+                android:text="الدورات والتدريب"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/traCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+        <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/traItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/txtHobby"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_watercolor_24dp"
+                android:drawablePadding="8dp"
+                android:text="الهويات"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/hobbyCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+
+            <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/hobbyItem"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtInfo"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:drawableRight="@drawable/ic_info_black_244dp"
+                android:drawablePadding="8dp"
+                android:text="معلومات إضافية"
+                android:gravity="right"
+                android:textSize="@dimen/textSizeXXL"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/infoCard"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="15dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+
+            <libyacvpro.libya_cv.NonScrollListView
+            android:id="@+id/infoItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+
+            />
+            </android.support.v7.widget.CardView>
+    </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
