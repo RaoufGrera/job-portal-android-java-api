@@ -1,0 +1,233 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorBackgroundActivity"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/loader"
+
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/imgWifi"
+            android:drawableRight="@drawable/ic_wifi"
+            android:visibility="invisible"
+            android:paddingRight="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:text="@string/noConnection"
+            android:background="@drawable/btnedit"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/form_container"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/contact_form_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:drawableTop="@drawable/ic_ads"
+                android:drawablePadding="8dp"
+
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/colorLine"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="المسمي الوظيفي"
+                >
+                <EditText
+                    android:id="@+id/txtJobName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="58dp"
+                    android:paddingRight="8dp"
+                    android:background="@drawable/select_edit_text"
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:padding="0dp"
+                android:background="@drawable/select_edit_text"
+                android:clipToPadding="false"
+                >
+
+                <Spinner
+                    android:id="@+id/spCity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="58dp"
+                    android:layoutDirection="rtl"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="58dp"
+                android:gravity="bottom"
+                android:padding="0dp"
+                android:background="@drawable/select_edit_text"
+                android:clipToPadding="false"
+                >
+                <Spinner
+                    android:id="@+id/spDomain"
+                    android:layout_width="fill_parent"
+                    android:layout_height="58dp"
+                    android:layoutDirection="rtl"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+
+                <EditText
+                    android:id="@+id/txtDesc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:hint="الوصف الوظيفي"
+
+                    android:minHeight="150dp"
+                    android:background="@drawable/select_edit_text"
+                    android:gravity="top"
+                    android:fitsSystemWindows="true"
+                    android:inputType="textMultiLine"
+
+
+                    />
+
+
+            <CheckBox android:id="@+id/checkbox_meat"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:text="التقدم بإستخدام نظام التوظيف"
+                android:paddingTop="4dp"
+                android:checked="true"
+                android:onClick="onCheckboxClicked"
+                android:layoutDirection="rtl"
+
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="54dp"
+                android:gravity="bottom"
+                android:visibility="gone"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="البريد الإلكتروني"
+                android:id="@+id/lblEmail"
+
+                >
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:layout_height="54dp"
+                    android:background="@drawable/select_edit_text"
+                    android:layout_width="fill_parent"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="54dp"
+                android:gravity="bottom"
+                android:visibility="gone"
+                android:paddingTop="4dp"
+                android:clipToPadding="false"
+                android:hint="الموقع الإلكتروني"
+                android:id="@+id/lblWebsite"
+                >
+                <EditText
+                    android:id="@+id/txtWebsite"
+                    android:layout_height="54dp"
+                    android:background="@drawable/select_edit_text"
+                    android:layout_width="fill_parent"
+                    android:inputType="textUri" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="54dp"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:visibility="gone"
+                android:clipToPadding="false"
+                android:hint="رقم الهاتف"
+                android:id="@+id/lblPhone"
+
+                >
+                <EditText
+                    android:id="@+id/txtPhone"
+                    android:layout_height="54dp"
+                    android:background="@drawable/select_edit_text"
+                    android:layout_width="fill_parent"
+                    android:maxEms="12"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/backgroudspeener"
+                android:paddingLeft="70dp"
+                android:textSize="@dimen/textBtn"
+                android:paddingRight="70dp"
+                android:text="حفـظ"
+
+                android:textColor="#fff" />
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+            </com.google.android.gms.ads.AdView>
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

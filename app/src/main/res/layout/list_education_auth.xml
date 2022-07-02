@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingRight="4dp"
+
+    android:layoutDirection="rtl"
+    android:paddingLeft="4dp"
+    android:background="@color/colorWhite"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/lblFirst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="جامعة بنغازي كلية تقنية المعلومات "
+
+
+        android:paddingBottom="4dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/textSize"/>
+
+    <TextView
+        android:id="@+id/lblSecond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="ماجستير ، مهندس شبكات "
+
+
+        android:paddingBottom="4dp"
+
+        android:textSize="@dimen/textSize"/>
+    <TextView
+        android:id="@+id/lblThird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="2016 - 2018 "
+
+        android:paddingBottom="4dp"
+
+        android:textSize="14dp" />
+        <TextView
+            android:id="@+id/lblForth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="المجال تقنية معلومات"
+            android:paddingBottom="4dp"
+
+            android:textSize="14dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
