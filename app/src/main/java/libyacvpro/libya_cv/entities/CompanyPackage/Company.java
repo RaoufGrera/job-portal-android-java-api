@@ -27,6 +27,7 @@ public class Company   { //implements Serializable
     String domain_name;
     String city_name;
     String compt_name;
+
     public String type;
      private String image;
     boolean isreq;

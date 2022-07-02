@@ -4,8 +4,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -46,6 +46,11 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.view.View.OnClickListener;
 import android.text.InputType;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 
 public class AddEditExperienceActivity extends AppCompatActivity implements  OnClickListener {
     private static final String TAG = "AddEditExperienceActivity";
@@ -70,12 +75,12 @@ public class AddEditExperienceActivity extends AppCompatActivity implements  OnC
 
 
     @BindView(R.id.txtGoals)
-    TextView txtGoals;
+    TextInputEditText txtGoals;
 
-    EditText txtCompName;
-    EditText txtJobName;
-     EditText txtStart;
-     EditText txtEnd;
+    TextInputEditText txtCompName;
+    TextInputEditText txtJobName;
+    TextInputEditText txtStart;
+    TextInputEditText txtEnd;
 
     @BindView(R.id.spDomain)
     Spinner spDomain;
@@ -88,20 +93,27 @@ public class AddEditExperienceActivity extends AppCompatActivity implements  OnC
     ProgressBar loader;
 
     Button imgWifi;
-
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_experience);
 
 
-        txtCompName = (EditText) findViewById(R.id.txtCompName);
-        txtJobName = (EditText) findViewById(R.id.txtJobName);
-        txtStart = (EditText) findViewById(R.id.txtStart);
-        txtEnd = (EditText) findViewById(R.id.txtEnd);
+        txtCompName = (TextInputEditText) findViewById(R.id.txtCompName);
+        txtJobName = (TextInputEditText) findViewById(R.id.txtJobName);
+        txtStart = (TextInputEditText) findViewById(R.id.txtStart);
+        txtEnd = (TextInputEditText) findViewById(R.id.txtEnd);
         imgWifi = (Button) findViewById(R.id.imgWifi);
 
-
+     //   MobileAds.initialize(this, APP_ID);
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         ButterKnife.bind(this);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
@@ -196,7 +208,7 @@ public class AddEditExperienceActivity extends AppCompatActivity implements  OnC
     private void findViewsById() {
         fromDateEtxt = (EditText) findViewById(R.id.txtStart);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
-        fromDateEtxt.requestFocus();
+        //fromDateEtxt.requestFocus();
 
         toDateEtxt = (EditText) findViewById(R.id.txtEnd);
         toDateEtxt.setInputType(InputType.TYPE_NULL);

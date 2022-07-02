@@ -2,17 +2,20 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,9 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import libyacvpro.libya_cv.adapter.AppCvAdapter;
 import libyacvpro.libya_cv.adapter.EducationAdapter;
 import libyacvpro.libya_cv.adapter.ExpAdapter;
 import libyacvpro.libya_cv.entities.CertificatePackage.Certificate;
@@ -51,9 +52,10 @@ public class CVActivity extends AppCompatActivity {
     NonScrollListView LISTVIEW,LISTVIEWEXP,LISTVIEWLANG,LISTVIEWSPEC,LISTVIEWSKILLS,LISTVIEWCERT,LISTVIEWTRA,LISTVIEWHOBBY,LISTVIEWINFO;
     EducationAdapter ListAdapter ;
     ExpAdapter ListAdapterSExp ;
-    TextView txtInfo,txtEdu,txtExp,txtSpec,txtSkills,txtHobby,txtTra,txtCert,txtLang,lblName,lblMatch,lblPhone,lblEmail,lblDomain;
-    CardView InfoCard, EduCard, ExpCard, SpecCard, SkillsCard, HobbyCard, TraCard, CertCard, LangCard;
+    TextView txtInfo,txtEdu,txtExp,txtSpec,txtSkills,txtHobby,txtTra,txtCert,txtLang,lblName,lblMatch,lblCity,lblPhone,lblEmail,lblDomain;
+    View InfoCard, ExpCard, SpecCard, SkillsCard, HobbyCard, TraCard, CertCard, LangCard;
 
+    View EduCard;
     ArrayList<String> first= new ArrayList<String>();
     ArrayList<String> second= new ArrayList<String>();
     ArrayList<String> third= new ArrayList<String>();
@@ -64,6 +66,8 @@ public class CVActivity extends AppCompatActivity {
 
     @BindView(R.id.container)
     RelativeLayout container;
+
+
     @BindView(R.id.form_container)
     LinearLayout formContainer;
     @BindView(R.id.loader)
@@ -83,14 +87,21 @@ ImageView tvimgView;
 
         lblName = (TextView) findViewById(R.id.lblName);
         lblMatch = (TextView) findViewById(R.id.lblMatch);
-        lblPhone = (TextView) findViewById(R.id.lblPhone);
-        lblEmail = (TextView) findViewById(R.id.lblEmail);
+        lblPhone =   findViewById(R.id.lblPhone);
+        lblEmail =   findViewById(R.id.lblEmail);
         lblDomain = (TextView) findViewById(R.id.lblDomain);
+        lblCity = (TextView) findViewById(R.id.lblCity);
         container = (RelativeLayout) findViewById(R.id.container);
         formContainer = (LinearLayout) findViewById(R.id.form_container);
         loader = (ProgressBar) findViewById(R.id.loader);
         imgWifi = (Button) findViewById(R.id.imgWifi);
 
+        Drawable emailDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_wifi);
+        imgWifi.setCompoundDrawablesWithIntrinsicBounds(emailDrawable, null, null, null);
+
+
+        Drawable leftDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_wifi);
+        imgWifi.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
 
 
         pUser = getIntent().getExtras().getString("seeker_id");
@@ -118,19 +129,36 @@ ImageView tvimgView;
 
 
 
-        InfoCard = (CardView) findViewById(R.id.infoCard);
-        EduCard = (CardView) findViewById(R.id.eduCard);
-        ExpCard = (CardView) findViewById(R.id.expCard);
-        SpecCard = (CardView) findViewById(R.id.specCard);
-        SkillsCard = (CardView) findViewById(R.id.skillsCard);
-        HobbyCard = (CardView) findViewById(R.id.hobbyCard);
-        TraCard = (CardView) findViewById(R.id.traCard);
-        CertCard = (CardView) findViewById(R.id.certCard);
-        LangCard = (CardView) findViewById(R.id.langCard);
+        InfoCard = (View) findViewById(R.id.infoCard);
+        EduCard = (View) findViewById(R.id.eduCard);
+        ExpCard = (View) findViewById(R.id.expCard);
+        SpecCard = (View) findViewById(R.id.specCard);
+        SkillsCard = (View) findViewById(R.id.skillsCard);
+        HobbyCard = (View) findViewById(R.id.hobbyCard);
+        TraCard = (View) findViewById(R.id.traCard);
+        CertCard = (View) findViewById(R.id.certCard);
+        LangCard = (View) findViewById(R.id.langCard);
 
         apiLoad();
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;//super.onOptionsItemSelected(item);
+        }
+    }
     private void apiLoad(){
         boolean IsValid =  isOnline();
         if(!IsValid){
@@ -138,7 +166,7 @@ ImageView tvimgView;
             return;
         }
 
-         showLoading();
+         //showLoading();
          tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         if(tokenManager.getToken() == null){
             startActivity(new Intent(CVActivity.this, LoginActivity.class));
@@ -157,7 +185,7 @@ ImageView tvimgView;
 
                     ShowCvResponse  objSeeker = response.body();
                     setData(objSeeker);
-                    showForm();
+                     showForm();
                 }else {
                     tokenManager.deleteToken();
                     startActivity(new Intent(CVActivity.this, LoginActivity.class));
@@ -192,7 +220,7 @@ ImageView tvimgView;
     }
 
     private void showForm(){
-        TransitionManager.beginDelayedTransition(container);
+       //fra TransitionManager.beginDelayedTransition(container);
         formContainer.setVisibility(View.VISIBLE);
         loader.setVisibility(View.GONE);
     }
@@ -229,9 +257,10 @@ ImageView tvimgView;
 
         lblName.setText(objJobSeeker.getFname()+" "+ objJobSeeker.getLname());
         lblDomain.setText(objJobSeeker.getDomain_name());
+        lblCity.setText(objJobSeeker.getCity_name());
         lblPhone.setText(objJobSeeker.getPhone());
         lblEmail.setText(objJobSeeker.getEmail());
-        Picasso.get().load(objJobSeeker.getImage()).into(tvimgView);
+        Picasso.get().load(objJobSeeker.getImage()).placeholder( R.drawable.pro).into(tvimgView);
 
 
 
@@ -290,7 +319,7 @@ ImageView tvimgView;
                     if (lstExp.get(i).getExp_desc().equals(""))
                         newHtml = "";
                     else
-                        newHtml = nl2br(lstExp.get(i).getExp_desc());
+                        newHtml = lstExp.get(i).getExp_desc();
                 }else{newHtml = "";}
 
 
@@ -445,7 +474,7 @@ ImageView tvimgView;
         {
             firstTra.add(lstTra.get(i).getTrain_name());
             secondTra.add(lstTra.get(i).getTrain_comp());
-            thirdTra.add(lstTra.get(i).getTrain_comp());
+            thirdTra.add(lstTra.get(i).getTrain_date());
             forthTra.add("");
         }
 

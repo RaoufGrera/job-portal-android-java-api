@@ -1,16 +1,16 @@
 package libyacvpro.libya_cv;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.iid.FirebaseInstanceId;
+//import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,14 +29,14 @@ public class PostActivity extends AppCompatActivity {
     ApiService service;
     TokenManager tokenManager;
     Call<PostResponse> call;
-    private InterstitialAd mInterstitialAd;
+   // private InterstitialAd mInterstitialAd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        MobileAds.initialize(this, "ca-app-pub-9929016091047307~2213947061");
+       /* MobileAds.initialize(this, "ca-app-pub-9929016091047307~2213947061");
 
 
 
@@ -54,7 +54,7 @@ public class PostActivity extends AppCompatActivity {
         });
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
 
         ButterKnife.bind(this);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
@@ -77,7 +77,7 @@ public class PostActivity extends AppCompatActivity {
     void toedu(){
 
 
-    Log.d(TAG,"InstanceID token " + FirebaseInstanceId.getInstance().getToken());
+   // Log.d(TAG,"InstanceID token " + FirebaseInstanceId.getInstance().getToken());
 
         //startActivity(new Intent(PostActivity.this, EducationActivity.class));
     }
@@ -111,7 +111,7 @@ public class PostActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnCert)
     void toCert(){
-        startActivity(new Intent(PostActivity.this, CertificateActivity.class));
+      //  startActivity(new Intent(PostActivity.this, CertificateActivity.class));
     }
     @OnClick(R.id.btnPDF)
     void toPDF(){

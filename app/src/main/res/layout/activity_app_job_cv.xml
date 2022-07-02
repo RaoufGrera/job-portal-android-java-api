@@ -41,7 +41,7 @@
             android:background="@color/colorLine"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
-            ></View>
+           />
     <libyacvpro.libya_cv.NonScrollListView
         android:id="@+id/listView2"
         android:layout_width="match_parent"
@@ -49,6 +49,20 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" >
     </libyacvpro.libya_cv.NonScrollListView>
+
+        <Button
+            android:id="@+id/btnReload"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+
+            android:background="@drawable/btnedit"
+            android:paddingLeft="4dp"
+
+            android:paddingRight="4dp"
+            android:text="إعادة تحميل"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            />
 
     </LinearLayout>
 </ScrollView>

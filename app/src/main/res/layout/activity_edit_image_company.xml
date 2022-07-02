@@ -65,6 +65,18 @@ tools:context="libyacvpro.libya_cv.EditImageCompanyActivity">
         android:layout_alignParentBottom="true"
          android:layout_centerHorizontal="true"
         android:id="@+id/btnPick" />
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+        </com.google.android.gms.ads.AdView>
+
 </LinearLayout>
     </RelativeLayout>
 </ScrollView>

@@ -14,7 +14,7 @@ import libyacvpro.libya_cv.entities.IntegrString;
 
 import java.util.ArrayList;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 
 /**

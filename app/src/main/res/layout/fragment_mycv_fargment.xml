@@ -1,10 +1,12 @@
-<android.support.constraint.ConstraintLayout android:layout_width="fill_parent"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
-    android:background="@color/colorWhite"
+    android:background="@color/colorBack"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -18,21 +20,10 @@
         tools:context="libyacvpro.libya_cv.NoteFragment">
 
 
-
-
-
-
-
-
-
-
-
-
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-     android:padding="15dp"
+     android:padding="10dp"
         android:orientation="vertical">
 
 
@@ -41,16 +32,16 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btn_movepage"
-                android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,12 +50,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                         android:src="@drawable/ic_id_card_color" />
+                         app:srcCompat="@drawable/ic_user" />
 
 
 
@@ -80,18 +71,19 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textSize="@dimen/mainSize"
-                        android:text="البيانات الاساسية"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="البيانات الأساسية"
                          />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btn_Education"
-                android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -106,12 +98,12 @@
                      android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_mortarboard_color" />
+                        app:srcCompat="@drawable/ic_mortarboard_color" />
 
 
 
@@ -126,13 +118,13 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textSize="@dimen/mainSize"
-                        android:padding="5dp"
-                        android:text=" المـؤهــل العلمـــي "
+                        android:padding="5dp" android:textColor="@color/colorPrimaryDark"
+                        android:text=" المـؤهــل العلمـي "
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -142,10 +134,10 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btn_Exp"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -160,12 +152,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_employee_color"
+                        app:srcCompat="@drawable/ic_briefcase"
                         />
 
 
@@ -182,18 +174,18 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textSize="@dimen/mainSize"
-                        android:text="الخبرة"
+                        android:text="الخبرة" android:textColor="@color/colorPrimaryDark"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btn_lang"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -208,12 +200,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_translation_blue"
+                        app:srcCompat="@drawable/ic_translation_blue"
                         />
 
 
@@ -230,26 +222,24 @@
                         android:gravity="center"
                         android:textSize="@dimen/mainSize"
                         android:padding="5dp"
-                        android:text="اللغات"
+                        android:text="اللغات" android:textColor="@color/colorPrimaryDark"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnCert"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -264,12 +254,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_diploma"
+                        app:srcCompat="@drawable/ic_diploma"
                         />
 
 
@@ -286,18 +276,18 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textSize="@dimen/mainSize"
-                        android:text="الشهادات"
+                        android:text="الشهادات" android:textColor="@color/colorPrimaryDark"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnSkills"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -312,12 +302,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_skills"
+                        app:srcCompat="@drawable/ic_grain_black_24dp"
                         />
 
 
@@ -334,12 +324,12 @@
                         android:gravity="center"
                         android:textSize="@dimen/mainSize"
                         android:padding="5dp"
-                        android:text="المهارات"
+                        android:text="المهارات" android:textColor="@color/colorPrimaryDark"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -349,10 +339,10 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnSpec"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -367,12 +357,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_boss"
+                        app:srcCompat="@drawable/ic_list_black_24dp"
                         />
 
 
@@ -389,18 +379,18 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textSize="@dimen/mainSize"
-                        android:text="التخصصات"
+                        android:text="التخصصات" android:textColor="@color/colorPrimaryDark"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnHobby"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -415,12 +405,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_watercolor"
+                        app:srcCompat="@drawable/ic_watercolor"
                         />
 
 
@@ -437,12 +427,13 @@
                         android:gravity="center"
                         android:textSize="@dimen/mainSize"
                         android:padding="5dp"
-                        android:text="الهويات"
+                        android:text="الهـويــــات"
+                        android:textColor="@color/colorPrimaryDark"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -451,10 +442,10 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnInfo"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -469,12 +460,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_info_black_24dp"
+                        app:srcCompat="@drawable/ic_info_black_24dp"
                         />
 
 
@@ -491,18 +482,19 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textSize="@dimen/mainSize"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text=" معلومـات اضافيـة"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnTrain"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -517,12 +509,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_report"
+                        app:srcCompat="@drawable/ic_report"
                         />
 
 
@@ -539,12 +531,13 @@
                         android:gravity="center"
                         android:textSize="@dimen/mainSize"
                         android:padding="5dp"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="الدورات والتدريب"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -553,10 +546,10 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnPDF"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -571,12 +564,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_pdf_black"
+                        app:srcCompat="@drawable/ic_pdf_black"
                         />
 
 
@@ -593,18 +586,19 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textSize="@dimen/mainSize"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="طباعـة السيـرة الذاتيـة"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnRefresh"
                 android:layout_width="wrap_content"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
 
@@ -619,12 +613,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
 
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:src="@drawable/ic_refresh"
+                        app:srcCompat="@drawable/ic_refresh"
                         />
 
 
@@ -641,20 +635,31 @@
                         android:gravity="center"
                         android:textSize="@dimen/mainSize"
                         android:padding="5dp"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="تحديث السيرة الذاتية"
                         />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
-
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-9929016091047307/3212815535">
+        </com.google.android.gms.ads.AdView>
 
 
     </LinearLayout>
     </FrameLayout>
 </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

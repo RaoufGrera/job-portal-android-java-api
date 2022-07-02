@@ -28,6 +28,7 @@ public class FacebookManager {
     private static final String TAG = "FacebookManager";
     private static final String PROVIDER = "facebook";
 
+
     public interface FacebookLoginListener{
         void onSuccess();
         void onError(String message);
@@ -85,7 +86,7 @@ public class FacebookManager {
                 try {
                     String id = object.getString("id");
                     String name = object.getString("name");
-                    String email = object.getString("email");
+                    String email = (object.has("email")) ? object.getString("email") : id ;
                     getTokenFromBackend(name, email, PROVIDER, id);
                 } catch (JSONException e) {
                     e.printStackTrace();

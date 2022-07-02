@@ -3,10 +3,10 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.design.widget.TextInputLayout;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,11 +32,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import libyacvpro.libya_cv.entities.EducationPackage.Education;
-import libyacvpro.libya_cv.entities.EducationPackage.EducationForEdit;
 import libyacvpro.libya_cv.entities.GeneralPackage.City;
 import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
-import libyacvpro.libya_cv.entities.GeneralPackage.EducationType;
 import libyacvpro.libya_cv.entities.Message;
 import libyacvpro.libya_cv.entities.ShowJobPackage.ShowJob;
 import libyacvpro.libya_cv.entities.ShowJobPackage.ShowParaJob;
@@ -47,8 +44,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddJobActivity extends AppCompatActivity {
-    private static final String TAG = "AddJobActivity";
+public class AddServicesActivity extends AppCompatActivity {
+    private static final String TAG = "AddServicesActivity";
 
     ApiService service;
     TokenManager tokenManager;
@@ -81,30 +78,24 @@ public class AddJobActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_job);
-        txtEmail = (EditText) findViewById(R.id.txtEmail);
-        txtWebsite = (EditText) findViewById(R.id.txtWebsite);
-        txtPhone = (EditText) findViewById(R.id.txtPhone);
+        setContentView(R.layout.activity_add_services);
 
 
-        lblEmail = (TextInputLayout) findViewById(R.id.lblEmail);
-        lblWebsite = (TextInputLayout) findViewById(R.id.lblWebsite);
-        lblPhone = (TextInputLayout) findViewById(R.id.lblPhone);
 
-        checkbox_meat = (CheckBox) findViewById(R.id.checkbox_meat);
 
 
 
         txtJobName = (EditText) findViewById(R.id.txtJobName);
+        txtJobName.requestFocus();
+
         txtDesc = (EditText) findViewById(R.id.txtDesc);
          spDomain = (Spinner) findViewById(R.id.spDomain);
         spCity = (Spinner) findViewById(R.id.spCity);
          imgWifi = (Button) findViewById(R.id.imgWifi);
-        pUser = getIntent().getExtras().getString("user");
 
           itemID = getIntent().getExtras().getInt("id");
 
-        MobileAds.initialize(this, APP_ID);
+       // MobileAds.initialize(this, APP_ID);
         ButterKnife.bind(this);
 
         AdView adView = new AdView(this);
@@ -123,27 +114,13 @@ public class AddJobActivity extends AppCompatActivity {
 
         super.onResume();
     }
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) findViewById(R.id.checkbox_meat)).isChecked();
-
-        if (checked){
-            lblEmail.setVisibility(View.INVISIBLE);
-            lblPhone.setVisibility(View.INVISIBLE);
-            lblWebsite.setVisibility(View.INVISIBLE);
-        }else{
-            lblEmail.setVisibility(View.VISIBLE);
-            lblPhone.setVisibility(View.VISIBLE);
-            lblWebsite.setVisibility(View.VISIBLE);
-        }
-    }
 
     void loadApi(){
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         if(tokenManager.getToken() == null){
-            startActivity(new Intent(AddJobActivity.this, MyJobActivity.class));
+            startActivity(new Intent(AddServicesActivity.this, MyJobActivity.class));
             finish();
         }
 
@@ -158,9 +135,9 @@ public class AddJobActivity extends AppCompatActivity {
 
      //   showLoading();
         if(itemID == 0){
-            call = service.getAddJob(pUser);
+            call = service.getAddServices();
         }else{
-            call = service.getEditJob(pUser,itemID);
+            call = service.getEditServices(itemID);
         }
 
         call.enqueue(new Callback<ShowParaJob>() {
@@ -185,7 +162,7 @@ public class AddJobActivity extends AppCompatActivity {
 
                 }else {
                     tokenManager.deleteToken();
-                    startActivity(new Intent(AddJobActivity.this, LoginActivity.class));
+                    startActivity(new Intent(AddServicesActivity.this, LoginActivity.class));
                     finish();
 
                 }
@@ -199,23 +176,9 @@ public class AddJobActivity extends AppCompatActivity {
     }
 
     private void setDataInfo(ShowJob ii){
-        txtJobName.setText(ii.getJob_name());
         txtDesc.setText(ii.getJob_desc());
-         if(ii.getHow_receive().equals(0)) {
-            checkbox_meat.setChecked(true);
-            lblEmail.setVisibility(View.INVISIBLE);
-            lblPhone.setVisibility(View.INVISIBLE);
-            lblWebsite.setVisibility(View.INVISIBLE);
-        }else{
-            lblEmail.setVisibility(View.VISIBLE);
-            lblPhone.setVisibility(View.VISIBLE);
-            lblWebsite.setVisibility(View.VISIBLE);
 
-            checkbox_meat.setChecked(false);
-            txtEmail.setText(ii.getEmail());
-            txtPhone.setText(ii.getPhone());
-            txtWebsite.setText(ii.getWebsite());
-        }
+        txtJobName.setText(ii.getJob_name());
 
 
 
@@ -296,16 +259,8 @@ public class AddJobActivity extends AppCompatActivity {
         Integer itemID = getIntent().getExtras().getInt("id");
         String pJobName = txtJobName.getText().toString();
         String pDesc = txtDesc.getText().toString();
-        String pSkills ="";
 
-        String pEamil = txtEmail.getText().toString();
-        String pPhone = txtPhone.getText().toString();
-        String pWebsite = txtWebsite.getText().toString();
-        Integer pHowRec = 0;
-        if(checkbox_meat.isChecked()){
-         pHowRec = 0;}
-        else{
-         pHowRec = 1;}
+
 
         String pDoamin = spDomain.getSelectedItem().toString();
         String pCity = spCity.getSelectedItem().toString();
@@ -326,50 +281,16 @@ public class AddJobActivity extends AppCompatActivity {
         }else{
             txtDesc.setError(null);
         }
-        Boolean isOk = false;
-        if(!checkbox_meat.isChecked()){
 
-            if(!pEamil.equals("")) {
-                if (!ValidationInput.isValidEmail(pEamil)) {
-                    txtEmail.setError("البريد الإلكتروني غير صحيح");
-                    isValid = false;
-                } else {
-                    txtEmail.setError(null);
-                    isOk = true;
-                }
-            }
-
-            if(!pPhone.equals("")) {
-                if (!ValidationInput.isValidPhone(pPhone)) {
-                    txtPhone.setError("رقم الهاتف غير صحيح");
-                    isValid = false;
-                } else {
-                    txtPhone.setError(null);
-                    isOk = true;
-                }
-            }
-            if(!pWebsite.equals("")) {
-                if (!ValidationInput.isValidWebSite(pWebsite)) {
-                    txtWebsite.setError("موقع الويب غير صحيح");
-                    isValid = false;
-                } else {
-                    txtWebsite.setError(null);
-                    isOk = true;
-                }
-            }
-
-        }
 
         if(!isValid)
             return;
 
-        if(!checkbox_meat.isChecked() && !isOk)
-            return;
         showLoading();
         if(itemID == 0){
-            callMessage = service.storeAddJob(pUser,pDoamin,pCity,pJobName,pDesc,pSkills,pEamil,pPhone,pWebsite,pHowRec,"POST");
+            callMessage = service.storeAddServices(pDoamin,pCity,pJobName,pDesc,"POST");
         }else{
-            callMessage = service.updateAddJob(pUser,itemID,pDoamin,pCity,pJobName,pDesc,pSkills,pEamil,pPhone,pWebsite,pHowRec,"PATCH");
+            callMessage = service.updateAddServices(itemID,pDoamin,pCity,pJobName,pDesc,"PATCH");
         }
 
 
@@ -387,7 +308,7 @@ public class AddJobActivity extends AppCompatActivity {
                     finish();
                 }else {
                     tokenManager.deleteToken();
-                    startActivity(new Intent(AddJobActivity.this, LoginActivity.class));
+                    startActivity(new Intent(AddServicesActivity.this, LoginActivity.class));
                     finish();
 
                 }

@@ -3,8 +3,8 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,18 +20,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import libyacvpro.libya_cv.entities.CompanyPackage.CompanyForEdit;
-import libyacvpro.libya_cv.entities.EducationPackage.Education;
-import libyacvpro.libya_cv.entities.EducationPackage.EducationForEdit;
 import libyacvpro.libya_cv.entities.GeneralPackage.City;
 import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
-import libyacvpro.libya_cv.entities.GeneralPackage.EducationType;
-import libyacvpro.libya_cv.entities.GeneralPackage.TypeCompanyEntities;
 import libyacvpro.libya_cv.entities.Message;
 import libyacvpro.libya_cv.enums.ValidationInput;
 import libyacvpro.libya_cv.network.ApiService;
@@ -70,8 +71,9 @@ public class AddCompanyActivity extends AppCompatActivity {
      Spinner spDomain;
 
     Spinner spCity;
-    Spinner spType;
-
+    //Spinner spType;
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,10 +84,16 @@ public class AddCompanyActivity extends AppCompatActivity {
         txtCompName = (EditText) findViewById(R.id.txtCompName);
         spDomain = (Spinner) findViewById(R.id.spDomain);
         spCity = (Spinner) findViewById(R.id.spCity);
-        spType = (Spinner) findViewById(R.id.spType);
+       // spType = (Spinner) findViewById(R.id.spType);
         imgWifi = (Button) findViewById(R.id.imgWifi);
 
-
+       // MobileAds.initialize(this, APP_ID);
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         loadApi();
     }
@@ -124,9 +132,9 @@ public class AddCompanyActivity extends AppCompatActivity {
 
                         List<Domain> cc = response.body().getDomain();
                         List<City> nn = response.body().getCity();
-                        List<TypeCompanyEntities> tt = response.body().getType();
+                       // List<TypeCompanyEntities> tt = response.body().getType();
                        // Education objEdu = response.body().get();
-                         setData(cc,nn,tt );
+                         setData(cc,nn );
 
 
 
@@ -149,7 +157,7 @@ public class AddCompanyActivity extends AppCompatActivity {
 
 
 
-    private void setData(List<Domain> cc, List<City> nn,List<TypeCompanyEntities> tt) {
+    private void setData(List<Domain> cc, List<City> nn) {
 
 
         String[] domainArray = new String[cc.size()];
@@ -164,12 +172,12 @@ public class AddCompanyActivity extends AppCompatActivity {
             CityArray[i] = nn.get(i).getCityName();
         }
 
-        String[] TypeArray = new String[tt.size()];
+       /* String[] TypeArray = new String[tt.size()];
         for (int i = 0; i < tt.size(); i++)
         {
             TypeArray[i] = tt.get(i).getCompt_name();
         }
-
+*/
         ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, domainArray);
         spinnerArrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -184,9 +192,9 @@ public class AddCompanyActivity extends AppCompatActivity {
         spCity.setAdapter(spinnerArrayAdapter2);
 
 
-        ArrayAdapter<String> spinnerArrayAdapter3 = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, TypeArray);
+       /* ArrayAdapter<String> spinnerArrayAdapter3 = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, TypeArray);
         spinnerArrayAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spType.setAdapter(spinnerArrayAdapter3);
+        spType.setAdapter(spinnerArrayAdapter3);*/
     }
     @OnClick(R.id.imgWifi)
     void refreshActivity(){
@@ -221,7 +229,7 @@ public class AddCompanyActivity extends AppCompatActivity {
 
         String pDoamin = spDomain.getSelectedItem().toString();
         String pCity = spCity.getSelectedItem().toString();
-        String pType = spType.getSelectedItem().toString();
+       // String pType = spType.getSelectedItem().toString();
 
 
         Boolean isValid = true;
@@ -252,7 +260,7 @@ public class AddCompanyActivity extends AppCompatActivity {
 
         showLoading();
 
-            callMessage = service.storeCompany(pCompName,pUser,pAddress,pUrl,pCity,pDoamin,pType);
+            callMessage = service.storeCompany(pCompName,pUser,pAddress,pUrl,pCity,pDoamin,"1");
 
 
 

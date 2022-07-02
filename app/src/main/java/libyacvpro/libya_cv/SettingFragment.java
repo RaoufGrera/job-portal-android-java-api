@@ -3,9 +3,9 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,11 +42,14 @@ public class SettingFragment extends Fragment {
     Call<Message> callMsg;
 
      Spinner spHide;
+     Spinner spPhone;
+     Spinner spImage;
 
     EditText txtPassword;
     EditText txtPasswordConfirm;
     Button btnSaveHide;
     Button btnSavePassword;
+    Button btnInfo;
 
     private FrameLayout framcontainer;
     private LinearLayout formContainer;
@@ -68,6 +71,8 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
        spHide = (Spinner)  view.findViewById(R.id.spHide);
+        spPhone = (Spinner)  view.findViewById(R.id.spPhone);
+       spImage = (Spinner)  view.findViewById(R.id.spImage);
         txtPassword = (EditText)  view.findViewById(R.id.txtPassword);
         txtPasswordConfirm = (EditText)  view.findViewById(R.id.txtConfirmPassword);
         btnSaveHide = (Button) view.findViewById(R.id.btnSaveHide);
@@ -77,12 +82,23 @@ public class SettingFragment extends Fragment {
         framcontainer = (FrameLayout) view.findViewById(R.id.framcontainer);
         formContainer = (LinearLayout) view.findViewById(R.id.form_container);
         loader = (ProgressBar) view.findViewById(R.id.loader);
+       // btnInfo = (Button) view.findViewById(R.id.btnInfo);
 
+        /*btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SettingNoteActivity.class);
+                 startActivityForResult(intent,0);
+            }
+
+            });*/
         btnSaveHide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                  String pHide = spHide.getSelectedItem().toString();
+                 String pPhone = spPhone.getSelectedItem().toString();
+                 String pImage = spImage.getSelectedItem().toString();
 
                 ButterKnife.bind(getActivity());
                 tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
@@ -93,7 +109,7 @@ public class SettingFragment extends Fragment {
                 }
 
                 service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-                callMsg = service.postChangeHide(pHide);
+                callMsg = service.postChangeHide(pHide,pPhone,pImage);
                 callMsg.enqueue(new Callback<Message>() {
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
@@ -222,32 +238,65 @@ public class SettingFragment extends Fragment {
 
 
         String gender[] = {"إظهار","إخفاء"};
+        String images[] = {"إخفاء عن الكل","عرض للكل","عرض للموظف المتقدم علي إعلانه"};
+        String phones[] = {"إخفاء عن الكل","عرض للكل","عرض للموظف المتقدم علي إعلانه"};
+
+        int indexesImage = Integer.parseInt(c.getImage_view());
+        String stringImage =  images[indexesImage];
+
+
+        int indexesPhone = Integer.parseInt(c.getPhone_view());
+        String stringPhone =  phones[indexesPhone];
+
+
+
+
 try{
         ArrayAdapter<String> spinnerArrayAdapterSex = new ArrayAdapter<String>(con,   android.R.layout.simple_spinner_item, gender);
         spinnerArrayAdapterSex.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spHide.setAdapter(spinnerArrayAdapterSex);
-        spHide.setSelection(getIndex(spHide, c.getHide_cv()));
+
+        spHide.setSelection(getIndex(spHide, stringHide));
 
 }catch (Exception e){
     Log.e(TAG," Response Error "+e.getMessage());
 }
 
+        try{
+            ArrayAdapter<String> spinnerArrayAdapterphone = new ArrayAdapter<String>(con,   android.R.layout.simple_spinner_item, phones);
+            spinnerArrayAdapterphone.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            spPhone.setAdapter(spinnerArrayAdapterphone);
+            spPhone.setSelection(getIndex(spPhone, stringPhone));
+
+        }catch (Exception e){
+            Log.e(TAG," Response Error "+e.getMessage());
+        }
+
+
+        try{
+            ArrayAdapter<String> spinnerArrayAdapterImage = new ArrayAdapter<String>(con,   android.R.layout.simple_spinner_item, images);
+            spinnerArrayAdapterImage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            spImage.setAdapter(spinnerArrayAdapterImage);
+            spImage.setSelection(getIndex(spImage, stringImage));
+
+        }catch (Exception e){
+            Log.e(TAG," Response Error "+e.getMessage());
+        }
+
+
 
 
 
     }
 
-    private int getIndex(Spinner spinner, String myString)
-    {
-        int index = 0;
 
+    private int getIndex(Spinner spinner, String myString){
         for (int i=0;i<spinner.getCount();i++){
             if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
-                index = i;
-                break;
+                return i;
             }
         }
-        return index;
-    }
 
+        return 0;
+    }
 }

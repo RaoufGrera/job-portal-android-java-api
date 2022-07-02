@@ -1,70 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    android:layoutDirection="rtl">
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/Base.TextAppearance.AppCompat.Headline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="إنشاء حساب" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_name"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="fill_parent" >
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/container"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="اسم الحساب باللغة الإنجليزية">
+            android:padding="15dp"
 
-            <android.support.design.widget.TextInputEditText
+            >
+
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:visibility="invisible"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/form_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/person_icon"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/person_icon"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName"
-                android:maxLines="1" />
+                android:orientation="vertical"
+                android:layoutDirection="rtl"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                >
 
-        </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_logonew2020"
+                    />
 
-        <android.support.design.widget.TextInputLayout
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="البريد الإلكتروني">
+            android:layout_marginTop="18dp"
+            android:layout_height="54dp"
+            android:gravity="bottom"
+            android:paddingTop="4dp"
+            android:clipToPadding="false"
+           >
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/email_icon"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="fill_parent"
+                android:layout_height="54dp"
+                android:background="@drawable/select_edit_text"
+                android:inputType="text"
                 android:drawablePadding="10dp"
-                android:drawableStart="@drawable/email_icon"
+                android:drawableStart="@drawable/ic_phone_android_black_24dp2"
+                android:drawableLeft="@drawable/ic_phone_android_black_24dp2"
+                android:paddingRight="6dp"
+                android:paddingLeft="6dp"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress" />
+                android:hint="البريد الإلكتروني او رقم الهاتف"
+                  />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="كلمة السر"
+            android:layout_marginTop="18dp"
+            android:layout_height="54dp"
+            android:gravity="bottom"
+            android:paddingTop="4dp"
+            android:clipToPadding="false"
+            android:hint="الرقم السري"
             app:passwordToggleEnabled="true">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="54dp"
+                android:background="@drawable/select_edit_text"
+
                 android:drawableLeft="@drawable/lock_icon"
                 android:drawablePadding="10dp"
                 android:drawableStart="@drawable/lock_icon"
@@ -73,36 +96,66 @@
                 android:maxLines="1" />
 
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/go_to_login"
-            style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:layout_width="234dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
 
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:text="هل لديك حساب بالفعل ?" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+
+            android:textSize="@dimen/textSizeXL"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="هل لديك حساب بالفعل؟" />
 
         <Button
             android:id="@+id/btn_register"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
+            android:background="@drawable/btn_info"
             android:layout_gravity="center_horizontal"
             android:text="إنشاء حساب" />
 
-        <ProgressBar
-            android:id="@+id/loader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:visibility="invisible" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorLine"/>
+
+                <Button
+                    android:id="@+id/btn_facebook"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="42dp"
+                    android:textColor="@color/colorWhite"
+                    android:paddingLeft="4dp"
+                    android:text="إنشاء حساب بالفيسبوك"
+                    android:drawableLeft="@drawable/facebook_icon"
+                    android:background="@drawable/btn_face"
+                    />
+
+                <Button
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="42dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:paddingLeft="4dp"
+                    android:text="إنشاء حساب بالقوقل"
+                    android:drawableLeft="@drawable/ic_google"
+                    android:background="@drawable/btn_google"
+                    />
+
+
 
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

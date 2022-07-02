@@ -3,8 +3,9 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,12 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -57,16 +56,16 @@ public class EditAddEducationActivity extends AppCompatActivity {
     Button imgWifi;
 
 
-     EditText txtUniv;
-    EditText txtFaculty;
+    TextInputEditText txtUniv;
+    TextInputEditText txtFaculty;
     @BindView(R.id.txtSed)
-    TextView txtSed;
+    TextInputEditText txtSed;
 
     @BindView(R.id.txtAvg)
-    TextView txtAvg;
+    TextInputEditText txtAvg;
 
-     EditText txtStart;
-     EditText txtEnd;
+    TextInputEditText txtStart;
+    TextInputEditText txtEnd;
 
     @BindView(R.id.spDomain)
     Spinner spDomain;
@@ -81,10 +80,10 @@ public class EditAddEducationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_add_education);
 
 
-        txtEnd = (EditText) findViewById(R.id.txtEnd);
-        txtStart = (EditText) findViewById(R.id.txtStart);
-        txtFaculty = (EditText) findViewById(R.id.txtFaculty);
-        txtUniv = (EditText) findViewById(R.id.txtUniv);
+        txtEnd = (TextInputEditText) findViewById(R.id.txtEnd);
+        txtStart = (TextInputEditText) findViewById(R.id.txtStart);
+        txtFaculty = (TextInputEditText) findViewById(R.id.txtFaculty);
+        txtUniv = (TextInputEditText) findViewById(R.id.txtUniv);
         imgWifi = (Button) findViewById(R.id.imgWifi);
 
 

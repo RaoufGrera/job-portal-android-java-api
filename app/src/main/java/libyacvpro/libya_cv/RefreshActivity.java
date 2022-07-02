@@ -2,8 +2,8 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +55,8 @@ public class RefreshActivity extends AppCompatActivity {
     TextView lblLastUpdated;
     @BindView(R.id.btnSaveRefresh)
     Button btnSaveRefresh;
+   // private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+   // private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,15 @@ public class RefreshActivity extends AppCompatActivity {
             startActivity(new Intent(RefreshActivity.this, LoginActivity.class));
             finish();
         }
+     //   MobileAds.initialize(this, APP_ID);
+
+      //  AdView adView = new AdView(this);
+    //    adView.setAdSize(AdSize.BANNER);
+        //adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+
+      //  mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+      //  mAdView.loadAd(adRequest);
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 

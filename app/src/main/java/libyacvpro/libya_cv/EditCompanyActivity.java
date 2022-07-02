@@ -3,8 +3,8 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,7 +29,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import libyacvpro.libya_cv.entities.CompanyPackage.Company;
 import libyacvpro.libya_cv.entities.CompanyPackage.CompanyForEdit;
-import libyacvpro.libya_cv.entities.EducationPackage.Education;
 import libyacvpro.libya_cv.entities.GeneralPackage.City;
 import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
 import libyacvpro.libya_cv.entities.GeneralPackage.TypeCompanyEntities;
@@ -63,11 +64,11 @@ public class EditCompanyActivity extends AppCompatActivity {
     EditText txtUrl;
     EditText txtAddress;
 
-    TextView txtCompName;
-    TextView contact_form_title;
+    EditText txtCompName;
+   // TextView contact_form_title;
 
     TextView txtCompanyUserName;
-    EditText txtCompDesc;
+    //EditText txtCompDesc;
     EditText txtFacebook;
   //  EditText txtTwitter;
  //   EditText txtLinkedin;
@@ -76,9 +77,9 @@ public class EditCompanyActivity extends AppCompatActivity {
     EditText txtEmail;
 
     Spinner spDomain;
-    String pUser;
+
     Spinner spCity;
-    Spinner spType;
+    //Spinner spType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +87,10 @@ public class EditCompanyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_company);
         txtUrl = (EditText) findViewById(R.id.txtUrl);
         txtAddress = (EditText) findViewById(R.id.txtAddress);
-       txtCompName = (TextView) findViewById(R.id.txtCompName);
-        txtCompanyUserName = (TextView) findViewById(R.id.txtCompanyUserName);
-        contact_form_title = (TextView) findViewById(R.id.contact_form_title);
-        txtCompDesc = (EditText) findViewById(R.id.txtCompDesc);
-      //  txtLinkedin = (EditText) findViewById(R.id.txtLinkedin);
+       txtCompName = (EditText) findViewById(R.id.txtCompName);
+        //txtCompanyUserName = (TextView) findViewById(R.id.txtCompanyUserName);
+    //    contact_form_title = (TextView) findViewById(R.id.contact_form_title);
+       //  txtLinkedin = (EditText) findViewById(R.id.txtLinkedin);
         txtFacebook = (EditText) findViewById(R.id.txtFacebook);
       //  txtTwitter = (EditText) findViewById(R.id.txtTwitter);
         txtServices = (EditText) findViewById(R.id.txtServices);
@@ -98,9 +98,9 @@ public class EditCompanyActivity extends AppCompatActivity {
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         spDomain = (Spinner) findViewById(R.id.spDomain);
         spCity = (Spinner) findViewById(R.id.spCity);
-        spType = (Spinner) findViewById(R.id.spType);
+       // spType = (Spinner) findViewById(R.id.spType);
         imgWifi = (Button) findViewById(R.id.imgWifi);
-        pUser = getIntent().getExtras().getString("user");
+
 
 
 
@@ -129,7 +129,7 @@ public class EditCompanyActivity extends AppCompatActivity {
 
         showLoading();
 
-        call = service.getCompanyInfo(pUser);
+        call = service.getCompanyInfo();
 
 
         call.enqueue(new Callback<CompanyForEdit>() {
@@ -173,8 +173,8 @@ public class EditCompanyActivity extends AppCompatActivity {
     private void setDataInfo(Company ii){
         txtAddress.setText(ii.getAddress());
         txtCompName.setText(ii.getComp_name());
-         txtCompanyUserName.setText(ii.getComp_user_name()) ;
-        txtCompDesc.setText(ii.getComp_desc());
+       //  txtCompanyUserName.setText(ii.getComp_user_name()) ;
+     //   txtCompDesc.setText(ii.getComp_desc());
         txtFacebook.setText(ii.getFacebook());
      //   txtTwitter.setText(ii.getTwitter());
       //  txtLinkedin.setText(ii.getLinkedin());
@@ -182,7 +182,7 @@ public class EditCompanyActivity extends AppCompatActivity {
         txtPhone.setText(ii.getPhone());
         txtServices.setText(ii.getServices());
         txtUrl.setText(ii.getUrl());
-        contact_form_title.setText(ii.getComp_name());
+       // contact_form_title.setText(ii.getComp_name());
     }
 
     private void setData(List<Domain> cc, List<City> nn,List<TypeCompanyEntities> tt,String stDomain,String stCity,String stType) {
@@ -200,11 +200,11 @@ public class EditCompanyActivity extends AppCompatActivity {
             CityArray[i] = nn.get(i).getCityName();
         }
 
-        String[] TypeArray = new String[tt.size()];
+       /* String[] TypeArray = new String[tt.size()];
         for (int i = 0; i < tt.size(); i++)
         {
             TypeArray[i] = tt.get(i).getCompt_name();
-        }
+        }*/
 
         ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, domainArray);
         spinnerArrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -220,13 +220,13 @@ public class EditCompanyActivity extends AppCompatActivity {
         spCity.setAdapter(spinnerArrayAdapter2);
 
 
-        ArrayAdapter<String> spinnerArrayAdapter3 = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, TypeArray);
-        spinnerArrayAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spType.setAdapter(spinnerArrayAdapter3);
-        if(stDomain != null && stCity !=null && stType!=null){
+      //  ArrayAdapter<String> spinnerArrayAdapter3 = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, TypeArray);
+     //   spinnerArrayAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        //spType.setAdapter(spinnerArrayAdapter3);
+        if(stDomain != null && stCity !=null ){
             spDomain.setSelection(getIndex(spDomain, stDomain));
             spCity.setSelection(getIndex(spCity, stCity));
-            spType.setSelection(getIndex(spType, stType));
+           // spType.setSelection(getIndex(spType, stType));
         }
 
     }
@@ -269,8 +269,9 @@ public class EditCompanyActivity extends AppCompatActivity {
 
 
           String pAddress = txtAddress.getText().toString();
+          String pCompName = txtCompName.getText().toString();
         String pUrl = txtUrl.getText().toString();
-        String pCompDesc = txtCompDesc.getText().toString();
+        String pCompDesc = "";//ك1.getText().toString();
         String pFacebook = txtFacebook.getText().toString();
         String pTwitter = "";
         String pLinkedin = "";
@@ -280,11 +281,16 @@ public class EditCompanyActivity extends AppCompatActivity {
 
         String pDoamin = spDomain.getSelectedItem().toString();
         String pCity = spCity.getSelectedItem().toString();
-        String pType = spType.getSelectedItem().toString();
+       // String pType = spType.getSelectedItem().toString();
 
 
         Boolean isValid = true;
-
+        if (!ValidationInput.isValidNOT_EMPTY(pCompName)) {
+            txtCompName.setError("الحقل مطلوب");
+            isValid=false;
+        }else{
+            txtCompName.setError(null);
+        }
 
         if (!ValidationInput.isValidNOT_EMPTY(pAddress)) {
             txtAddress.setError("الحقل مطلوب");
@@ -297,9 +303,8 @@ public class EditCompanyActivity extends AppCompatActivity {
             return;
 
         showLoading();
-         pUser = getIntent().getExtras().getString("user");
 
-        callMessage = service.storeCompanyInfo(pUser,pEmail,pPhone,pUrl,pAddress,pCity,pDoamin,pType,pCompDesc,pServices,pFacebook,pTwitter,pLinkedin);
+        callMessage = service.storeCompanyInfo(pEmail,pPhone,pUrl,pAddress,pCity,pDoamin,"",pCompDesc,pServices,pFacebook,pTwitter,pLinkedin,pCompName);
 
 
 
@@ -314,6 +319,7 @@ public class EditCompanyActivity extends AppCompatActivity {
                     Toast.makeText(context, msg, Toast.LENGTH_LONG)
                             .show();
                     setResult(RESULT_OK, null);
+
                     finish();
                 }else {
                     tokenManager.deleteToken();

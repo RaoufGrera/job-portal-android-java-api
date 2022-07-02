@@ -3,7 +3,7 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +26,6 @@ import retrofit2.Response;
 import libyacvpro.libya_cv.entities.IntegrString;
 import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
 import libyacvpro.libya_cv.entities.JobSearchPackage.JobsResponse;
-import libyacvpro.libya_cv.enums.SectionEnum;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 

@@ -2,20 +2,16 @@ package libyacvpro.libya_cv;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,38 +19,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Api;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import libyacvpro.libya_cv.entities.Message;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
-import libyacvpro.libya_cv.network.RetrofitInterface;
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class EditImageCompanyActivity extends AppCompatActivity {
@@ -71,7 +59,7 @@ public class EditImageCompanyActivity extends AppCompatActivity {
     ApiService service;
     TokenManager tokenManager;
     Call<Message> call;
-    String pUser;
+
      ProgressDialog progressDialog;
     @BindView(R.id.container)
     RelativeLayout container;
@@ -79,6 +67,9 @@ public class EditImageCompanyActivity extends AppCompatActivity {
     LinearLayout formContainer;
     @BindView(R.id.loader)
     ProgressBar loader;
+
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +81,6 @@ public class EditImageCompanyActivity extends AppCompatActivity {
       //  Button button = (Button) findViewById(R.id.fab);
         Button btnPick = (Button) findViewById(R.id.btnPick);
 
-          pUser = getIntent().getExtras().getString("user");
 
 
         btnPick.setOnClickListener(new View.OnClickListener() {
@@ -100,18 +90,14 @@ public class EditImageCompanyActivity extends AppCompatActivity {
                 showImagePopup(v);
             }}
                 );
-      /*  button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+      //  MobileAds.initialize(this, APP_ID);
 
-                if (imagePath != null)
-                    uploadImage();
-                else
-                    Toast.makeText(getApplicationContext(), "Please select image", Toast.LENGTH_LONG).show();
-
-            }
-
-        });*/
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         loadApi();
     }
@@ -143,7 +129,7 @@ public class EditImageCompanyActivity extends AppCompatActivity {
 
         showLoading();
 
-        call = service.getImage(pUser);
+        call = service.getImage();
 
 
         call.enqueue(new Callback<Message>() {
@@ -194,7 +180,7 @@ showForm();
             progressDialog.dismiss();
     }
     private void uploadImage() {
-        String BASE_URL ="http://10.1.10.83:8081/libyacv/public/api/";
+        String BASE_URL ="https://www.libyacv.com/api/";
 
 
         progressDialog = new ProgressDialog(EditImageCompanyActivity.this);
@@ -216,14 +202,22 @@ showForm();
         }
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
-        call = service.postImage(pUser,body);
+        call = service.postImage(body);
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> callSave, Response<Message> response) {
                 Log.w(TAG, "onResponse: " + response);
-                progressDialog.dismiss();
+
+                if (!EditImageCompanyActivity.this.isFinishing() && progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
                  if (response.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                     if(progressDialog != null)
+                         progressDialog.dismiss();
+                     setResult(RESULT_OK, null);
+                     finish();
                      loadApi();
                  }else {
 
@@ -237,7 +231,8 @@ showForm();
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
-                progressDialog.dismiss();
+                if(progressDialog != null)
+                    progressDialog.dismiss();
 
                 Log.w(TAG, "onFailure: " + t.getMessage());
             }
@@ -263,7 +258,7 @@ showForm();
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 100) {
             if (data == null) {
-                Toast.makeText(getApplicationContext(),"Unable to pick image",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"الرجاء اعادة المحاولة",Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -280,6 +275,7 @@ showForm();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);*/
             imagePath = getRealPathFromURI(imageUri);
+
             if (imagePath != null)
                 uploadImage();
             //    Picasso.with(getApplicationContext()).load(new File(imagePath))

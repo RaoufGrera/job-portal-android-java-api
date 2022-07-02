@@ -12,13 +12,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import libyacvpro.libya_cv.CustomAdpter;
-import libyacvpro.libya_cv.DeleteActivity;
 import libyacvpro.libya_cv.JobActivity;
 import libyacvpro.libya_cv.R;
 import libyacvpro.libya_cv.entities.IntegrString;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by Asasna on 3/21/2018.

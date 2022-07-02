@@ -2,11 +2,12 @@ package libyacvpro.libya_cv;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.Manifest;
@@ -16,9 +17,11 @@ import android.Manifest;
         import android.net.Uri;
         import android.os.Build;
 import android.os.Environment;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v7.app.AlertDialog;
-        import android.util.Log;
+        import androidx.core.app.ActivityCompat;
+        import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
         import android.widget.Button;
@@ -28,15 +31,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+//import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
         import com.itextpdf.text.DocumentException;
@@ -71,12 +73,10 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
         import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -84,6 +84,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,7 +109,6 @@ public class SeekerPDFActivity extends AppCompatActivity  {
     ApiService service;
     TokenManager tokenManager;
     Call<ShowCvResponse> call;
-    private AdView mAdView;
 
     TextView edit_text_content;
     //Call<Message> callSave;
@@ -119,6 +119,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
     LinearLayout formContainer;
     @BindView(R.id.loader)
     ProgressBar loader;
+    Button imgWifi;
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 111;
     private File pdfFile;
@@ -214,6 +215,98 @@ public class SeekerPDFActivity extends AppCompatActivity  {
             "" +
             "                 ";
 
+    public static final String CSS2 =   "               " +
+            "                    .printthis{" +
+            "                        display: block !important;" +
+            "                        opacity: 1 !important ;" +
+
+            "                    }" +
+
+            "                        thead {display: table-header-group;}" +
+            "                    .notprint{" +
+            "                        display: none;" +
+            "                    }" +
+
+            "                    #print-head {border-bottom: 1px solid #000000;}" +
+
+            "                    body {direction: rtl;" +
+            "                        line-height: 1.8em;font-size: 12px; overflow: auto;" +
+            "                        float: none;background-color: #fff;}" +
+            "                    #education{" +
+            "                        border-right:4px solid #dd1144;}" +
+            "                    table td tr {margin-bottom: 13px;line-height: 1.8;}" +
+            "                    .hr {border-color: #BDBDBD;" +
+            "                    }" +
+
+            "                    .numb{" +
+            "                        color: rgb(54, 54, 54);" +
+            "                        font-size: 100%;" +
+            "                        float: left;" +
+            "                    }" +
+            "                    .textb {" +
+            "                        font-size: 14px;    line-height: 1.8;" +
+            "                    }" +
+            "                    .texts {" +
+            "                        color: rgb(54, 54, 54);" +
+            "                        font-size: 12px; line-height: 1.8;}"+
+            "                    .infop { text-align: center;" +
+            "                        color: rgb(54, 54, 54);" +
+            "                        font-size: 12px;line-height: 1.8;" +
+
+            "                    }" +
+
+            "                    .posttitle {" +
+
+            "                        color: #464646 !important;" +
+            "                        font-size: 16px;" +
+            "                        padding-right: 4px;" +
+            "                        line-height: 1.5;" +
+            "                    }" +
+
+            "                    .infocont {" +
+            "                        vertical-align: top;" +
+            "                        font-size: 12px;" +
+            "                    }" +
+
+            "                    .tdcontent{" +
+            "                        padding-top: 10px;" +
+            "                    }" +
+            "                    table.first {" +
+
+            "                    }" +
+            "                    table.firstinfo {" +
+            "                        border-top: 1px solid #eaeaea;" +
+            "                    }" +
+            "                    hr{" +
+            "                        margin-top: 6px;" +
+            "                        margin-bottom: 6px;" +
+            "                    }" +
+            "                    table.firstcont {" +
+
+            "                    }" +
+            "" +
+            "     .top{padding-top:8px}               .imgseeker{" +
+            "                        border: 1px solid #999;" +
+            "                        max-height: 225px;" +
+            "                        max-width: 200px;" +
+            "                        padding: 2px;" +
+            "" +
+            "" +
+            "                    }" +
+
+            "                    .printthis{" +
+            "                       /* opacity: 0;*/" +
+            "                        display: block;" +
+            "                    }" +
+            "" +
+            "                    table .top > span:first-child {" +
+            "                        float: right;" +
+            "                        border: 9px solid #569480;" +
+            "                        border-left: 0;" +
+            "                        border-right: 5px solid #569480;       }" +
+            "" +
+            "                 ";
+
     Button bt_generar;
     public static final String DEST = Environment.getExternalStorageDirectory() + "/Documents/LibyaCV/PDF";
     public static final String SRC = "./src/test/resources/pdfs/nameddestinations.pdf";
@@ -226,10 +319,10 @@ public class SeekerPDFActivity extends AppCompatActivity  {
             "</table>" +
             "</body>" +
             "</html>"; ;
-    private RewardedVideoAd mRewardedVideoAd;
+   // private RewardedVideoAd mRewardedVideoAd;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
-    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+     private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
 
     private InterstitialAd interstitialAd;
     private CountDownTimer countDownTimer;
@@ -241,36 +334,31 @@ public class SeekerPDFActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeker_pdf);
-        MobileAds.initialize(this, APP_ID);
-
+       // MobileAds.initialize(this, APP_ID);
+        imgWifi = (Button) findViewById(R.id.imgWifi);
+        Drawable leftDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_wifi);
+        imgWifi.setCompoundDrawablesWithIntrinsicBounds(null, null, leftDrawable, null);
         edit_text_content = (TextView) findViewById(R.id.edit_text_content);
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
 
-        interstitialAd = new InterstitialAd(this);
+
+      //  interstitialAd = new InterstitialAd(this);
         // Defined in res/values/strings.xml
 
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+       // interstitialAd.setAdUnitId("ca-app-pub-9929016091047307/2689662234");
+        //interstitialAd.loadAd(new AdRequest.Builder().build());
 
        // showInterstitial();
 
+        ButterKnife.bind(this);
 
         apiLoad();
-        bt_generar =  findViewById(R.id.button_create);
+       bt_generar =  findViewById(R.id.button_create);
         bt_generar.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
-                }
+
 
                 try {
                     createPdfWrapper();
@@ -288,7 +376,24 @@ public class SeekerPDFActivity extends AppCompatActivity  {
     }
 
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;
+        }
+    }
     private void showForm(){
         TransitionManager.beginDelayedTransition(container);
         formContainer.setVisibility(View.VISIBLE);
@@ -300,16 +405,42 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         formContainer.setVisibility(View.GONE);
         loader.setVisibility(View.VISIBLE);
     }
+    private void showWifi(){
+        TransitionManager.beginDelayedTransition(container);
+        formContainer.setVisibility(View.GONE);
+        loader.setVisibility(View.GONE);
+        imgWifi.setVisibility(View.VISIBLE);
+    }
+    public boolean isOnline() {
+        try {
+            ConnectivityManager cm =
+                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+            return cm.getActiveNetworkInfo() != null &&
+                    cm.getActiveNetworkInfo().isConnectedOrConnecting();
+
+
+        } catch (Exception e) { return false; }
+    }
+    @OnClick(R.id.imgWifi)
+    void refreshActivity(){
+        apiLoad();
+
+    }
     private void apiLoad(){
        // showLoading();
-        ButterKnife.bind(this);
+
+        boolean IsValid = isOnline();
+        if (!IsValid) {
+            showWifi();
+            return;
+        }
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         if(tokenManager.getToken() == null){
             startActivity(new Intent(SeekerPDFActivity.this, LoginActivity.class));
             finish();
         }
-
+        showLoading();
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
         showLoading();
         call = service.getSeekerCv();
@@ -321,6 +452,8 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                 if(response.isSuccessful()){
 
                     ShowCvResponse  objSeeker = response.body();
+
+
                     setData(objSeeker);
                    showForm();
 
@@ -345,47 +478,32 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         String string =objSeeker.getData().getJob_seeker().getFname() +" "+ objSeeker.getData().getJob_seeker().getLname();
         edit_text_content.setText(string);
 
-        HTML =  "<html>" +
-                "<body style=\"font-family:hacen liner print-out , Droid Sans, sans-serif;\">" +
 
-                "<table>" +
-                "<tr>" +
-                "<td dir=\"rtl\">الرجاء إعادة حفظ السيرة الذاتية من جديد</td>" +
-                "</tr>" +
-                "</table>" +
-                "</body>" +
-                "</html>";
 
         HTML = "<html>" +
-                "<body dir=\"rtl\" style=\"font-family:hacen liner print-out , Droid Sans, sans-serif;font-size: 20px; line-height: 1.8em;\"  >";
+                "<body dir=\"rtl\" style=\"font-family:JF Flat , Droid Sans, sans-serif;font-size: 16px; line-height: 1.8;\"  >";
 
 
         HTML +=
-                "<table width=\"100%\" class=\"printthis\">" +
+                "<table width=\"100%\" class=\"printthis\">";
 
-                "      <tr>" +
-                 "" +
-                "          <td ><span style=\"font-size: 30px;color:#1e6355;\">";
-
-        HTML+= objSeeker.getData().getJob_seeker().getFname()+" "+ objSeeker.getData().getJob_seeker().getLname() +"</span>" +
-                "          </td>" +
-            "</tr>" +
+        HTML+=
 
                 "<tr>"+
 
-                "<td style=\" width:650px;\"><table style=\" width:650px;\"><tr><td style=\"width:38%;\"><span style=\"font-size:20px;\">» </span><span class=\"infop\">"+objSeeker.getData().getJob_seeker().getCity_name();
+                "<td style=\" width:650px;\"><table style=\" width:650px;\"><tr><td style=\"width:38%;\">&nbsp;&nbsp;<span style=\"font-size:18px;\"> » </span><span class=\"infop\">"+objSeeker.getData().getJob_seeker().getCity_name();
 
         if (objSeeker.getData().getJob_seeker().getAddress() != "")
             HTML += " - " + objSeeker.getData().getJob_seeker().getAddress();
 
-        HTML += ". </span></td><td style=\"width:20%\"><span style=\"font-size:20px;\">}</span><span style=\"vertical-align: middle;\" class=\"infop\"> "+objSeeker.getData().getJob_seeker().getBirth_day() +"سنة "+" </span></td>" ;
+        HTML += ". </span></td><td style=\"width:25%\"><span style=\"font-size:18px;\">}</span><span style=\"vertical-align: middle;\" class=\"infop\" > "+objSeeker.getData().getJob_seeker().getBirth_day() +" سنة "+" </span></td>" ;
 
 
         if(objSeeker.getData().getJob_seeker().getPhone() != "")
-            HTML += "<td><span style=\"font-size:20px;vertical-align: middle;\">{</span> <span style=\"width:10%\" class=\"infop\">"+ objSeeker.getData().getJob_seeker().getPhone() +" </span></td>";
+            HTML += "<td><span style=\"font-size:18px;vertical-align: middle;\">{</span> <span style=\"width:10%\" class=\"infop\">"+ objSeeker.getData().getJob_seeker().getPhone() +" </span></td>";
 
             HTML +=
-                "<td style=\"width:32%;text-align: center;\"><span style=\"font-size:24px;vertical-align: middle;\">«</span><span style=\"vertical-align: middle;\" class=\"infop\"> "+ objSeeker.getData().getJob_seeker().getEmail() + "</span>" +
+                "<td style=\"width:32%;text-align: center;\"><span style=\"font-size:18px;vertical-align: middle;\">«</span><span style=\"vertical-align: middle;\" class=\"infop\"> "+ objSeeker.getData().getJob_seeker().getEmail() + "</span>" +
                 "</td>" +
                 "  </tr></table></td></tr>";
 
@@ -418,7 +536,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
 
 
             HTML +=   "                    <tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"8\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                 "                    </tr>" +
                 "                    <tr>" +
                     "                        <td class=\"top\">" +
@@ -463,7 +581,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
 
 
                if (0 !=  --ToEnd) {
-                   HTML += "<tr> <td height=\"5\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
+                   HTML += "<tr> <td height=\"10\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
                 }
 
               }
@@ -510,20 +628,19 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                         "                            <td style=\" width:82%;\"><span style=\"  color: #696969;font-size: 90%;float: left; \" class=\"numb\">" + lstExp.get(i).getStart_date() + " - " + enddateExp + "</span></td>" +
                         "                        </tr></table></td>\n" +
                         "                    </tr> <tr>\n" +
-                "                        <td height=\"1\" ><span>"+lstExp.get(i).getCompe_name()+ "</span></td>\n" +
+                "                        <td height=\"30\" ><span class=\"texts\">"+lstExp.get(i).getCompe_name()+ "</span></td>\n" +
                         "                    </tr>\n";
 
                 if (newHtml != "") {
 
 
                     HTML += "                    <tr>\n" +
-                            "                        <td height=\"30\"><span class=\"texts\" style=\"\n" +
-                            "                 font-size:13px;\">" + newHtml + "</span></td>\n" +
+                            "                        <td height=\"30\"><span class=\"texts\" style=\"    line-height: 1.8;     \">" + newHtml + "</span></td>\n" +
                             "                    </tr>";
 
                 }
                 if (0 != --ToEnd) {
-                    HTML += "<tr> <td height=\"5\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
+                    HTML += "<tr> <td height=\"8\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
                 }
             }
         }
@@ -532,7 +649,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         if (objSeeker.getData().getSeeker_lang().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -540,8 +657,8 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                     "                            <table><tr><td  style=\"border-right:4px solid #218a75;padding-right:6px;\"><span class=\"posttitle\">اللغات</span>" +
                     "                        </td></tr></table></td>" +
                     "                    </tr>"+
-                    "<tr><td height=\"4\" ><span></span></td></tr>";
-            HTML += "<tr><td height=\"5\" ><span> </span></td></tr><tr><td>";
+                    "<tr><td height=\"8\" ><span></span></td></tr>";
+            HTML += "<tr><td height=\"8\" ><span> </span></td></tr><tr><td>";
 
 
         int ToEnd = objSeeker.getData().getSeeker_lang().size();
@@ -568,7 +685,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         if (objSeeker.getData().getSeeker_spec().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -610,7 +727,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         if (objSeeker.getData().getSeeker_skills().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -632,7 +749,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                                 "                    </tr>";
 
                 if (i !=  (ToEnd -1)) {
-                    HTML += "<tr> <td height=\"5\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
+                    HTML += "<tr> <td height=\"8\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
                 }
             }
         }
@@ -643,7 +760,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         if (objSeeker.getData().getSeeker_cert().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -658,21 +775,21 @@ public class SeekerPDFActivity extends AppCompatActivity  {
             List<Certificate> lstCert = objSeeker.getData().getSeeker_cert();
             for (int i = 0; i <= ToEnd; i++) {
 
-                HTML += "<tr><td height=\"5\" ><span> </span></td></tr>" +
+                HTML += "<tr><td height=\"8\" ><span> </span></td></tr>" +
                         "                    <tr>\n" +
-                        "                        <td><table><tr><td style=\" width:18%;\"><span class=\"textb\">"+lstCert.get(i).getCert_name()+"</span></td>" +
+                        "                        <td><table><tr><td style=\" line-height: 1.8; width:18%;\"><span class=\"textb\">"+lstCert.get(i).getCert_name()+"</span></td>" +
                         "                            <td style=\" width:82%;\"><span style=\"  color: #696969;font-size: 90%;float: left; \" class=\"numb\">" + lstCert.get(i).getCert_date() +"</span></td>" +
                         "                        </tr></table></td>\n" +
                         "                    </tr>";
                 if (0 != --ToEnd) {
-                    HTML += "<tr> <td height=\"5\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
+                    HTML += "<tr> <td height=\"8\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
                 }
             }
         }
         if (objSeeker.getData().getSeeker_train().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -697,7 +814,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                 "                        <td height=\"30\" ><span class=\"texts\">الجهة:  "+lstTrain.get(i).getTrain_comp()+"</span></td>\n" +
                 "                    </tr>\n";
                 if (0 != --ToEnd) {
-                    HTML += "<tr> <td height=\"5\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
+                    HTML += "<tr> <td height=\"8\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
                 }
             }
         }
@@ -705,7 +822,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         if (objSeeker.getData().getSeeker_hobby().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -714,7 +831,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                     "                        </td></tr></table></td>" +
                     "                    </tr>"+
                     "<tr><td height=\"4\" ><span></span></td></tr>";
-            HTML += "<tr><td height=\"5\" ><span> </span></td></tr><tr><td>";
+            HTML += "<tr><td height=\"8\" ><span> </span></td></tr><tr><td>";
             int ToEnd = objSeeker.getData().getSeeker_hobby().size();
 
             List<Hobby> lstHobby = objSeeker.getData().getSeeker_hobby();
@@ -736,7 +853,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         if (objSeeker.getData().getSeeker_info().size() > 0) {
 
             HTML += "<tr>" +
-                    "                        <td height=\"7\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
+                    "                        <td height=\"10\" style=\"border-bottom:1px solid #949494;\"></td><tr><td height=\"20\"></td></tr>" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <td class=\"top\">" +
@@ -750,17 +867,17 @@ public class SeekerPDFActivity extends AppCompatActivity  {
             List<Info> lstInfo = objSeeker.getData().getSeeker_info();
             for (int i = 0; i <= ToEnd; i++) {
 
-                HTML += "<tr><td height=\"5\" ><span> </span></td></tr>" +
+                HTML += "<tr><td  ><span> </span></td></tr>" +
                         "                    <tr>\n" +
-                        "                        <td><table><tr><td style=\" width:18%;\"><span class=\"textb\">"+lstInfo.get(i).getInfo_name()+"</span></td>" +
+                        "                        <td style=\" line-height: 1.8;\" height=\"38\"><table><tr><td style=\" width:18%;line-height: 1.8;\"><span class=\"textb\">"+lstInfo.get(i).getInfo_name()+"</span></td>" +
                         "                            <td style=\" width:82%;\"><span style=\"  color: #696969;font-size: 90%;float: left; \" class=\"numb\">" + lstInfo.get(i).getInfo_date() +"</span></td>" +
                         "                        </tr></table></td>\n" +
                         "                    </tr>"+
                 "                    <tr>\n" +
-                "                        <td height=\"30\" ><span class=\"texts\">"+lstInfo.get(i).getInfo_text() +"</span></td>\n" +
+                "                        <td height=\"25\" style=\" line-height: 1.8;\" ><span class=\"texts\">"+lstInfo.get(i).getInfo_text() +"</span></td>\n" +
                 "                    </tr>\n" ;
                 if (0 != --ToEnd) {
-                    HTML += "<tr> <td height=\"5\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
+                    HTML += "<tr> <td height=\"10\" ><table><tr><td  style=\" width:50%;border-top: 1px solid #ddd;\"></td><td  style=\"width:50%;\"></td></tr></table></td></tr>";
                 }
             }
         }
@@ -775,6 +892,8 @@ public class SeekerPDFActivity extends AppCompatActivity  {
 
 
     }
+
+
 
     private  boolean isArabic(String text){
         String textWithoutSpace = text.trim().replaceAll(" ","");
@@ -828,20 +947,24 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         }
 
         public void onEndPage(PdfWriter writer, Document document) {
-            PdfPTable table = new PdfPTable(3);
+            PdfPTable table = new PdfPTable(2);
 
             try {
-                table.setWidths(new int[]{20, 20, 2});
+                table.setWidths(new int[]{20, 20});
                 table.setTotalWidth(527);
 
 
 
                 table.setLockedWidth(true);
-                 table.getDefaultCell().setFixedHeight(20);
+                 table.getDefaultCell().setFixedHeight(25);
                  table.getDefaultCell().setBorder(Rectangle.BOTTOM);
                 table.addCell(header);
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-                Font f = FontFactory.getFont("assets/hacen-liner-print-ou.otf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Font f = FontFactory.getFont("assets/JF-Flat-regular123.otf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                f.setSize(16);
+                f.setColor(new BaseColor(68,146,127));
+
+
                 Phrase phrase = new Phrase();
 
                 String string = edit_text_content.getText().toString();
@@ -854,9 +977,9 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                 cell.setBorder(Rectangle.BOTTOM);
 
                 table.addCell(cell);
-                try {
+               /* try {
                     // get input stream
-                    InputStream ims = getAssets().open("lcv2.png");
+                    InputStream ims = getAssets().open("lcv3.png");
                     Bitmap bmp = BitmapFactory.decodeStream(ims);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -867,10 +990,10 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                 {
                     return;
                 }
+*/
 
 
-
-                PdfPCell cell1 = new PdfPCell(Image.getInstance(total));
+                 PdfPCell cell1 = new PdfPCell(Image.getInstance(total));
                  cell1.setBorder(Rectangle.BOTTOM);
                 table.addCell(cell1);
 
@@ -895,19 +1018,7 @@ public class SeekerPDFActivity extends AppCompatActivity  {
                     2, 2, 0);
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.toolback:
-                onBackPressed();
 
-                return true;
-
-            default:
-                return true;//super.onOptionsItemSelected(item);
-        }
-    }
     public void createPdf(String file) throws IOException, DocumentException {
         // step 1
 
@@ -948,13 +1059,13 @@ public class SeekerPDFActivity extends AppCompatActivity  {
         // step 4
         // Styles
         CSSResolver cssResolver = new StyleAttrCSSResolver();
-        CssFile cssFile = XMLWorkerHelper.getCSS(new ByteArrayInputStream(CSS.getBytes()));
+        CssFile cssFile = XMLWorkerHelper.getCSS(new ByteArrayInputStream(CSS2.getBytes()));
         cssResolver.addCss(cssFile);
 
 
         //CSSResolver cssResolver = new StyleAttrCSSResolver();
         XMLWorkerFontProvider fontProvider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
-        fontProvider.register("assets/hacen-liner-print-ou.otf");
+        fontProvider.register("assets/JF-Flat-regular123.otf");
 
         //document.add(new Paragraph("الموقع الإلكتروني",fontProvider));
 
@@ -1073,20 +1184,43 @@ public class SeekerPDFActivity extends AppCompatActivity  {
 
     private void previewPdf() {
 
-        PackageManager packageManager = getPackageManager();
-        Intent testIntent = new Intent(Intent.ACTION_VIEW);
-        testIntent.setType("application/pdf");
-        List list = packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (list.size() > 0) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_VIEW);
-            Uri uri = Uri.fromFile(pdfFile);
-            intent.setDataAndType(uri, "application/pdf");
+        //PackageManager packageManager = getPackageManager();
+       // Intent testIntent = new Intent(Intent.ACTION_VIEW);
+       // testIntent.setType("application/pdf");
+       // List list = packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY);
+      //  if (list.size() > 0) {
+            Intent target  = new Intent();
+        target .setAction(Intent.ACTION_VIEW);
+        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        target.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Uri uri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID +".provider", pdfFile);
 
+// I am opening a PDF file so I give it a valid MIME type
+        target.setDataAndType(uri, "application/pdf");
+
+
+// validate that the device can open your File!
+        PackageManager pm = this.getPackageManager();
+        if (target.resolveActivity(pm) != null) {
+            startActivity(target);
+        }
+       // Uri uri = Uri.fromFile(pdfFile);
+       // target .setDataAndType(uri, "application/pdf");
+
+       // target.setDataAndType(Uri.fromFile(pdfFile),"application/pdf");
+
+      /*  Intent intent = Intent.createChooser(target, "Open File");
+
+        try {
             startActivity(intent);
-        }else{
+        } catch (ActivityNotFoundException e) {
+            // Instruct the user to install a PDF reader here, or something
             Toast.makeText(this,"Download a PDF Viewer to see the generated PDF",Toast.LENGTH_SHORT).show();
         }
+      //  startActivity(intent);
+        /*}else{
+            Toast.makeText(this,"Download a PDF Viewer to see the generated PDF",Toast.LENGTH_SHORT).show();
+        }*/
     }
 
 

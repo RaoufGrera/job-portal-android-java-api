@@ -3,27 +3,36 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
-import libyacvpro.libya_cv.entities.GeneralPackage.City;
-import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
+import libyacvpro.libya_cv.adapter.CompanyAdapter;
+import libyacvpro.libya_cv.entities.CompanyPackage.Company;
 import libyacvpro.libya_cv.entities.ShowJobPackage.ShowParaJob;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
@@ -34,16 +43,18 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class SearchCompanyFragment extends Fragment {
-    String TAG = "SearchJobForm";
+public class SearchCompanyFragment extends Fragment  implements SwipeRefreshLayout.OnRefreshListener {
+    String TAG = "SearchCompanyFragment";
     Context context;
 
     ApiService service;
     TokenManager tokenManager;
-    Call<ShowParaJob> call;
-
+    Call<ShowParaJob> callPara;
+    Call<List<Company>> call;
+    List<Company> jobsList;
+    CompanyAdapter adapter;
     TextView txtString;
-
+ImageButton imgAdd;
     Spinner spCity;
 
     Spinner spDomain;
@@ -56,13 +67,12 @@ public class SearchCompanyFragment extends Fragment {
 
 
 
-    @BindView(R.id.container)
+
     RelativeLayout containerr;
 
 
-    @BindView(R.id.form_container)
-    LinearLayout formContainer;
-    @BindView(R.id.loader)
+    ConstraintLayout formContainer;
+
     ProgressBar loader;
 
     TextView lblInfo;
@@ -70,31 +80,77 @@ public class SearchCompanyFragment extends Fragment {
 
     Context con=null;
 
+    RecyclerView recyclerView;
+    //MoviesApi api;
+
+    View view;
+
+
+    private boolean isVisible;
+    private boolean isStarted;
+
+    Button btnCity;
+    Button btnDomain;
+
+     String clist[];
+    String dlist[];
+
+    String dPara;
+    String cPara;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @Override
+    public void onStart() {
+        super.onStart();
+        isStarted = true;
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isStarted = false;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         con= context;
     }
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+
+    private AdView mAdView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         View view = inflater.inflate(R.layout.fragment_search_company, container, false);
-        spCity = (Spinner)  view.findViewById(R.id.spCitySearch);
-        spDomain = (Spinner)  view.findViewById(R.id.spDomainSearch);
-        //   spStatus = (Spinner)  view.findViewById(R.id.spStatusSearch);
-        //  spType = (Spinner)  view.findViewById(R.id.spTypeSearch);
-        btnSearchComp = (Button) view.findViewById(R.id.btnSearchComp);
-        formContainer = (LinearLayout) view.findViewById(R.id.form_container);
-        containerr = (RelativeLayout) view.findViewById(R.id.container);
+        context=con;
+
+        // Inflate the layout for this fragment
+        formContainer =   view.findViewById(R.id.form_container);
+        containerr =   view.findViewById(R.id.container);
         loader = (ProgressBar) view.findViewById(R.id.loader);
+
+
+
+        recyclerView =  view.findViewById(R.id.recycler_view);
 
 
 
         imgWifi = (Button) view.findViewById(R.id.imgWifi);
 
+        imgAdd =   view.findViewById(R.id.imgAdd);
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startActivity(new Intent(getContext(),CompanyFragment.class));
+
+            }
+        });
 
         imgWifi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,37 +158,115 @@ public class SearchCompanyFragment extends Fragment {
                 loadApi();
             }
         });
-        // txtString = (TextView) view.findViewById(R.id.editSearchString);
+
+        btnDomain =  view.findViewById(R.id.btnDomain);
+        btnCity =  view.findViewById(R.id.btnCity);
+        jobsList = new ArrayList<>();
+
+        final String stPara = "";//getIntent().getExtras().getString("string");
+        String pCity = "";//getIntent().getExtras().getString("city");
+        String pDomain = "";// getIntent().getExtras().getString("domain");
+
+        final String cityPara = (pCity.equals("كل المدن")? "" :pCity);
+        final String domainPara = (pDomain.equals("كل المجالات")? "" :pDomain);
 
 
-        btnSearchComp.setOnClickListener(new View.OnClickListener() {
+        dPara = domainPara;
+        cPara=cityPara;
+        clist  =  new String[]{"طرابلس", "بنغازي", "مصراتة"};//getIntent().getExtras() .getStringArray("clist");
+        dlist  =  new String[]{"هندسة", "تقنية المعلومات", "كل المجالات"};//getIntent().getExtras() .getStringArray("dlist");
+
+
+        adapter = new CompanyAdapter(getContext(), jobsList);
+
+        //showLoading();
+        //loadApiPara();
+        loadApi();
+
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.addItemDecoration(new VerticalLineDecorator(2));
+        recyclerView.setAdapter(adapter);
+
+        //api = ServiceGenerator.createService(MoviesApi.class);
+
+
+        // registerForContextMenu(btnCity);
+        registerForContextMenu(btnCity);
+        registerForContextMenu(btnDomain);
+        btnCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),  SearchCompanyActivity.class);
-                // String g = txtString.getText().toString();
-                // intent.putExtra("string","");
-                intent.putExtra("city", spCity.getSelectedItem().toString());
-                intent.putExtra("domain", spDomain.getSelectedItem().toString());
-                //    intent.putExtra("type", spType.getSelectedItem().toString());
-                //    intent.putExtra("status", spStatus.getSelectedItem().toString());
 
-                startActivityForResult(intent,0);
+                v.showContextMenu();
 
+
+            }});
+
+
+        btnDomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                v.showContextMenu();
+
+
+            }});
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                loadRecyclerViewData();
             }
         });
-
-        loadApi();
         return view;
     }
+    public void loadRecyclerViewData(){
+        mSwipeRefreshLayout.setRefreshing(true);
+        //clear();
+        loadApiPara();
 
+        load(1,"",cPara,dPara);
 
+        mSwipeRefreshLayout.setRefreshing(false);
 
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle("الشركات");
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ViewGroup parentViewGroup = (ViewGroup) view.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeAllViews();
+            }
+        }
+    }
+     void loadApi(){
+         adapter = new CompanyAdapter(getContext(), jobsList);
+         adapter.setLoadMoreListener(new CompanyAdapter.OnLoadMoreListener() {
+             @Override
+             public void onLoadMore() {
+
+                 recyclerView.post(new Runnable() {
+                     @Override
+                     public void run() {
+                         int index = (jobsList.size() / 10) +1;
+
+                         loadMore(index,"",cPara,dPara);
+                     }
+                 });
+             }
+         });
 
 
+    }
     private void showForm(){
         TransitionManager.beginDelayedTransition(containerr);
         formContainer.setVisibility(View.VISIBLE);
@@ -147,6 +281,164 @@ public class SearchCompanyFragment extends Fragment {
         imgWifi.setVisibility(View.GONE);
         loader.setVisibility(View.VISIBLE);
     }
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if(v.getId() == R.id.btnCity){
+            menu.setHeaderTitle("أختر المدينة");
+            if(clist.length != 0) {
+
+                for (String strTemp : clist){
+                    menu.add(0, v.getId(), 0, strTemp);
+                }
+            }
+        }
+
+
+        else if(v.getId() == R.id.btnDomain){
+            menu.setHeaderTitle("أختر المجال");
+
+            if(dlist.length != 0) {
+                for (String strTemp : dlist){
+                    menu.add(0, v.getId(), 0, strTemp);
+                }
+
+            }
+        }
+
+    }
+   /* @Override
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getTitle()!=""){
+            boolean contains = Arrays.asList(clist).contains(item.getTitle().toString());
+
+            if(contains) {
+                btnCity.setText(item.getTitle());
+                cPara = (item.getTitle().toString().equals("كل المدن")? "" :item.getTitle().toString());
+                clear();
+
+                load(1,"",cPara,dPara);//,typePara,statusPara
+
+            }else {
+                btnDomain.setText(item.getTitle());
+                dPara = (item.getTitle().toString().equals("كل المجالات")? "" :item.getTitle().toString());
+                clear();
+
+                load(1,"",cPara,dPara);
+
+            }
+
+        }else{
+            return false;
+        }
+        return true;
+    }*/
+   @Override
+   public void setUserVisibleHint(boolean visible) {
+       super.setUserVisibleHint(visible);
+       isVisible = visible;
+       if (visible) {
+
+           Log.i("Tag", "Reload fragment");
+       }
+   }
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+
+        if (isVisible && isStarted)
+        {
+            if (item.getTitle() != "") {
+                boolean contains = Arrays.asList(clist).contains(item.getTitle().toString());
+
+                if (contains) {
+                    btnCity.setText(item.getTitle());
+                    cPara = (item.getTitle().toString().equals("كل المدن") ? "" : item.getTitle().toString());
+                    clear();
+
+                    load(1, "", cPara, dPara);//,typePara,statusPara
+
+                } else {
+                    btnDomain.setText(item.getTitle());
+                    dPara = (item.getTitle().toString().equals("كل المجالات") ? "" : item.getTitle().toString());
+                    clear();
+
+                    load(1, "", cPara, dPara);
+
+                }
+
+            } else {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    private void loadApiPara(){
+
+        boolean IsValid = isOnline();
+        if (!IsValid) {
+            showWifi();
+            return;
+        }
+
+
+        tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if (tokenManager.getToken() == null) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            //finish();
+        }
+
+
+        showLoading();
+        service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
+        callPara = service.getShowParaJob();
+        callPara.enqueue(new Callback<ShowParaJob>() {
+            @Override
+            public void onResponse(Call<ShowParaJob> call, Response<ShowParaJob> response) {
+                if(response.isSuccessful()){
+
+                    ShowParaJob lstShowPara = response.body();
+                    String[] cityArray = new String[lstShowPara.getCity().size()+1];
+                    cityArray[0] = "كل المدن";
+                    int pos = 1;
+                    for (int i = 0; i < lstShowPara.getCity().size(); i++)
+                    {
+                        cityArray[pos] = lstShowPara.getCity().get(i).getCityName();
+                        pos++;
+                    }
+                    clist = cityArray;
+
+                    String[] domainArray = new String[lstShowPara.getDomain().size()+1];
+                    domainArray[0] = "كل المجالات";
+                    pos = 1;
+                    for (int i = 0; i < lstShowPara.getDomain().size(); i++)
+                    {
+                        domainArray[pos] = lstShowPara.getDomain().get(i).getDomain_name();
+                        pos++;
+                    }
+                    dlist = domainArray;
+
+                    registerForContextMenu(btnCity);
+                    registerForContextMenu(btnDomain);
+
+
+                    showForm();
+                }else{
+                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                    showWifi();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ShowParaJob> call, Throwable t) {
+                Log.e(TAG," Response Error "+t.getMessage());
+                // showWifi();
+            }
+        });
+    }
+
 
     public boolean isOnline() {
 
@@ -167,14 +459,71 @@ public class SearchCompanyFragment extends Fragment {
         formContainer.setVisibility(View.GONE);
 
         imgWifi.setVisibility(View.VISIBLE);
-    }
-    private void loadApi(){
 
-        boolean IsValid = isOnline();
-        if (!IsValid) {
-            showWifi();
-            return;
+
+    }
+
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    private void load(int index,String stName,String city,String domain){
+        jobsList.add(new Company("load"));
+        adapter.notifyItemInserted(jobsList.size() - 1);
+        adapter.setMoreDataAvailable(true);
+        tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if (tokenManager.getToken() == null) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            //finish();
         }
+
+        service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
+        call = service.getSearchCompany(index,stName,city,domain);//,type,status
+        if(index == 1)
+            jobsList.remove(jobsList.size() - 1);
+        call.enqueue(new Callback<List<Company>>() {
+            @Override
+            public void onResponse(Call<List<Company>> call, Response<List<Company>> response) {
+                if(response.isSuccessful()){
+                    List<Company> result = response.body();
+                    int size = jobsList.size();
+                    jobsList.clear();
+                    adapter.notifyItemRangeRemoved(0, size);
+
+                    if (result.size() > 0) {
+
+                        //jobsList.remove(jobsList.size() - 1);
+                        jobsList.addAll(result);
+                        if(result.size() < 10){
+                            adapter.setMoreDataAvailable(false);
+                            Toast.makeText(context, "أنتهت نتائج البحث.", Toast.LENGTH_LONG).show();
+
+                        }
+                    } else {//result size 0 means there is no more data available at server
+                        adapter.setMoreDataAvailable(false);
+                        //telling adapter to stop calling load more as no more server data available
+                        Toast.makeText(context, "أنتهت نتائج البحث.", Toast.LENGTH_LONG).show();
+                    }
+                    adapter.notifyDataChanged();
+                }else{
+                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Company>> call, Throwable t) {
+                Log.e(TAG," Response Error "+t.getMessage());
+            }
+        });
+    }
+    private void loadMore(int index,String stName,String city,String domain){ //,String type,String status
+
+
+        //add loading progress view
+        jobsList.add(new Company("load"));
+        adapter.notifyItemInserted(jobsList.size() - 1);
 
 
         tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
@@ -184,61 +533,63 @@ public class SearchCompanyFragment extends Fragment {
             //finish();
         }
 
-        showLoading();
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-        call = service.getShowParaJob();
-        call.enqueue(new Callback<ShowParaJob>() {
-            @Override
-            public void onResponse(Call<ShowParaJob> call, Response<ShowParaJob> response) {
-                if(response.isSuccessful()){
+        /*if(index == 1)
+            jobsList.remove(jobsList.size() - 1);*/
 
-                    ShowParaJob lstShowPara = response.body();
-                    setData(lstShowPara.getCity(),lstShowPara.getDomain());
-                    showForm();
-                }else{
-                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
-                    showWifi();
+        if(index !=0) {
+            call = service.getSearchCompany(index, stName, city, domain); //, type, status
+            call.enqueue(new Callback<List<Company>>() {
+                @Override
+                public void onResponse(Call<List<Company>> call, Response<List<Company>> response) {
+                    if (response.isSuccessful()) {
+                       // adapter.setMoreDataAvailable(true);
+
+
+                        //remove loading view
+                     //   jobsList.remove(jobsList.size() - 1);
+
+                        List<Company> result = response.body();
+                        if (result.size() > 0) {
+                            //  adapter.setMoreDataAvailable(false);
+                            jobsList.remove(jobsList.size() - 1);
+
+                            jobsList.addAll(result);
+                            if(result.size() < 10){
+                                adapter.setMoreDataAvailable(false);
+                                Toast.makeText(context, "أنتهت نتائج البحث.", Toast.LENGTH_LONG).show();
+
+                            }
+                        } else {//result size 0 means there is no more data available at server
+                            adapter.setMoreDataAvailable(false);
+                            //telling adapter to stop calling load more as no more server data available
+                            Toast.makeText(context, "أنتهت نتائج البحث.", Toast.LENGTH_LONG).show();
+                        }
+                        adapter.notifyDataChanged();
+                        //should call the custom method adapter.notifyDataChanged here to get the correct loading status
+                    } else {
+                        Log.e(TAG, " Load More Response Error " + String.valueOf(response.code()));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ShowParaJob> call, Throwable t) {
-                Log.e(TAG," Response Error "+t.getMessage());
-                showWifi();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Company>> call, Throwable t) {
+                    Log.e(TAG, " Load More Response Error " + t.getMessage());
+                }
+            });
+        }
     }
 
-    private void setData(List<City> c , List<Domain> d){
-
-
-        String[] domainArray = new String[d.size()+1];
-        domainArray[0] = "كل المجالات";
-        int pos = 1;
-        for (int i = 0; i < d.size(); i++)
-        {
-            domainArray[pos] = d.get(i).getDomain_name();
-            pos++;
-        }
-        ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(con, android.R.layout.simple_spinner_item, domainArray);
-        spinnerArrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spDomain.setAdapter(spinnerArrayAdapter1);
-
-        String[] cityArray = new String[c.size()+1];
-        cityArray[0] = "كل المدن";
-        pos = 1;
-        for (int i = 0; i < c.size(); i++)
-        {
-            cityArray[pos] = c.get(i).getCityName();
-            pos++;
-        }
-        ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(con, android.R.layout.simple_spinner_item, cityArray);
-        spinnerArrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spCity.setAdapter(spinnerArrayAdapter2);
-
-
+    public void clear() {
+        int size = jobsList.size();
+        jobsList.clear();
+        adapter.notifyItemRangeRemoved(0, size);
 
     }
 
+    @Override
+    public void onRefresh() {
+        loadRecyclerViewData();
+    }
 
 }

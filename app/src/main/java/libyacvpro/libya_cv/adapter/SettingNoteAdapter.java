@@ -1,39 +1,44 @@
 package libyacvpro.libya_cv.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
-import libyacvpro.libya_cv.CustomAdpter;
-import libyacvpro.libya_cv.DeleteActivity;
-import libyacvpro.libya_cv.JobActivity;
+import java.util.List;
+
 import libyacvpro.libya_cv.R;
-import libyacvpro.libya_cv.entities.IntegrString;
+import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by Asasna on 3/21/2018.
  */
 
-public class AppAdapter  extends ArrayAdapter<IntegrString> {
+public class SettingNoteAdapter extends ArrayAdapter<Domain> {
     private LayoutInflater lf;
     static Class cc;
     static Context tcc;
+    public final List<Domain> list;
+
+    static boolean pp = false;
     static final int PICK_CONTACT_REQUEST = 0;
 //tvcItem
-    public AppAdapter(Context context,Class ToContext, ArrayList<IntegrString> objects) {
-        super(context, 0, objects);
+    public SettingNoteAdapter(Context context, List<Domain> list) {
+        super(context, 0, list);
         lf = LayoutInflater.from(context);
-        cc = ToContext;
+        this.list = list;
         tcc=context;
     }
 
@@ -42,66 +47,92 @@ public class AppAdapter  extends ArrayAdapter<IntegrString> {
 
          ViewHolder holder = null;
         if (convertView == null) {
-            convertView = lf.inflate(R.layout.item_app, parent, false);
+              convertView = lf.inflate(R.layout.setting_item2, parent, false);
             holder = new  ViewHolder();
 
-            holder.btnOnlineData = (Button) convertView
-                    .findViewById(R.id.btnOnlineData);
+            holder.tvImg   = (ImageView) convertView.findViewById(R.id.imgCompany);
             holder.tvItem = (TextView) convertView.findViewById(R.id.tvItem);
+            holder.ckbItem = (CheckBox) convertView.findViewById(R.id.checkbox_meat);
 
-            holder.tvcItem =(TextView)   convertView.findViewById(R.id.tvcItem);
-            holder.initListeners();
+
+      holder.ckbItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        int getPosition = (Integer) buttonView.getTag();  // Here we get the position that we have set for the checkbox using setTag.
+                        list.get(getPosition).setSelected(buttonView.isChecked()); // Set the value of checkbox to maintain its state.
+                    }
+                });
+
             convertView.setTag(holder);
-        } else {
+             convertView.setTag(R.id.checkbox_meat, holder.ckbItem);
+
+
+
+
+            } else {
+            holder = (ViewHolder) convertView.getTag();
+            }
+        holder.ckbItem.setTag(position); // This line is important.
+
+        holder.tvItem.setText(list.get(position).getDomain_name());
+        holder.ckbItem.setChecked(list.get(position).isSelected());
+
+        Picasso.get().load(list.get(position).getImage()).placeholder(AppCompatResources.getDrawable(tcc, R.drawable.pro))  .into(holder.tvImg);
+
+            convertView.setTag(holder);
+        /*} else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.setData(getItem(position));
+      holder.ckbItem.setTag(getItem(position).getDomain_id()); // This line is important.
+
+        setData(getItem(position),holder);*/
 
         return convertView;
     }
+    private void awesomeButtonClicked() {
 
+    }
     public static class ViewHolder {
         TextView tvItem;
-        Button btnOnlineData;
-        IntegrString mItem;
+        CheckBox ckbItem;
+        Domain mItem;
+        ImageView tvImg;
         TextView tvcItem;
         Context FromContext,ToContext;
 
 
-        public IntegrString getItem(){
+        public Domain getItem(){
             return mItem;
         }
 
-        public void setData(IntegrString item) {
-            mItem = item;
-
-            String be = before(item.getName(), ":");
-            String af = after(item.getName(), ":");
-            af =  "الحالة: " + af ;
-            tvItem.setText(be);
-            tvcItem.setText(af);
-
-        }
-
-        public void initListeners() {
-
-            btnOnlineData.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), JobActivity.class);
-                    intent.putExtra("id", mItem.getId());
-                    startActivityForResult((Activity)tcc,intent,0,null);
-
-                }
-            });
 
 
-        }
+
 
     }
+    public void setData(Domain item,final  ViewHolder hold) {
+      hold.mItem = item;
 
+        String be =  hold.mItem.getDomain_name() ;
+        boolean af = hold.mItem.isSelected();
+
+        hold.tvItem.setText(be);
+        Picasso.get().load(hold.mItem.getImage()).placeholder( R.drawable.pro)  .into(hold.tvImg);
+
+        if (hold.ckbItem.isChecked())
+            hold.ckbItem.setChecked(true);
+        else
+            hold.ckbItem.setChecked(false);
+        /*if (af.equals("0")) {
+            ckbItem.setChecked(false);
+        } else {
+            ckbItem.setChecked(true);
+        }*/
+
+
+    }
 
     static String before(String value, String a) {
         // Return substring containing all characters before a string.

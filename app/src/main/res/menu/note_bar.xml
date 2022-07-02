@@ -6,12 +6,25 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" /> -->
-    <item
-        android:id="@+id/toolback"
-        android:icon="@drawable/ic_keyboard_arrow_left_black_24dp"
+ <!--   <item
+        android:id="@+id/toolsearch"
+        android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="ifRoom"
 
-        android:title="رجوع">
+        android:title="بحث عن وظائف"/>-->
+    <item
+        android:id="@+id/toolnote"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        app:showAsAction="ifRoom"
+
+        android:title="الإشعارات">
     </item>
+ <!--   <item
+        android:id="@+id/toolprofile"
+        android:icon="@drawable/ic_person_black_24dp"
+        app:showAsAction="ifRoom"
+
+        android:title="الملف الشخصي">
+    </item>-->
 
 </menu>

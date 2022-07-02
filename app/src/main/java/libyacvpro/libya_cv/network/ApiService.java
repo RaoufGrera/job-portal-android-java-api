@@ -1,12 +1,14 @@
 package libyacvpro.libya_cv.network;
 
+import androidx.annotation.Keep;
+
 import java.util.List;
 
 import libyacvpro.libya_cv.entities.CompanyPackage.Company;
 import libyacvpro.libya_cv.entities.CompanyPackage.CompanyForEdit;
+import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
 import libyacvpro.libya_cv.entities.Seeker;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -51,14 +53,20 @@ import libyacvpro.libya_cv.entities.TrainingPackage.TrainingResponse;
 
 public interface ApiService {
 
-    @POST("register")
+
+    @GET("we")
+    Call<Company> we();
+
+
+    @POST("register2")
     @FormUrlEncoded
-    Call<AccessToken> register(@Field("name") String name, @Field("email") String email, @Field("password") String password);
+    Call<AccessToken> register( @Field("email") String email, @Field("password") String password);
 
 
     @POST("logout")
     @FormUrlEncoded
     Call<AccessToken> logout();
+
 
 
     @POST("login")
@@ -92,19 +100,23 @@ public interface ApiService {
    @POST("editinfo")
     @FormUrlEncoded
     Call<Message> postInfo(@Field("fname") String fname,
-                         @Field("lname") String lname,
+
                          @Field("about") String about,
                          @Field("city") String city,
-                         @Field("nat") String nat,
+                         @Field("edt") String edt,
                          @Field("sex") String sex,
                          @Field("goal") String goal,
                          @Field("address") String address,
                          @Field("birth_day") String birth_day,
                          @Field("phone") String phone,
-                         @Field("domain") String domain
+                         @Field("domain") String domain,
+                           @Field("email1") String email
 
 
     );
+    @Multipart
+    @POST("edit_image")
+    Call<Message> postImageSeeker(@Part MultipartBody.Part file);
 //endregion
     //region Education
     @GET("education")
@@ -301,6 +313,14 @@ public interface ApiService {
     @GET("myappjob")
     Call<JobsResponse> listmyjob();
 
+    @GET("settingnote")
+    Call<List<Domain>> listNote();
+    @POST("settingnote")
+    @FormUrlEncoded
+    Call<Message> postNote(@Field("note[]") Integer[] note,
+
+                                    @Field("_method") String _method);
+
    @GET("hobby/create")
    Call<HobbyForEdit> createHobby();
 
@@ -423,6 +443,10 @@ public interface ApiService {
                               @Field("_method") String _method);
 
  //endregion
+ @GET("search/services")
+ Call<List<Jobs>> getSearchServices(@Query("page") int pageNumber, @Query("string") String stringSearch, @Query("city") String cityName,
+                                      @Query("domain") String domainName);
+
 
     @GET("search/company")
     Call<List<Company>> getSearchCompany(@Query("page") int pageNumber, @Query("string") String stringSearch, @Query("city") String cityName,
@@ -436,6 +460,9 @@ public interface ApiService {
 
     @GET("c/{user}")
     Call<Company> getShowCompany(@Path("user") String id);
+    @GET("services/{user}")
+    Call<Company> getShowServices(@Path("user") int id);
+
 
     @GET("c/{user}/add")
     Call<Message> addFollow(@Path("user") String id);
@@ -458,7 +485,7 @@ public interface ApiService {
 
     @POST("setting")
     @FormUrlEncoded
-    Call<Message> postChangeHide(@Field("hide") String pHide);
+    Call<Message> postChangeHide(@Field("hide") String pHide,@Field("phone") String pPhone,@Field("image") String pImage);
 
     @POST("setting/password")
     @FormUrlEncoded
@@ -470,6 +497,8 @@ public interface ApiService {
     @FormUrlEncoded
     Call<Message> postToJob(@Path("id") int id,
                             @Field("_method") String _method);
+
+
 
 
     @POST("deletejob/{id}")
@@ -492,6 +521,8 @@ public interface ApiService {
     @GET("company")
     Call<List<String>> getCompanyList();
 
+
+
     @GET("create_company")
     Call<CompanyForEdit> createCompany();
     @POST("create_company")
@@ -507,12 +538,12 @@ public interface ApiService {
 
     );
 
-    @GET("company/edit_info/{user}")
-    Call<CompanyForEdit> getCompanyInfo(@Path("user") String user);
+    @GET("company/edit_info")
+    Call<CompanyForEdit> getCompanyInfo();
 
-    @POST("company/edit_info/{user}")
+    @POST("company/edit_info")
     @FormUrlEncoded
-    Call<Message> storeCompanyInfo(@Path("user") String user,
+    Call<Message> storeCompanyInfo(
                                 @Field("email") String email,
                                 @Field("phone") String phone,
                                @Field("url") String txtUrl,
@@ -524,45 +555,101 @@ public interface ApiService {
                                @Field("services") String services,
                                @Field("facebook") String facebook,
                                @Field("twitter") String twitter,
-                               @Field("linkedin") String linkedin
+                               @Field("linkedin") String linkedin,
+                               @Field("comp_name") String comp_name
 
     );
 
     @Multipart
-    @POST("company/edit_image/{user}")
-    Call<Message> postImage(@Path("user") String user,@Part MultipartBody.Part file);
+    @POST("company/edit_image")
+    Call<Message> postImage(@Part MultipartBody.Part file);
 
-    @GET("company/edit_image/{user}")
-    Call<Message> getImage(@Path("user") String user);
+    @GET("company/edit_image")
+    Call<Message> getImage();
 
-    @GET("company/{user}/job")
-    Call<List<Jobs>> getMyJobs(@Path("user") String user);
 
-    @GET("company/{user}/job/create")
-    Call<ShowParaJob> getAddJob(@Path("user") String user);
+    @GET("seeker/services")
+    Call<List<Jobs>> getMyServices(@Query("page") int pageNumber);
+    @GET("seeker/services/create")
+    Call<ShowParaJob> getAddServices();
 
-    @POST("company/{user}/job")
+
+
+
+    @POST("seeker/services/{id}")
     @FormUrlEncoded
-    Call<Message> storeAddJob(@Path("user") String user,
+    Call<Message> removeServices(@Path("id") int job_id, @Field("_method") String _method);
+
+    @POST("seeker/services")
+    @FormUrlEncoded
+    Call<Message> storeAddServices(
                               @Field("domain_id") String spDomain,
 
                               @Field("city_id") String spCity,
                               @Field("job_name") String pJobName,
                               @Field("job_desc") String pDesc,
-                              @Field("job_skills") String pSkills,
+
 
                               @Field("_method") String _method
 
     );
 
 
-    @GET("company/{user}/job/{id}/edit")
-    Call<ShowParaJob> getEditJob(@Path("user") String user,@Path("id") int id);
+    @GET("seeker/services/{id}/edit")
+    Call<ShowParaJob> getEditServices(@Path("id") int id);
 
 
-    @POST("company/{user}/job/{id}")
+    @POST("seeker/services/{id}")
     @FormUrlEncoded
-    Call<Message> updateAddJob(@Path("user") String user,
+    Call<Message> updateAddServices(
+                               @Path("id") int id,
+                               @Field("domain_id") String spDomain,
+
+                               @Field("city_id") String spCity,
+                               @Field("job_name") String pJobName,
+                               @Field("job_desc") String pDesc,
+
+                               @Field("_method") String _method
+
+    );
+
+    @GET("company/job")
+    Call<List<Jobs>> getMyJobs(@Query("page") int pageNumber);
+
+    @GET("company/job/create")
+    Call<ShowParaJob> getAddJob();
+
+
+    @POST("company/job/{id}")
+    @FormUrlEncoded
+    Call<Message> removeJob(@Path("id") int job_id, @Field("_method") String _method);
+
+    @POST("company/job")
+    @FormUrlEncoded
+    Call<Message> storeAddJob(
+                              @Field("domain_id") String spDomain,
+
+                              @Field("city_id") String spCity,
+                              @Field("job_name") String pJobName,
+                              @Field("job_desc") String pDesc,
+                              @Field("job_skills") String pSkills,
+                              @Field("email") String pEamil,
+                              @Field("phone") String pPhone,
+                              @Field("website") String pWebsite,
+                              @Field("how_receive") Integer pHowRec,
+
+                              @Field("_method") String _method
+
+    );
+
+
+    @GET("company/job/{id}/edit")
+    Call<ShowParaJob> getEditJob(@Path("id") int id);
+
+
+    @POST("company/job/{id}")
+    @FormUrlEncoded
+    Call<Message> updateAddJob(
                                @Path("id") int id,
                                @Field("domain_id") String spDomain,
 
@@ -570,7 +657,10 @@ public interface ApiService {
                               @Field("job_name") String pJobName,
                               @Field("job_desc") String pDesc,
                               @Field("job_skills") String pSkills,
-
+                               @Field("email") String pEamil,
+                               @Field("phone") String pPhone,
+                               @Field("website") String pWebsite,
+                               @Field("how_receive") Integer pHowRec,
                               @Field("_method") String _method
 
     );
@@ -578,6 +668,9 @@ public interface ApiService {
     @GET("company/{user}/job-application/{jobid}")
     Call<List<Seeker>> getSearchAppCvs(@Path("user") String user,@Path("jobid") Integer jobid);
 
+    @GET("search/cv")
+    Call<List<Seeker>> getSearchCvs(@Query("page") int pageNumber,@Query("string") String stringSearch,@Query("city") String cityName,
+                                    @Query("domain") String domainName);
 
     @GET("edit/map/{user}")
     Call<String> getEditMap(@Path("user") String user);
@@ -588,6 +681,9 @@ public interface ApiService {
 
     @GET("show/seeker/{seeker_id}")
     Call<ShowCvResponse> getShowSeekerCv(@Path("seeker_id") String username);
+
+    @GET("show/seeker")
+    Call<ShowCvResponse> getShowSeekerCvAuth();
 
 
     @POST("accept/job/{jobid}/{seeker_id}")

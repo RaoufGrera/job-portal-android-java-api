@@ -7,6 +7,14 @@
         android:title="@string/action_settings"
         app:showAsAction="never" /> -->
     <item
+        android:id="@+id/toolshare"
+        android:icon="@drawable/ic_share_black_24dp"
+        app:showAsAction="ifRoom"
+
+        android:title="مشاركة">
+    </item>
+
+    <item
         android:id="@+id/toolback"
         android:icon="@drawable/ic_keyboard_arrow_left_black_24dp"
         app:showAsAction="ifRoom"

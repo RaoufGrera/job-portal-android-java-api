@@ -38,7 +38,8 @@ import static org.apache.http.conn.ssl.AbstractVerifier.getDNSSubjectAlts;
 
 public class RetrofitBuilder {
 
-    private static final String BASE_URL ="http://192.168.1.6:8081/libyacv/public/api/";//"https://www.libyacv.com/api/"; //"http://192.168.1.3:8081/libyacv/public/api/";//"http://192.168.1.2:8081/libyacv/public/api/";//  "https://www.libyacv.com/api/";//"http://192.168.1.8:8081/libyacv/public/api/";
+
+    private static final String BASE_URL ="https://www.libyacv.com/api/";// App.getContext().getResources().getString(R.string.api_http);  ////"http://192.168.1.8:8081/libyacv/public/api/";//"https://www.libyacv.com/api/"; //"http://192.168.1.3:8081/libyacv/public/api/";//"http://192.168.1.2:8081/libyacv/public/api/";//  "https://www.libyacv.com/api/";//"http://192.168.1.8:8081/libyacv/public/api/";
    // static OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
 
     private static String getFirstCn(X509Certificate cert) {
@@ -128,7 +129,7 @@ public class RetrofitBuilder {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
-           //     .addConverterFactory(GsonConverterFactory.create())
+                //   .addConverterFactory(GsonConverterFactory.create())
                 // .setClient(getUnsafeOkHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();

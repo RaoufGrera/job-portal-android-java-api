@@ -2,8 +2,9 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
@@ -11,11 +12,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,16 +54,23 @@ public class AddEditHobbyActivity extends AppCompatActivity {
     ProgressBar loader;
 
     Button imgWifi;
-
-     EditText txtHobby_name;
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
+    TextInputEditText txtHobby_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_hobby);
-        txtHobby_name = (EditText) findViewById(R.id.txtHobbyName);
+        txtHobby_name = (TextInputEditText) findViewById(R.id.txtHobbyName);
         imgWifi = (Button) findViewById(R.id.imgWifi);
-
+       // MobileAds.initialize(this, APP_ID);
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         ButterKnife.bind(this);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));

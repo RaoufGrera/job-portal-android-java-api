@@ -3,8 +3,9 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -20,16 +21,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import libyacvpro.libya_cv.entities.EducationPackage.Education;
-import libyacvpro.libya_cv.entities.EducationPackage.EducationForEdit;
 import libyacvpro.libya_cv.entities.GeneralPackage.City;
 import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
-import libyacvpro.libya_cv.entities.GeneralPackage.EducationType;
 import libyacvpro.libya_cv.entities.Message;
 import libyacvpro.libya_cv.entities.ShowJobPackage.ShowJob;
 import libyacvpro.libya_cv.entities.ShowJobPackage.ShowParaJob;
@@ -56,38 +59,84 @@ public class AddJobActivity extends AppCompatActivity {
     @BindView(R.id.loader)
     ProgressBar loader;
 
+    TextView txtEmail,txtWebsite,txtPhone;
+    TextInputLayout lblEmail,lblWebsite,lblPhone;
 
-    Button imgWifi;
+
+     Button imgWifi;
     String pUser;
 
     EditText txtDesc;
     EditText txtJobName;
-    EditText txtSkills;
-    Spinner spDomain;
+     Spinner spDomain;
     Spinner spCity;
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
     Integer itemID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_job);
+        txtEmail = (EditText) findViewById(R.id.txtEmail);
+        txtWebsite = (EditText) findViewById(R.id.txtWebsite);
+        txtPhone = (EditText) findViewById(R.id.txtPhone);
+
+
+      //  lblEmail = (TextInputLayout) findViewById(R.id.lblEmail);
+      //  lblWebsite = (TextInputLayout) findViewById(R.id.lblWebsite);
+       // lblPhone = (TextInputLayout) findViewById(R.id.lblPhone);
+
+       // checkbox_meat = (CheckBox) findViewById(R.id.checkbox_meat);
+
+
+
         txtJobName = (EditText) findViewById(R.id.txtJobName);
+        txtJobName.requestFocus();
+
         txtDesc = (EditText) findViewById(R.id.txtDesc);
-        txtSkills = (EditText) findViewById(R.id.txtSkills);
-        spDomain = (Spinner) findViewById(R.id.spDomain);
+         spDomain = (Spinner) findViewById(R.id.spDomain);
         spCity = (Spinner) findViewById(R.id.spCity);
          imgWifi = (Button) findViewById(R.id.imgWifi);
         pUser = getIntent().getExtras().getString("user");
 
           itemID = getIntent().getExtras().getInt("id");
 
+     //   MobileAds.initialize(this, APP_ID);
+        ButterKnife.bind(this);
 
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+    }
+
+    @Override
+    protected void onResume() {
 
         loadApi();
+
+        super.onResume();
     }
+   /* public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) findViewById(R.id.checkbox_meat)).isChecked();
+
+        if (checked){
+            lblEmail.setVisibility(View.INVISIBLE);
+            lblPhone.setVisibility(View.INVISIBLE);
+            lblWebsite.setVisibility(View.INVISIBLE);
+        }else{
+            lblEmail.setVisibility(View.VISIBLE);
+            lblPhone.setVisibility(View.VISIBLE);
+            lblWebsite.setVisibility(View.VISIBLE);
+        }
+    }*/
 
     void loadApi(){
 
-        ButterKnife.bind(this);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         if(tokenManager.getToken() == null){
@@ -104,11 +153,11 @@ public class AddJobActivity extends AppCompatActivity {
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
-        showLoading();
+     //   showLoading();
         if(itemID == 0){
-            call = service.getAddJob(pUser);
+            call = service.getAddJob();
         }else{
-            call = service.getEditJob(pUser,itemID);
+            call = service.getEditJob(itemID);
         }
 
         call.enqueue(new Callback<ShowParaJob>() {
@@ -129,7 +178,7 @@ public class AddJobActivity extends AppCompatActivity {
                         setDataInfo(objJob);
                     }
 
-                    showForm();
+                  //  showForm();
 
                 }else {
                     tokenManager.deleteToken();
@@ -149,7 +198,22 @@ public class AddJobActivity extends AppCompatActivity {
     private void setDataInfo(ShowJob ii){
         txtJobName.setText(ii.getJob_name());
         txtDesc.setText(ii.getJob_desc());
-        txtSkills.setText(ii.getJob_skills());
+       /*  if(ii.getHow_receive().equals(0)) {
+            checkbox_meat.setChecked(true);
+            lblEmail.setVisibility(View.INVISIBLE);
+            lblPhone.setVisibility(View.INVISIBLE);isChecked
+        //    lblWebsite.setVisibility(View.INVISIBLE);
+        }else{*/
+       //     lblEmail.setVisibility(View.VISIBLE);
+         //   lblPhone.setVisibility(View.VISIBLE);
+        //    lblWebsite.setVisibility(View.VISIBLE);
+
+          //  checkbox_meat.setChecked(false);
+            txtEmail.setText(ii.getEmail());
+            txtPhone.setText(ii.getPhone());
+            txtWebsite.setText(ii.getWebsite());
+        //}
+
 
 
     }
@@ -229,7 +293,17 @@ public class AddJobActivity extends AppCompatActivity {
         Integer itemID = getIntent().getExtras().getInt("id");
         String pJobName = txtJobName.getText().toString();
         String pDesc = txtDesc.getText().toString();
-        String pSkills = txtSkills.getText().toString();
+        String pSkills ="";
+
+        String pEamil = txtEmail.getText().toString();
+        String pPhone = txtPhone.getText().toString();
+        String pWebsite = txtWebsite.getText().toString();
+        Integer pHowRec = 1;
+        //if(checkbox_meat.isChecked()){
+         //pHowRec = 0;
+         /*}
+       /* else{
+         pHowRec = 1;}*/
 
         String pDoamin = spDomain.getSelectedItem().toString();
         String pCity = spCity.getSelectedItem().toString();
@@ -250,23 +324,49 @@ public class AddJobActivity extends AppCompatActivity {
         }else{
             txtDesc.setError(null);
         }
+        Boolean isOk = false;
 
-        if (!ValidationInput.isValidNOT_EMPTY(pSkills)) {
-            txtSkills.setError("الحقل مطلوب");
-            isValid=false;
-        }else{
-            txtSkills.setError(null);
-        }
+            if(!pEamil.equals("")) {
+                if (!ValidationInput.isValidEmail(pEamil)) {
+                    txtEmail.setError("البريد الإلكتروني غير صحيح");
+                    isValid = false;
+                } else {
+                    txtEmail.setError(null);
+                    isOk = true;
+                }
+            }
+
+            if(!pPhone.equals("")) {
+                if (!ValidationInput.isValidPhone(pPhone)) {
+                    txtPhone.setError("رقم الهاتف غير صحيح");
+                    isValid = false;
+                } else {
+                    txtPhone.setError(null);
+                    isOk = true;
+                }
+            }
+            if(!pWebsite.equals("")) {
+                if (!ValidationInput.isValidWebSite(pWebsite)) {
+                    txtWebsite.setError("موقع الويب غير صحيح");
+                    isValid = false;
+                } else {
+                    txtWebsite.setError(null);
+                    isOk = true;
+                }
+            }
+
 
 
         if(!isValid)
             return;
 
+        if(!isOk)
+            return;
         showLoading();
         if(itemID == 0){
-            callMessage = service.storeAddJob(pUser,pDoamin,pCity,pJobName,pDesc,pSkills,"POST");
+            callMessage = service.storeAddJob(pDoamin,pCity,pJobName,pDesc,pSkills,pEamil,pPhone,pWebsite,pHowRec,"POST");
         }else{
-            callMessage = service.updateAddJob(pUser,itemID,pDoamin,pCity,pJobName,pDesc,pSkills,"PATCH");
+            callMessage = service.updateAddJob(itemID,pDoamin,pCity,pJobName,pDesc,pSkills,pEamil,pPhone,pWebsite,pHowRec,"PATCH");
         }
 
 

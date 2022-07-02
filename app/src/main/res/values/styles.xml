@@ -1,55 +1,91 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <!-- Customize your theme here. -->
+<!--
         <item name="colorPrimary">@color/colorGreenLand</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="textColorError">@color/textInputErrorColor</item>
-        <item name="android:textSize">@dimen/textSize</item>
+-->
+
+
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+
+        <item name="colorPrimaryDark">@color/colorCV</item>
+         <item name="android:textSize">@dimen/textSize</item>
+        <item name="android:textColorHint">@color/colorCV</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorCV</item>
+
 
         <item name="elevation">0dp</item>
         <item name="android:windowContentOverlay">@null</item>
 
+        <item name="android:typeface">serif</item>
+        <item name="actionBarStyle">@style/CustomActionBarStyle2</item>
 
-        <item name="android:actionBarStyle">@style/CustomActionBarStyle</item>
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/CustomActionBarStyle</item>
+       <!-- <item name="android:actionBarStyle">@style/CustomActionBarStyle</item> -->
+
+
 
     </style>
 
+    <style name="TextLabel" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/colorCV</item>
+        <item name="android:textSize">@dimen/textSize</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorCV</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
+        <item name="android:actionBarStyle">@style/CustomActionBarStyle</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
+    </style>
 
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="my_edit_text">
         <item name="android:drawable">@drawable/select_edit_text</item>
     </style>
 
-    <style name="CustomActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar">
-        <item name="android:background">@drawable/custombarlcv</item>
-        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
-        <item name="android:color">@color/colorWhite</item>
-        <item name="android:colorForeground">@color/colorWhite</item>
-        <item name="android:colorForegroundInverse">@color/colorWhite</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:textColorPrimary">@color/colorWhite</item>
-        <item name="android:textColorPrimaryInverse">@color/colorWhite</item>
-        <item name="android:textColorSecondary">@color/colorWhite</item>
-        <item name="android:textColorSecondaryInverse">@color/colorWhite</item>
-        <item name="android:textColorTertiary">@color/colorWhite</item>
-        <item name="background">@color/colorGreenLand</item>
-        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
-        <item name="elevation">0dp</item>
-
+    <style name="CustomActionBarStyle"  parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/colorCV</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
 
     </style>
+    <style name="MyToolbarTheme"
+        parent="@style/ThemeOverlay.AppCompat.Dark">
+        <item name="colorControlNormal">@color/colorCV</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+    </style>
+    <style name="CustomActionBarStyle2" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@color/colorCV</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <!-- <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item> -->
+     </style>
 
     <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/colorWhite</item>

@@ -1,48 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="90dp"
+    android:layout_height="match_parent"
 
     android:background="#ffffff"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="privacy policy "
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/txt_dia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_margin="10dp"
-        android:text="هل تريد الخروج من التطبيق ؟"
-         android:textSize="15dp"
-         />
+        android:text="data within the system. Visitors can view all job vacancies and resumes that have been approved to appear by the user for general visitors.
+The user can control the appearance of his resume and hide it from the search results and display it within the system
+
+The application sends all the data entered to the site
+LibyaCV.com
+As a web app associated with this app
+
+You can delete all the entered data by using the Delete Account button in the settings. All data will be permanently deleted from the system"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15dp" />
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_yes"
             android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:background="@drawable/btn_bb"
             android:clickable="true"
-            android:text="نعم"
+            android:text="Ok"
             android:textColor="#ffffff"
-            android:layout_margin="4dp"
-             android:textStyle="bold" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_no"
             android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:background="@drawable/btnedit"
             android:clickable="true"
-            android:text="لا"
+            android:text="Exit"
             android:textStyle="bold" />
     </LinearLayout>
 

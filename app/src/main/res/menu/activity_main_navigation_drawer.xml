@@ -3,42 +3,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_dashboard"
-            android:icon="@drawable/ic_house"
-            android:title="الرئيسية" />
-        <item
-            android:id="@+id/nav_note"
-            android:icon="@drawable/ic_ring"
-            android:title="الإشعارات" />
-        <item
             android:id="@+id/nav_view_cv"
-            android:icon="@drawable/ic_cv"
+            android:icon="@drawable/ic_file"
             android:title="السيرة الذاتية" />
         <item
-            android:id="@+id/nav_search_job"
-            android:icon="@drawable/ic_job_search_1"
-            android:title="وظائف شاغرة" />
+            android:id="@+id/nav_note"
+            android:icon="@drawable/ic_ad"
+            android:title="الإشعارات" />
+
+
         <item
-            android:id="@+id/nav_search_company"
-            android:icon="@drawable/ic_cityscape"
-            android:title="الشركات " />
-        <item
-            android:id="@+id/nav_job_application"
-            android:icon="@drawable/ic_resume_3"
-            android:title="طلبات التوظيف" />
+            android:id="@+id/nav_search_ser"
+            android:icon="@drawable/ic_wor"
+            android:title="خدماتي" />
 
         <item
             android:id="@+id/nav_company"
-            android:icon="@drawable/ic_office_block"
-            android:title="إدارة الشركة" />
-        <item
-            android:id="@+id/nav_rate"
-            android:icon="@drawable/ic_star_black_24dp"
-            android:title="تقييم التطبيق" />
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_settings_2"
-            android:title="الإعدادات" />
+            android:icon="@drawable/ic_c"
+            android:title="الشركة" />
+
+
 
 
 
@@ -49,8 +33,8 @@
 
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="تسجيل الخروج" />
+                android:icon="@drawable/ic_out"
+                android:title="تسجيل خروج" />
 
     </item>
 

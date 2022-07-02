@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:padding="8dp">
         <ProgressBar
             android:id="@+id/loader"
@@ -56,44 +58,40 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
                 ></View>
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="اسم الشهادة"
-                >
-
-            <EditText
-                android:id="@+id/txtCertName"
-                 android:layout_width="fill_parent"
-                android:background="@drawable/select_edit_text"
-                android:layout_height="58dp"
-                android:paddingRight="8dp"
-                android:inputType="textPersonName" />
-            </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
 
 
-            <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtCertName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="الشهادة"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="سنة"
-                >
-            <EditText
-                android:id="@+id/txtCertDate"
-                android:layout_width="fill_parent"
-                android:background="@drawable/select_edit_text"
-                android:layout_height="58dp"
-                android:paddingRight="8dp"
-                 android:inputType="number"
-                />
-            </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtCertDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions|number"
+                    android:maxLength="4"
+                    android:hint="سنة"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnSave"
@@ -112,6 +110,17 @@
                 android:text="حفـظ"
 
                 android:textColor="#fff" />
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+            </com.google.android.gms.ads.AdView>
 </LinearLayout>
         </RelativeLayout>
     </ScrollView>

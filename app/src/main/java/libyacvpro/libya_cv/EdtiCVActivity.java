@@ -3,10 +3,10 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.Fade;
-import android.support.transition.Transition;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.Fade;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,19 +26,21 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import libyacvpro.libya_cv.adapter.EducationAdapter;
+import libyacvpro.libya_cv.adapter.EducationAuthAdapter;
 import libyacvpro.libya_cv.adapter.ExpAdapter;
 import libyacvpro.libya_cv.entities.CertificatePackage.Certificate;
 import libyacvpro.libya_cv.entities.EducationPackage.Education;
 import libyacvpro.libya_cv.entities.ExperiencePackage.Experience;
 import libyacvpro.libya_cv.entities.HobbyPackage.Hobby;
 import libyacvpro.libya_cv.entities.InfoPackage.Info;
+import libyacvpro.libya_cv.entities.IntegrString;
 import libyacvpro.libya_cv.entities.LangPackage.Language;
 import libyacvpro.libya_cv.entities.Seeker;
 import libyacvpro.libya_cv.entities.SeekerCvPackage.ShowCvResponse;
 import libyacvpro.libya_cv.entities.SkillsPackage.Skills;
 import libyacvpro.libya_cv.entities.SpecialtyPackage.Specialty;
 import libyacvpro.libya_cv.entities.TrainingPackage.Training;
+import libyacvpro.libya_cv.enums.SectionEnum;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 import retrofit2.Call;
@@ -49,7 +51,9 @@ public class EdtiCVActivity extends AppCompatActivity {
     private static final String TAG = "EdtiCVActivity";
 
     NonScrollListView LISTVIEW,LISTVIEWEXP,LISTVIEWLANG,LISTVIEWSPEC,LISTVIEWSKILLS,LISTVIEWCERT,LISTVIEWTRA,LISTVIEWHOBBY,LISTVIEWINFO;
-    EducationAdapter ListAdapter ;
+  //  EducationAdapter ListAdapter ;
+    EducationAuthAdapter ListAdapterAuth ;
+
     ExpAdapter ListAdapterSExp ;
     TextView txtInfo,txtEdu,txtExp,txtSpec,txtSkills,txtHobby,txtTra,txtCert,txtLang,lblName,lblMatch,lblCity,lblPhone,lblEmail,lblDomain;
     View InfoCard, ExpCard, SpecCard, SkillsCard, HobbyCard, TraCard, CertCard, LangCard;
@@ -59,9 +63,13 @@ public class EdtiCVActivity extends AppCompatActivity {
     ArrayList<String> second= new ArrayList<String>();
     ArrayList<String> third= new ArrayList<String>();
     ArrayList<String> forth= new ArrayList<String>() ;
+    ArrayList<IntegrString> ids =new ArrayList<IntegrString>() ;
+
     String  a="";
     String  f="";
 
+
+    Button btnNewImage,btnNew,btnNewExp,btnNewLang,btnNewSkills,btnNewCert,btnNewInfo,btnNewSpec,btnNewHobby,btnNewTra,btnNewSeeker;
 
     @BindView(R.id.container)
     RelativeLayout container;
@@ -79,6 +87,7 @@ public class EdtiCVActivity extends AppCompatActivity {
     Call<ShowCvResponse> call;
     Button imgWifi;
     String pUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,10 +104,104 @@ public class EdtiCVActivity extends AppCompatActivity {
         loader = (ProgressBar) findViewById(R.id.loader);
         imgWifi = (Button) findViewById(R.id.imgWifi);
 
+        btnNewImage  =(Button) findViewById(R.id.btnNewImage);
+        btnNewImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, EditImageSeekerActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+
+        btnNewSeeker = findViewById(R.id.btnNewSeeker);
+        btnNewSeeker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, SeekerActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNew = findViewById(R.id.btnNew);
+        btnNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, EditAddEducationActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+
+        btnNewExp = findViewById(R.id.btnNewExp);
+        btnNewExp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditExperienceActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNewLang = findViewById(R.id.btnNewLang);
+        btnNewLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditLanguageActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNewSkills = findViewById(R.id.btnNewSkills);
+        btnNewSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditSkillsActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNewCert = findViewById(R.id.btnNewCert);
+        btnNewCert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditCertificateActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNewInfo = findViewById(R.id.btnNewInfo);
+        btnNewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditInfoActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNewSpec = findViewById(R.id.btnNewSpec);
+        btnNewSpec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditSpecialtyActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+        btnNewHobby = findViewById(R.id.btnNewHobby);
+        btnNewHobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditHobbyActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
+
+        btnNewTra = findViewById(R.id.btnNewTra);
+        btnNewTra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EdtiCVActivity.this, AddEditTrainingActivity.class);
+                intent.putExtra("id", 0);
+                startActivityForResult(intent,0);
+            }});
 
 
         pUser = getIntent().getExtras().getString("seeker_id");
         LISTVIEW = (NonScrollListView) findViewById(R.id.eduItem);
+
+
+
         LISTVIEWEXP = (NonScrollListView) findViewById(R.id.expItem);
         LISTVIEWLANG = (NonScrollListView) findViewById(R.id.langItem);
         LISTVIEWSPEC = (NonScrollListView) findViewById(R.id.specItem);
@@ -142,6 +245,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -170,7 +274,7 @@ public class EdtiCVActivity extends AppCompatActivity {
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
-        call = service.getShowSeekerCv(pUser);
+        call = service.getShowSeekerCvAuth();
         call.enqueue(new Callback<ShowCvResponse>() {
             @Override
             public void onResponse(Call<ShowCvResponse> call, Response<ShowCvResponse> response) {
@@ -215,6 +319,15 @@ public class EdtiCVActivity extends AppCompatActivity {
         imgWifi.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK)
+            apiLoad();
+
+    }
     private void showForm(){
         Transition transition = new Fade();
         transition.setDuration(1000);
@@ -286,16 +399,17 @@ public class EdtiCVActivity extends AppCompatActivity {
                 second.add(a + Sed_name +avg);
                 third.add( lstEdu.get(i).getStart_date() + "   -  "+ lstEdu.get(i).getEnd_date());
                 forth.add("");
+                ids.add(new IntegrString(lstEdu.get(i).getEd_id(),""));
 
 
             }
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    first,second,third,forth
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,EditAddEducationActivity.class, SectionEnum.EDUCATION.getSectionLetter(),
+                    first,second,third,forth,ids
             );
 
-            LISTVIEW.setAdapter(ListAdapter);
+            LISTVIEW.setAdapter(ListAdapterAuth);
         }else{
             LISTVIEW.setVisibility(View.GONE);
             txtEdu.setVisibility(View.GONE);
@@ -306,6 +420,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondExp= new ArrayList<String>();
         ArrayList<String> thirdExp= new ArrayList<String>();
         ArrayList<String> forthExp= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsExp= new ArrayList<IntegrString>() ;
 
         List<Experience> lstExp = objSeeker.getData().getSeeker_exp();
         if( lstExp.size() > 0) {
@@ -330,16 +445,17 @@ public class EdtiCVActivity extends AppCompatActivity {
                 secondExp.add(lstExp.get(i).getCompe_name());
                 thirdExp.add(newHtml);
                 forthExp.add(lstExp.get(i).getStart_date() + " - " + enddateExp);
+                IdsExp.add(new IntegrString(lstExp.get(i).getExp_id(),""));
 
 
 
             }
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    firstExp,secondExp,thirdExp,forthExp
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditExperienceActivity.class,SectionEnum.EXPERIENCE.getSectionLetter(),
+                    firstExp,secondExp,thirdExp,forthExp,IdsExp
             );
-            LISTVIEWEXP.setAdapter(ListAdapter);
+            LISTVIEWEXP.setAdapter(ListAdapterAuth);
         }else{
             LISTVIEWEXP.setVisibility(View.GONE);
             txtExp.setVisibility(View.GONE);
@@ -351,6 +467,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> firstLang= new ArrayList<String>();
         ArrayList<String> secondLang= new ArrayList<String>();
 
+        ArrayList<IntegrString> IdsLang= new ArrayList<IntegrString>();
 
         List<Language> lstLang = objSeeker.getData().getSeeker_lang();
         if( lstLang.size() > 0) {
@@ -358,19 +475,19 @@ public class EdtiCVActivity extends AppCompatActivity {
             for (int i = 0; i < lstLang.size(); i++)
             {
 
-                firstLang.add(lstLang.get(i).getLang_name());
-                secondLang.add(" ("+lstLang.get(i).getLevel_name()+")");
-
+                firstLang.add(lstLang.get(i).getLang_name() + " ("+lstLang.get(i).getLevel_name()+")");
+                secondLang.add("");
+                IdsLang.add(new IntegrString(lstLang.get(i).getLang_id(),""));
 
 
 
             }
 
-            ListAdapterSExp = new ExpAdapter(
-                    EdtiCVActivity.this,
-                    firstLang,secondLang
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditLanguageActivity.class,SectionEnum.LANGUAGE.getSectionLetter(),
+                    firstLang,secondLang,secondLang,secondLang,IdsLang
             );
-            LISTVIEWLANG.setAdapter(ListAdapterSExp);
+            LISTVIEWLANG.setAdapter(ListAdapterAuth);
 
         }else{
             LISTVIEWLANG.setVisibility(View.GONE);
@@ -382,6 +499,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondSpec= new ArrayList<String>();
         ArrayList<String> thirdSpec= new ArrayList<String>();
         ArrayList<String> forthSpec= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsSpec= new ArrayList<IntegrString>() ;
 
         List<Specialty> lstSpec = objSeeker.getData().getSeeker_spec();
         if( lstSpec.size() > 0) {
@@ -389,16 +507,18 @@ public class EdtiCVActivity extends AppCompatActivity {
             for (int i = 0; i < lstSpec.size(); i++)
             {
                 firstSpec.add(lstSpec.get(i).getSpec_name());
+                IdsSpec.add(new IntegrString(lstSpec.get(i).getSpec_seeker_id(),""));
+
                 secondSpec.add("");
                 thirdSpec.add("");
                 forthSpec.add("");
             }
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    firstSpec,secondSpec,thirdSpec,forthSpec
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditSpecialtyActivity.class,SectionEnum.SPECIALTY.getSectionLetter(),
+                    firstSpec,secondSpec,thirdSpec,forthSpec,IdsSpec
             );
-            LISTVIEWSPEC.setAdapter(ListAdapter);
+            LISTVIEWSPEC.setAdapter(ListAdapterAuth);
         }else{
             LISTVIEWSPEC.setVisibility(View.GONE);
             txtSpec.setVisibility(View.GONE);
@@ -410,6 +530,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondSkills= new ArrayList<String>();
         ArrayList<String> thirdSkills= new ArrayList<String>();
         ArrayList<String> forthSkills= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsSkills= new ArrayList<IntegrString>() ;
 
         List<Skills> lstSkills = objSeeker.getData().getSeeker_skills();
         if( lstSkills.size() > 0) {
@@ -417,17 +538,18 @@ public class EdtiCVActivity extends AppCompatActivity {
             for (int i = 0; i < lstSkills.size(); i++)
             {
                 firstSkills.add(lstSkills.get(i).getSkills_name()+ " ("+lstSkills.get(i).getLevel_name()+")");
+                IdsSkills.add(new IntegrString(lstSkills.get(i).getSkills_id(),""));
                 secondSkills.add("");
                 thirdSkills.add("");
                 forthSkills.add("");
             }
 
 
-            ListAdapterSExp = new ExpAdapter(
-                    EdtiCVActivity.this,
-                    firstSkills,secondSkills
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditSkillsActivity.class,SectionEnum.SKILLS.getSectionLetter(),
+                    firstSkills,secondSkills,thirdSkills,forthSkills,IdsSkills
             );
-            LISTVIEWSKILLS.setAdapter(ListAdapterSExp);
+            LISTVIEWSKILLS.setAdapter(ListAdapterAuth);
         }else{
             LISTVIEWSKILLS.setVisibility(View.GONE);
             txtSkills.setVisibility(View.GONE);
@@ -439,6 +561,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondCert= new ArrayList<String>();
         ArrayList<String> thirdCert= new ArrayList<String>();
         ArrayList<String> forthCert= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsCert= new ArrayList<IntegrString>() ;
 
         List<Certificate> lstCert = objSeeker.getData().getSeeker_cert();
         if( lstCert.size() > 0) {
@@ -447,15 +570,16 @@ public class EdtiCVActivity extends AppCompatActivity {
             {
                 firstCert.add(lstCert.get(i).getCert_name());
                 secondCert.add(lstCert.get(i).getCert_date());
+                IdsCert.add(new IntegrString(lstCert.get(i).getCert_id(),""));
                 thirdCert.add("");
                 forthCert.add("");
             }
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    firstCert,secondCert,thirdCert,forthCert
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditCertificateActivity.class,SectionEnum.CERTIFICATE.getSectionLetter(),
+                    firstCert,secondCert,thirdCert,forthCert,IdsCert
             );
-            LISTVIEWCERT.setAdapter(ListAdapter);
+            LISTVIEWCERT.setAdapter(ListAdapterAuth);
         }else{
             LISTVIEWCERT.setVisibility(View.GONE);
             txtCert.setVisibility(View.GONE);
@@ -466,6 +590,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondTra= new ArrayList<String>();
         ArrayList<String> thirdTra= new ArrayList<String>();
         ArrayList<String> forthTra= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsTra= new ArrayList<IntegrString>() ;
 
         List<Training> lstTra = objSeeker.getData().getSeeker_train();
         if( lstTra.size() > 0) {
@@ -475,14 +600,15 @@ public class EdtiCVActivity extends AppCompatActivity {
                 firstTra.add(lstTra.get(i).getTrain_name());
                 secondTra.add(lstTra.get(i).getTrain_comp());
                 thirdTra.add(lstTra.get(i).getTrain_date());
+                IdsTra.add(new IntegrString(lstTra.get(i).getTrain_id(),""));
                 forthTra.add("");
             }
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    firstTra,secondTra,thirdTra,forthTra
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditTrainingActivity.class,SectionEnum.TRAINING.getSectionLetter(),
+                    firstTra,secondTra,thirdTra,forthTra,IdsTra
             );
-            LISTVIEWTRA.setAdapter(ListAdapter);
+            LISTVIEWTRA.setAdapter(ListAdapterAuth);
 
         }else{
             LISTVIEWTRA.setVisibility(View.GONE);
@@ -496,6 +622,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondHobby= new ArrayList<String>();
         ArrayList<String> thirdHobby= new ArrayList<String>();
         ArrayList<String> forthHobby= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsHobby= new ArrayList<IntegrString>() ;
 
         List<Hobby> lstHobby = objSeeker.getData().getSeeker_hobby();
         if( lstHobby.size() > 0) {
@@ -510,6 +637,7 @@ public class EdtiCVActivity extends AppCompatActivity {
                     a =  a.concat("، ");
                 }
 
+                IdsHobby.add(new IntegrString(lstHobby.get(i).getJob_hobby_id(),""));
 
 
             }
@@ -521,11 +649,11 @@ public class EdtiCVActivity extends AppCompatActivity {
             }
 
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    firstHobby,secondHobby,thirdHobby,forthHobby
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditHobbyActivity.class,SectionEnum.Hobby.getSectionLetter(),
+                    firstHobby,secondHobby,thirdHobby,forthHobby,IdsHobby
             );
-            LISTVIEWHOBBY.setAdapter(ListAdapter);
+            LISTVIEWHOBBY.setAdapter(ListAdapterAuth);
 
         }else{
             LISTVIEWHOBBY.setVisibility(View.GONE);
@@ -540,6 +668,7 @@ public class EdtiCVActivity extends AppCompatActivity {
         ArrayList<String> secondInfo= new ArrayList<String>();
         ArrayList<String> thirdInfo= new ArrayList<String>();
         ArrayList<String> forthInfo= new ArrayList<String>() ;
+        ArrayList<IntegrString> IdsInfo= new ArrayList<IntegrString>() ;
 
         List<Info> lstInfo = objSeeker.getData().getSeeker_info();
         if( lstInfo.size() > 0) {
@@ -548,13 +677,14 @@ public class EdtiCVActivity extends AppCompatActivity {
                 secondInfo.add(lstInfo.get(i).getInfo_text());
                 thirdInfo.add(lstInfo.get(i).getInfo_date());
                 forthInfo.add("");
+                IdsInfo.add(new IntegrString(lstInfo.get(i).getInfo_id(),""));
             }
 
-            ListAdapter = new EducationAdapter(
-                    EdtiCVActivity.this,
-                    firstInfo, secondInfo, thirdInfo, forthInfo
+            ListAdapterAuth = new EducationAuthAdapter(
+                    EdtiCVActivity.this,AddEditInfoActivity.class,SectionEnum.INFO.getSectionLetter(),
+                    firstInfo, secondInfo, thirdInfo, forthInfo,IdsInfo
             );
-            LISTVIEWINFO.setAdapter(ListAdapter);
+            LISTVIEWINFO.setAdapter(ListAdapterAuth);
 
         }else{
             LISTVIEWINFO.setVisibility(View.GONE);

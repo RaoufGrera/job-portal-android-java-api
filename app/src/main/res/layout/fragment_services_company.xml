@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,24 +19,28 @@
 
         <Button
             android:id="@+id/imgWifi"
-            android:drawableTop="@drawable/ic_wifi"
+            app:srcCompat="@drawable/ic_wifi"
             android:visibility="gone"
-            android:drawablePadding="10dp"
+
+            android:paddingRight="8dp"
+            android:paddingBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:text="@string/noConnection"
-            android:padding="15dp"
-            android:background="@drawable/btnedit"
-            android:textSize="@dimen/textSizeXL"
+            android:background="@color/colorWhite"
             android:layout_height="wrap_content" />
         <ProgressBar
             android:id="@+id/loader"
             android:visibility="invisible"
-
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/colorProgress"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -94,12 +98,12 @@
             </LinearLayout>
 
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

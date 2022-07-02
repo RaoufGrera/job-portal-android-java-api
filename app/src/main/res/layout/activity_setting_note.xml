@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingNoteActivity">
 
-</android.support.constraint.ConstraintLayout>
+    tools:context=".SettingNoteActivity">
+    <Button
+        android:id="@+id/imgWifi"
+        app:srcCompat="@drawable/ic_wifi"
+        android:visibility="gone"
+        android:paddingRight="8dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:text="@string/noConnection"
+        android:background="@drawable/btnedit"
+        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/txt"
+    />
+
+    <ListView
+        android:id="@+id/lvItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_marginBottom="8dp"
+
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt" />
+
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_weight="1"
+        android:background="@drawable/btn_bb"
+        android:text="حفظ"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textSizeXL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

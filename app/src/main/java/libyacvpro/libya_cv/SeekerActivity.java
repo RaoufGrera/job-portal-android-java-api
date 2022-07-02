@@ -3,21 +3,21 @@ package libyacvpro.libya_cv;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -28,6 +28,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import libyacvpro.libya_cv.entities.GeneralPackage.EducationType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +37,6 @@ import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
 import libyacvpro.libya_cv.entities.Message;
 import libyacvpro.libya_cv.entities.Seeker;
 import libyacvpro.libya_cv.entities.Model;
-import libyacvpro.libya_cv.entities.GeneralPackage.Nat;
 import libyacvpro.libya_cv.enums.ValidationInput;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
@@ -45,20 +45,20 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = "SeekerActivity";
 
 
-     TextView txtFname,txtLname,txtPhone;
+    TextInputEditText txtFname,txtPhone;
 
     @BindView(R.id.txtAbout)
-    TextView txtAbout;
+    TextInputEditText txtAbout;
     @BindView(R.id.txtGoals)
-    TextView txtGoals;
+    TextInputEditText txtGoals;
 
     @BindView(R.id.txtEmail)
-    TextView txtEmail;
+    TextInputEditText txtEmail;
 
-    private EditText txtBirthDay;
+    private TextInputEditText txtBirthDay;
 
     @BindView(R.id.txtAddress)
-    TextView txtAddress;
+    TextInputEditText txtAddress;
 
 
     @BindView(R.id.spCity)
@@ -96,9 +96,9 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_seeker);
         getSupportActionBar().setElevation(0);
 
-        txtPhone = (EditText) findViewById(R.id.txtPhone);
-        txtFname = (EditText) findViewById(R.id.txtFname);
-        txtLname = (EditText) findViewById(R.id.txtLname);
+        txtPhone = (TextInputEditText) findViewById(R.id.txtPhone);
+        txtFname = (TextInputEditText) findViewById(R.id.txtFname);
+
 
         ButterKnife.bind(this);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
@@ -107,6 +107,8 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(SeekerActivity.this, LoginActivity.class));
             finish();
         }
+
+
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
         showLoading();
@@ -120,11 +122,11 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
                 if(response.isSuccessful()){
 
                     List<City> cc = response.body().getData().get(0).getCity();
-                    List<Nat> nn = response.body().getData().get(0).getNat();
+                    List<EducationType> nn = response.body().getData().get(0).getEdt();
                     List<Domain> dd = response.body().getData().get(0).getDomain();
 
                     Seeker ii = response.body().getData().get(0).getInfo();
-                    setData(cc,nn,ii.getCity_name(),ii.getNat_name(),ii.getGender(),dd,ii.getDomain_name() );
+                    setData(cc,nn,ii.getCity_name(),ii.getEdt_name(),ii.getGender(),dd,ii.getDomain_name() );
                     setDataInfo(ii);
                     showForm();
 
@@ -150,24 +152,12 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void findViewsById() {
-        txtBirthDay = (EditText) findViewById(R.id.txtBirthDay);
+        txtBirthDay = (TextInputEditText) findViewById(R.id.txtBirthDay);
         txtBirthDay.setInputType(InputType.TYPE_NULL);
         txtBirthDay.requestFocus();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.toolback:
-                onBackPressed();
 
-                return true;
-
-            default:
-                return true;//super.onOptionsItemSelected(item);
-        }
-    }
     private void setDateTimeField() {
         txtBirthDay.setOnClickListener(this);
 
@@ -196,16 +186,17 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
 
     private void setDataInfo(Seeker ii){
         txtEmail.setText(ii.getEmail());
-        txtLname.setText(ii.getLname());
+
         txtAbout.setText(ii.getAbout());
-        txtFname.setText(ii.getFname());
-        txtGoals.setText(ii.getGoal_text());
+        String stFn = ii.getFname()+" "+ii.getLname();
+        txtFname.setText(stFn);
+                txtGoals.setText(ii.getGoal_text());
         txtBirthDay.setText(ii.getBirth_day());
         txtAddress.setText(ii.getAddress());
         txtPhone.setText(ii.getPhone());
 
     }
-     private void setData(List<City> cc, List<Nat> nn,String myCity,String myNat,String mySex, List<Domain> dd,String myDoamin) {
+     private void setData(List<City> cc, List<EducationType> nn, String myCity, String myNat, String mySex, List<Domain> dd, String myDoamin) {
 
 
          String[] spinnerArray = new String[cc.size()];
@@ -217,7 +208,7 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
          String[] natArray = new String[nn.size()];
          for (int i = 0; i < nn.size(); i++)
          {
-             natArray[i] = nn.get(i).getNatName();
+             natArray[i] = nn.get(i).getEdt_name();
          }
 
          String[] domainArray = new String[dd.size()];
@@ -260,6 +251,24 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
          //spinner.setOnItemSelectedListener(new SelectingItem() );
 
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;
+        }
+    }
     private int getIndex(Spinner spinner, String myString)
     {
         int index = 0;
@@ -276,10 +285,10 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
     void getSeeker(){
 
         String fname = txtFname.getText().toString();
-        String lname = txtLname.getText().toString();
+        String email =  txtEmail.getText().toString();
         String about = txtAbout.getText().toString();
         String pcity = spinner.getSelectedItem().toString();
-        String pnat = spnats.getSelectedItem().toString();
+        String pedt = spnats.getSelectedItem().toString();
         String pdomain = spdomain.getSelectedItem().toString();
         String psex = spsexs.getSelectedItem().toString();
         String pgoal = txtGoals.getText().toString();
@@ -294,24 +303,23 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
         }else{
             txtFname.setError(null);
         }
-        if (!ValidationInput.isValidNOT_EMPTY(lname)) {
-            txtLname.setError("الحقل مطلوب"); isValid=false;
+
+
+        if(!pPhone.equals("")) {
+            if (!ValidationInput.isValidPhone(pPhone)) {
+                txtPhone.setError("الادخال غير صحيح");
+                isValid = false;
+            } else {
+                txtPhone.setError(null);
+            }
         }else{
-            txtLname.setError(null);
-
+            //txtPhone.setError(null);
         }
-
-        if (!ValidationInput.isValidPhone(pPhone)) {
-            txtPhone.setError("الادخال غير صحيح"); isValid=false;
-        }else{
-            txtPhone.setError(null);
-        }
-
         if(!isValid)
             return;
 
         showLoading();
-        callMessage = service.postInfo(fname,lname,about,pcity,pnat,psex,pgoal,paddress,pBirthDay,pPhone,pdomain);
+        callMessage = service.postInfo(fname,about,pcity,pedt,psex,pgoal,paddress,pBirthDay,pPhone,pdomain,email);
         callMessage.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
@@ -324,8 +332,9 @@ public class SeekerActivity extends AppCompatActivity implements View.OnClickLis
                         Context context = getApplicationContext();
                         Toast.makeText(context, msg, Toast.LENGTH_LONG)
                                 .show();
-                        showForm();
 
+                        setResult(RESULT_OK, null);
+                        finish();
 
                     } else {
                         tokenManager.deleteToken();

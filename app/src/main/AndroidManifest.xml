@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="libyacvpro.libya_cv">
+    package="libyacvpro.libya_cv"
+    android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".MyApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@mipmap/ic_launcher_foreground"
+        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:vmSafeMode="true"
+        android:allowClearUserData="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9929016091047307~2213947061" />
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
 
         <activity
             android:name="com.facebook.CustomTabActivity"
@@ -45,35 +64,9 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!--
-      <meta-data android:name="com.facebook.sdk.ApplicationId"
-          android:value="@string/facebook_app_id"/>
-
-      <activity android:name="com.facebook.FacebookActivity"
-          android:configChanges=
-              "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-          android:label="@string/app_name" />
-      <activity
-          android:name="com.facebook.CustomTabActivity"
-          android:exported="true">
-          <intent-filter>
-              <action android:name="android.intent.action.VIEW" />
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
-              <data android:scheme="@string/fb_login_protocol_scheme" />
-          </intent-filter>
-      </activity>
-        -->
-
+        <activity android:name=".LoginActivity" />
         <activity android:name=".PostActivity" />
         <activity
             android:name=".SeekerActivity"
@@ -81,6 +74,16 @@
         <activity
             android:name=".EducationActivity"
             android:label="المؤهل العلمي" />
+        <activity
+            android:name=".MycvFargment"
+            android:label="السيرة الذاتية" />
+
+        <activity
+            android:name=".SettingNoteActivity"
+            android:label="التحكم في الإشعارات" />
+        <activity
+            android:name=".ShowServicesActivity"
+            android:label="الخدمة" />
         <activity
             android:name=".EditAddEducationActivity"
             android:label="إضافة وتعديل" />
@@ -103,9 +106,7 @@
         <activity
             android:name=".AddEditSkillsActivity"
             android:label="إضافة وتعديل" />
-        <activity
-            android:name=".CertificateActivity"
-            android:label="الشهادات" />
+
         <activity
             android:name=".AddEditCertificateActivity"
             android:label="إضافة وتعديل" />
@@ -137,27 +138,70 @@
             android:name=".SearchActivity"
             android:label="نتائج البحث" />
         <activity
-            android:name=".JobActivity"
-            android:label="وظيفة شاغرة" />
-        <activity
             android:name=".SeekerPDFActivity"
             android:label="طباعة السيرة الذاتية" />
         <activity android:name=".GolaActivity" />
         <activity
             android:name=".MainNavigationActivity"
-            android:label="@string/title_activity_main_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/app_name"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".JobActivity"
+            android:label="وظيفة شاغرة" />
         <activity android:name=".RefreshActivity" />
 
-        <service android:name=".FCMCallbackService">
-            <intent-filter>
+        <service
+            android:name=".FCMCallbackService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="9999">
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <receiver android:name=".AlarmReceiver" />
+        <!--
+        <receiver
+            android:name=".FirebaseDataReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </receiver>`1+
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_logolibyacv" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <!--
+            <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/accent" />
+        -->
+        <!-- [END FCM notification icons] -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".AddCompanyActivity"
             android:label="إضافة شركة " />
+
+        <activity
+            android:name=".CompanyFragment"
+            android:label="الشركة " />
         <activity
             android:name=".CompanyJobsActivity"
             android:label="وظائف الشركة" />
@@ -167,6 +211,15 @@
         <activity
             android:name=".EditImageCompanyActivity"
             android:label="تعديل شعار الشركة" />
+        <activity
+            android:name=".EditImageSeekerActivity"
+            android:label="تعديل الصورة" />
+        <activity
+            android:name=".MyServicesActivity"
+            android:label="خدماتي" />
+        <activity
+            android:name=".AddServicesActivity"
+            android:label="إضافة او تعديل" />
         <activity
             android:name=".MyJobActivity"
             android:label="وظائف الشركة" />
@@ -178,12 +231,16 @@
             android:label="طلبات التوظيف" />
         <activity
             android:name=".ShowCVActivity"
-            android:label="السيرة الذاتية للمتقدم" />
+            android:label="السيرة الذاتية" />
         <activity
             android:name=".CVActivity"
-            android:label="السيرة الذاتية للمتقدم" />
-        <activity android:name=".SearchCompanyActivity" />
-        <activity android:name=".ShowCompanyActivity" />
+            android:label="السيرة الذاتية" />
+        <activity
+            android:name=".SearchCompanyActivity"
+            android:label="نتائج البحث" />
+        <activity
+            android:name=".ShowCompanyActivity"
+            android:label="الشركة" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -200,8 +257,21 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ShowMapCompanyActivity" />
-        <activity android:name=".ShowCompanyMapActivity"></activity>
+        <activity
+            android:name=".ShowCompanyMapActivity"
+            android:label="موقع الشركة" />
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".WelcomActivity" />
+
+        <service
+            android:name=".BadgeIntentService"
+            android:exported="true" />
+
+        <activity android:name=".EdtiCVActivity" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2" />
     </application>
 
 </manifest>

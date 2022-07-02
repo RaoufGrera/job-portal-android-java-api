@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_house"
+            android:title="الرئيسية" />
+        <item
+            android:id="@+id/nav_note"
+            android:icon="@drawable/ic_bnote"
+            android:title="الإشعارات" />
+        <item
+            android:id="@+id/nav_view_cv"
+            android:icon="@drawable/ic_bcv"
+            android:title="السيرة الذاتية" />
+        <item
+            android:id="@+id/nav_search_job"
+            android:icon="@drawable/ic_bjobs"
+            android:title="وظائف شاغرة" />
+         <item
+            android:id="@+id/nav_search_cv"
+            android:icon="@drawable/ic_bbseachcv"
+            android:title="السير الذاتية" />
+
+        <item
+            android:id="@+id/nav_search_company"
+            android:icon="@drawable/ic_bcity"
+            android:title="الشركات" />
+        <item
+            android:id="@+id/nav_search_ser"
+            android:icon="@drawable/ic_bser"
+            android:title="الخدمات" />
+
+        <item
+            android:id="@+id/nav_company"
+            android:icon="@drawable/ic_bcomp"
+            android:title="إدارة الشركة" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_f"
+            android:title="تقييم التطبيق" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_bsetting"
+            android:title="الإعدادات" />
+
+
+
+    </group>
+
+    <item android:title="">
+
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_bexit"
+                android:title="تسجيل الخروج" />
+
+    </item>
+
+</menu>

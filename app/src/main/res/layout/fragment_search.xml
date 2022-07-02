@@ -1,14 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    android:id="@+id/swipe_container"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    >
+
+    <RelativeLayout
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/colorWhite"
+        >
+    <Button
+        android:id="@+id/imgWifi"
+        app:srcCompat="@drawable/ic_wifi"
+        android:visibility="gone"
 
-</FrameLayout>
+        android:paddingRight="8dp"
+        android:paddingBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:text="@string/noConnection"
+android:background="@color/colorWhite"
+        android:layout_height="wrap_content" />
+
+
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="invisible"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/colorProgress"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorLine"
+        android:id="@+id/form_container"
+
+        tools:context="libyacvpro.libya_cv.SearchFragment">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBack"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:id="@+id/linearLayout5"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+
+
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnCity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/btnsearch"
+                 android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="كل المدن" />
+
+
+            <Button
+                android:id="@+id/btnDomain"
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btnsearch"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="كل المجالات" />
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imgAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="8dp"
+            android:background="@drawable/btn_info_s"
+            android:layout_margin="16dp"
+            android:layout_marginEnd="12dp"
+            android:tooltipText="إضافة وظيفة"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/colorWhite"
+            android:contentDescription="إضافة شركة"
+            android:src="@drawable/ic_add_black_42dp"
+android:elevation="999dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -5,16 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -22,22 +20,16 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
-import java.util.Collections;
 import java.util.List;
 
-import libyacvpro.libya_cv.DownloadImageTask;
-import libyacvpro.libya_cv.JobActivity;
 import libyacvpro.libya_cv.R;
+import libyacvpro.libya_cv.ShowServicesActivity;
 import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
-import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
-import static com.facebook.FacebookSdk.getApplicationContext;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 
-
-public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public final int TYPE_MOVIE = 0;
     public final int TYPE_LOAD = 1;
@@ -53,7 +45,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     boolean isLoading = false, isMoreDataAvailable = true;
 
 
-    public JobsAdapter(Context context, List<Jobs> jobses) {
+    public ServicesAdapter(Context context, List<Jobs> jobses) {
         this.context = context;
         this._context = context;
         this.movies = jobses;
@@ -72,7 +64,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(viewType==TYPE_MOVIE){
 
 
-            return new MovieHolder(inflater.inflate(R.layout.row_jobs,parent,false));
+            return new MovieHolder(inflater.inflate(R.layout.row_services,parent,false));
         }
         if(viewType==TYPE_LOAD){
             return new LoadHolder(inflater.inflate(R.layout.row_load,parent,false));
@@ -125,7 +117,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public AdsHolder(View itemView) {
             super(itemView);
-            MobileAds.initialize(context, APP_ID);
+        //    MobileAds.initialize(context, APP_ID);
 
             AdView adView = new AdView(context);
             adView.setAdSize(AdSize.BANNER);
@@ -143,7 +135,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvDomain;
         TextView tvDate;
         TextView tvSeeIT;
-       // TextView tvJob_desc;
+         TextView tvJob_desc;
         ImageView imgView;
         LinearLayout tvItem;
 
@@ -160,7 +152,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvSeeIT.setCompoundDrawablesWithIntrinsicBounds(null, null, leftDrawable, null);
             tvCity.setCompoundDrawablesWithIntrinsicBounds(null, null, leftDrawablecity, null);
 
-            //  tvJob_desc=(TextView)itemView.findViewById(R.id.lblTextJob);
+              tvJob_desc=(TextView)itemView.findViewById(R.id.lblServices);
             tvItem    = (LinearLayout) itemView.findViewById(R.id.lvvIdtems);
             imgView    = (ImageView) itemView.findViewById(R.id.imgCompany);
             tvItem.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +161,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View v) {
 
 
-                    Intent intent = new Intent(v.getContext(), JobActivity.class);
+                    Intent intent = new Intent(v.getContext(), ShowServicesActivity.class);
                     intent.putExtra("id", movies.get(getAdapterPosition()).getDesc_id());
                     startActivityForResult((Activity)context,intent,0,null);
 
@@ -200,12 +192,22 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvDomain.setText(jobsModel.getDomain_name());
             tvDate.setText(jobsModel.getJob_start());
             tvSeeIT.setText(jobsModel.getSee_it().toString());
-           /* tvJob_desc.setText(jobsModel.getJob_desc());
+             tvJob_desc.setText(jobsModel.getJob_desc());
 
-            if(jobsModel.getJob_desc().isEmpty()){
+            if(jobsModel.getJob_desc() != null){
+                if (jobsModel.getJob_desc().equals("")) {
+                    tvJob_desc.setVisibility(View.GONE);
+                } else {
+                    tvJob_desc.setVisibility(View.VISIBLE);
+                }
+
+            } else {
                 tvJob_desc.setVisibility(View.GONE);
-            }*/
-       /*     new DownloadImageTask(imgView)
+            }
+
+
+
+          /* new DownloadImageTask(imgView)
                     .execute(jobsModel.getImage());*/
 
             Picasso.get().load(jobsModel.getImage()).placeholder( AppCompatResources.getDrawable(context, R.drawable.pro))  .into(imgView);

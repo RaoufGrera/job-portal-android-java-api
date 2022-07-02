@@ -3,43 +3,29 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import libyacvpro.libya_cv.adapter.CompanyJobAdpter;
-import libyacvpro.libya_cv.entities.EducationPackage.Education;
-import libyacvpro.libya_cv.entities.EducationPackage.EducationResponse;
-import libyacvpro.libya_cv.entities.IntegrString;
+import libyacvpro.libya_cv.adapter.ServicesJobAdpter;
 import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
-import libyacvpro.libya_cv.entities.JobSearchPackage.JobsResponse;
-import libyacvpro.libya_cv.enums.SectionEnum;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyJobActivity extends AppCompatActivity {
+public class MyServicesActivity extends AppCompatActivity {
     String TAG = "MyJobActivity";
      Context context;
 
@@ -47,14 +33,14 @@ public class MyJobActivity extends AppCompatActivity {
 
     String pUser;
 
-    Button imgWifi;
+    Button imgWifi,btnNew;
     ApiService service;
     TokenManager tokenManager;
     Call<List<Jobs>> call;
 
     RecyclerView recyclerView;
     List<Jobs> jobsList;
-    CompanyJobAdpter adapter;
+    ServicesJobAdpter adapter;
 
 
 
@@ -64,14 +50,14 @@ public class MyJobActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_job);
+        setContentView(R.layout.activity_my_services);
         context = this;
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         jobsList = new ArrayList<>();
          pUser = getIntent().getExtras().getString("user");
 
-        adapter = new CompanyJobAdpter(this,pUser, jobsList);
-        adapter.setLoadMoreListener(new CompanyJobAdpter.OnLoadMoreListener() {
+        adapter = new ServicesJobAdpter(this,pUser, jobsList);
+        adapter.setLoadMoreListener(new ServicesJobAdpter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
 
@@ -87,6 +73,18 @@ public class MyJobActivity extends AppCompatActivity {
             }
         });
 
+       btnNew = (Button) findViewById(R.id.btnNew);
+
+        btnNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyServicesActivity.this, AddServicesActivity.class);
+                intent.putExtra("id", 0);
+
+                startActivityForResult(intent,0);
+            }
+
+        });
 
 
         recyclerView.setHasFixedSize(true);
@@ -97,6 +95,7 @@ public class MyJobActivity extends AppCompatActivity {
         //api = ServiceGenerator.createService(MoviesApi.class);
         loadMore(0);//,typePara,statusPara
     }
+
     private void loadMore(int index){ //,String type,String status
 
 
@@ -107,7 +106,7 @@ public class MyJobActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         if (tokenManager.getToken() == null) {
-            startActivity(new Intent(MyJobActivity.this, LoginActivity.class));
+            startActivity(new Intent(MyServicesActivity.this, LoginActivity.class));
             finish();
         }
 
@@ -116,7 +115,7 @@ public class MyJobActivity extends AppCompatActivity {
             jobsList.remove(jobsList.size() - 1);
 
         if(index !=0) {
-            call = service.getMyJobs(pUser,index);
+            call = service.getMyServices(index);
             call.enqueue(new Callback<List<Jobs>>() {
                 @Override
                 public void onResponse(Call<List<Jobs>> call, Response<List<Jobs>> response) {
@@ -236,9 +235,10 @@ public class MyJobActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data){
-/*
-        apiLoad();
-*/
+       /* if(resultCode == RESULT_OK)
+            loadMore(0);*/
+        finish();
+        startActivity(getIntent());
 
     }
 /*
@@ -268,11 +268,5 @@ public class MyJobActivity extends AppCompatActivity {
         return true;
     }
 
-    @OnClick(R.id.btnNew)
-    void addNewItem(){
-        Intent intent = new Intent(MyJobActivity.this, AddJobActivity.class);
-        intent.putExtra("id", 0);
-        intent.putExtra("user", pUser);
-        startActivityForResult(intent,0);
-    }
+
 }

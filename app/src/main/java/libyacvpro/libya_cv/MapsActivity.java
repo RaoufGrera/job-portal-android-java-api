@@ -2,11 +2,11 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.FragmentActivity;
+
+import androidx.transition.TransitionManager;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,11 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import libyacvpro.libya_cv.entities.Message;
-import libyacvpro.libya_cv.entities.TrainingPackage.Training;
-import libyacvpro.libya_cv.entities.TrainingPackage.TrainingForEdit;
-import libyacvpro.libya_cv.enums.ValidationInput;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 import retrofit2.Call;

@@ -2,40 +2,28 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.X509TrustManager;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import libyacvpro.libya_cv.entities.CompanyPackage.Company;
 import libyacvpro.libya_cv.entities.Message;
-import libyacvpro.libya_cv.entities.ShowJobPackage.ShowJob;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 import retrofit2.Call;
@@ -62,34 +50,22 @@ public class ShowCompanyActivity extends AppCompatActivity {
     ImageView imgCompany;
 
 
-    @BindView(R.id.lblComptName)
-    TextView lblComptName;
+
     @BindView(R.id.lblCompanyName)
     TextView lblCompanyName;
-    @BindView(R.id.lblCity)
-    TextView lblCity;
-    @BindView(R.id.lblDomainName)
-    TextView lblDomainName;
 
-    @BindView(R.id.btnFacebook)
-    ImageView btnFacebook;
-    @BindView(R.id.btnWebsite)
-    ImageView btnWebsite;
-    @BindView(R.id.btnMap)
-    ImageView btnMap;
-    @BindView(R.id.btnEmail)
-    ImageView btnEmail;
+    TextView lblDomain,lblCity,lblEmail,lblPhone,lblWeb,lblFace,lblDesc,lblName,lblSeeIT;
 
-    @BindView(R.id.btnPhone)
-    Button btnPhone;
 
     @BindView(R.id.txtServices)
     TextView txtServices;
-    @BindView(R.id.txtDesc)
-    TextView txtDesc;
+
+
     String itemID;
-    @BindView(R.id.btntojob)
-    TextView btnToJob;
+
+
+  /*  @BindView(R.id.lblSeeIT)
+    TextView lblSeeIT;*/
 
     String webUrl="";
     String faceUrl="";
@@ -105,19 +81,27 @@ public class ShowCompanyActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         itemID = getIntent().getExtras().getString("user");
+        lblDomain =   findViewById(R.id.lblDomain);
+        lblCity =   findViewById(R.id.lblCity);
+        lblPhone =   findViewById(R.id.lblPhone);
+        lblEmail =   findViewById(R.id.lblEmail);
+        lblWeb =   findViewById(R.id.lblWeb);
+        lblFace =   findViewById(R.id.lblFace);
+        lblDesc =   findViewById(R.id.lblDesc);
+        lblName =   findViewById(R.id.lblName);
+        lblSeeIT =   findViewById(R.id.lblSeeIT);
 
-
-        btnFacebook.setOnClickListener(new View.OnClickListener() {
+        lblFace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // PackageManager packageManager = getApplicationContext().getPackageManager();
+                // PackageManager packageManager = getApplicationContext().getPackageManager();
                 Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
                 String facebookUrl = getFacebookPageURL(getApplicationContext(),faceUrl);
                 facebookIntent.setData(Uri.parse(facebookUrl));
                 startActivity(facebookIntent);
             }});
 
-        btnWebsite.setOnClickListener(new View.OnClickListener() {
+        lblWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
@@ -126,7 +110,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
                 startActivity(websiteIntent);
             }});
 
-        btnMap.setOnClickListener(new View.OnClickListener() {
+     /*   btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(), ShowCompanyMapActivity.class);
@@ -141,7 +125,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
 
 
                 Intent testIntent = new Intent(Intent.ACTION_VIEW);
-                Uri data = Uri.parse("mailto:?subject=" + "موضوع الرسالة" + "&body=" + "محتوي الرسالة" + "&to=" + stEmail);
+                Uri data = Uri.parse("mailto:?subject=" + "" + "&body=" + "" + "&to=" + stEmail);
                 testIntent.setData(data);
                 startActivity(testIntent);
             }});
@@ -152,28 +136,8 @@ public class ShowCompanyActivity extends AppCompatActivity {
                 String phone = stPhone;
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
                 startActivity(intent);
-            }});
-
-        apiLoad();
-
-    }
-
-    public String getFacebookPageURL(Context context , String FACEBOOK_URL) {
-        PackageManager packageManager = context.getPackageManager();
-        try {
-            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
-            if (versionCode >= 3002850) { //newer versions of fb app
-                return "fb://facewebmodal/f?href=" +"https://www.facebook.com/"+ FACEBOOK_URL;
-            } else { //older versions of fb app
-                return "fb://page/" + "libyacv";
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            return FACEBOOK_URL; //normal web url
-        }
-    }
-
-    void apiLoad(){
-
+            }});*/
+        showLoading();
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
@@ -184,7 +148,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
-        showLoading();
+        // showLoading();
 
 
         call = service.getShowCompany(itemID);
@@ -199,8 +163,10 @@ public class ShowCompanyActivity extends AppCompatActivity {
                     Company objItem = response.body();
 
 
-                    setDataInfo(objItem);
-                    showForm();
+                     setDataInfo(objItem);
+
+
+                   showForm();
 
                 } else {
                     tokenManager.deleteToken();
@@ -215,13 +181,48 @@ public class ShowCompanyActivity extends AppCompatActivity {
                 Log.w(TAG, "onFailure: " + t.getMessage());
             }
         });
+
     }
-    @OnClick(R.id.btntojob)
+
+    public String getFacebookPageURL(Context context , String FACEBOOK_URL) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katanurla", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + FACEBOOK_URL; //"https://www.facebook.com/"+
+            } else { //older versions of fb app
+                return "fb://page/" + "LibyaCV";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return FACEBOOK_URL; //normal web url
+        }
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;
+        }
+    }
+
+
+    /*@OnClick(R.id.btntojob)
     void postMyJob(){
         String itemID = getIntent().getExtras().getString("user");
 
 
-        showLoading();
+       //showLoading();
 
         String st = btnToJob.getText().toString();
         boolean islocal = true;
@@ -235,7 +236,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
 
         }
 
-        final boolean  istrue= islocal;
+       // final boolean  istrue= islocal;
 
         callMessage.enqueue(new Callback<Message>() {
             @Override
@@ -250,10 +251,10 @@ public class ShowCompanyActivity extends AppCompatActivity {
                             .show();
 
 
-                    changeBtn(istrue);
+                 //   changeBtn(istrue);
 
 
-                    showForm();
+                //    showForm();
                 }else {
                     tokenManager.deleteToken();
                     startActivity(new Intent(ShowCompanyActivity.this, LoginActivity.class));
@@ -268,39 +269,57 @@ public class ShowCompanyActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
     private void setDataInfo(Company ii){
 
+       // lblSeeIT.setText(ii.getSee_it());
         lblCompanyName.setText(ii.getComp_name());
-        lblComptName.setText(ii.getCompt_name());
+        //lblComptName.setText(ii.getCompt_name());
         String Address ="";
-        if(ii.getAddress() == null){
+        if(ii.getAddress() != null){
             if(!ii.getAddress().equals("")){
                 Address=" - "+ii.getAddress();
             }
         }
         String aa= ii.getCity_name()+Address;
         lblCity.setText(aa);
-        lblDomainName.setText(ii.getDomain_name());
-        txtDesc.setText(ii.getComp_desc());
+        lblDomain.setText(ii.getDomain_name());
+       // txtDesc.setText(ii.getComp_desc());
         txtServices.setText(ii.getServices());
+String JobDesc =ii.getServices();
+        if (JobDesc != null ) {
+            if (!JobDesc.equals("")) {
+                if (JobDesc.length() > 16)
+                    JobDesc = JobDesc.substring(0, 15);
+
+                boolean valid = isProbablyArabic(JobDesc);
+
+
+                if (!valid)
+                    txtServices.setGravity(Gravity.LEFT);
+            }
+        }
+
         if (ii.getFacebook() != null ) {
             if (!ii.getFacebook().equals("")) {
-                btnFacebook.setVisibility(View.VISIBLE);
+                lblFace.setVisibility(View.VISIBLE);
                 faceUrl = ii.getFacebook();
+                lblFace.setText(faceUrl);
 
 
             }
         }
         if (ii.getUrl() != null ) {
-            if(ii.getUrl().equals("")){
+            if(!ii.getUrl().equals("")){
             webUrl =ii.getUrl();
-            btnFacebook.setVisibility(View.VISIBLE);}
+            lblWeb.setVisibility(View.VISIBLE);
+                lblWeb.setText(webUrl);
+            }
 
         }
 
 
-        if (ii.getLat() != null ) {
+      /*  if (ii.getLat() != null ) {
 
             if (!ii.getLat().equals("") && !ii.getLng().equals("")) {
                 btnMap.setVisibility(View.VISIBLE);
@@ -309,28 +328,29 @@ public class ShowCompanyActivity extends AppCompatActivity {
                 lng = ii.getLng();
 
             }
-        }
+        }*/
         if (ii.getPhone() != null ) {
 
             if (!ii.getPhone().equals("")) {
-                btnPhone.setVisibility(View.VISIBLE);
+                lblPhone.setVisibility(View.VISIBLE);
                 stPhone = ii.getPhone();
-                btnPhone.setText(stPhone);
+                lblPhone.setText(stPhone);
             }
         }
 
         if (ii.getEmail() != null ) {
 
             if (!ii.getEmail().equals("")) {
-                btnEmail.setVisibility(View.VISIBLE);
+                lblEmail.setVisibility(View.VISIBLE);
                 stEmail = ii.getEmail();
+                lblEmail.setText(stEmail);
              }
         }
 
 
         String imgST =  ii.getImage();
 
-        if(ii.getisreq()){
+  /*      if(ii.getisreq()){
             btnToJob.setText("إلغاء المتابعة");
             btnToJob.setBackgroundResource(R.drawable.btndeletestyle);
 
@@ -339,7 +359,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
             btnToJob.setText("متابعة");
             btnToJob.setBackgroundResource(R.drawable.btn_info);
         }
-
+*/
 
 
         // trustEveryone();
@@ -348,10 +368,20 @@ public class ShowCompanyActivity extends AppCompatActivity {
 
         builder.downloader(new OkHttpDownloader(this));
         builder.build().load("https://www.libyacv.com/images/company/300px_CggnkmSjo5kvIT9_5.jpg").into(imgCompany);*/
-        Picasso.get().load(imgST)  .into(imgCompany);
+        Picasso.get().load(imgST).placeholder(R.drawable.pro).into(imgCompany);
 
     }
-    private void changeBtn(boolean istrue){
+
+    public static boolean isProbablyArabic(String s) {
+        for (int i = 0; i < s.length();) {
+            int c = s.codePointAt(i);
+            if (c >= 0x0600 && c <= 0x06E0)
+                return true;
+            i += Character.charCount(c);
+        }
+        return false;
+    }
+   /* private void changeBtn(boolean istrue){
         if(istrue){
             btnToJob.setText("إلغاء المتابعة");
             btnToJob.setBackgroundResource(R.drawable.btndeletestyle);
@@ -361,10 +391,10 @@ public class ShowCompanyActivity extends AppCompatActivity {
             btnToJob.setText("متابعة");
             btnToJob.setBackgroundResource(R.drawable.btn_info);
         }
-    }
+    }*/
 
     private void showForm(){
-        TransitionManager.beginDelayedTransition(container);
+        // TransitionManager.beginDelayedTransition(container);
         formContainer.setVisibility(View.VISIBLE);
         loader.setVisibility(View.GONE);
     }

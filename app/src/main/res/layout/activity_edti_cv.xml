@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
-    android:layout_width="fill_parent"
-    android:background="@color/colorBackgroundActivity"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fadingEdgeLength="0dp"
     android:fillViewport="true"
-    android:transitionGroup="true"
     android:overScrollMode="never"
     android:scrollbars="none"
     android:layoutDirection="rtl"
@@ -16,22 +14,25 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:background="@color/colorWhite"
         android:padding="2dp">
+
         <Button
             android:id="@+id/imgWifi"
-            android:drawableRight="@drawable/ic_wifi"
-            android:visibility="gone"
-            android:paddingRight="8dp"
+            android:drawableTop="@drawable/ic_wifi"
+            android:padding="16dp"
+            android:visibility="invisible"
+            android:drawablePadding="8dp"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:text="@string/noConnection"
             android:background="@drawable/btnedit"
             android:layout_height="wrap_content" />
+
         <ProgressBar
             android:id="@+id/loader"
-            android:visibility="invisible"
+
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -40,6 +41,7 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="visible"
 
             android:id="@+id/form_container"
 
@@ -64,35 +66,73 @@
                 android:layout_marginBottom="2dp"
                 android:paddingTop="8dp">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/job_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
 
-
-                    app:cardCornerRadius="1dp"
-                    app:cardElevation="1dp">
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical">
                         <ImageView
                             android:id="@+id/imgCompany"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="85dp"
+                            android:layout_height="85dp"
 
+                            android:layout_gravity="center"
                             app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+                        <Button
+                            android:id="@+id/btnNewImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
 
+                       android:layout_gravity="center"
+                            android:paddingTop="4dp"
+
+
+
+                            android:background="@drawable/btntra"
+                            android:drawableTop="@drawable/ic_edit_black_24dp"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorLine"
+                            android:layout_marginBottom="2dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="215"
+
+                            android:padding="4dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_gravity="center"
+                            android:id="@+id/lblSeeIT"
+                            android:drawablePadding="6dp"
+
+                             />
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:layout_marginRight="4dp"
+
+                    android:background="@color/colorLine"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="4dp"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
 
                     <TextView
                         android:id="@+id/lblName"
@@ -101,8 +141,19 @@
                         android:textSize="@dimen/textSizeXL"
                         android:textStyle="bold"
                         android:padding="4dp"
+                        android:layout_weight="1"
                         android:textColor="#4a8198"
                         android:text="الاسم" />
+                        <Button
+                            android:id="@+id/btnNewSeeker"
+                            android:layout_width="58dp"
+                            android:layout_height="38dp"
+                            android:paddingRight="16dp"
+
+                            android:background="@drawable/btntra"
+                            android:drawableRight="@drawable/ic_edit_black_24dp"
+                            />
+                    </LinearLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -172,23 +223,41 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorLineCV"
+                android:background="@color/colorLine"
                 android:layout_marginBottom="2dp"
                 />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:orientation="horizontal">
             <TextView
                 android:id="@+id/txtEdu"
-                android:layout_width="match_parent"
-                android:padding="6dp"
+                android:layout_width="wrap_content"
+                android:padding="4dp"
                 android:drawableRight="@drawable/ic_mortarboard_color_24dp"
-                android:drawablePadding="8dp"
+                android:drawablePadding="6dp"
                 android:text="المؤهل العلمي"
                 android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
+                android:layout_weight="1"
+                android:textSize="@dimen/textSizeXL"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_height="wrap_content" />
 
+            <Button
+                android:id="@+id/btnNew"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
 
-
+                android:layout_marginLeft="4dp"
+android:layout_gravity="center"
+                android:padding="6dp"
+                  android:text="إضافة"
+                android:background="@drawable/btntra"
+                android:drawableRight="@drawable/ic_add_black_24dp"
+                />
+</LinearLayout>
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/eduItem"
                 android:layout_width="match_parent"
@@ -199,43 +268,54 @@
                 android:gravity="right"
 
                 />
-            <Button
-                android:id="@+id/btnNew"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
 
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
 
-                android:layout_gravity="right"
-                android:text="إضافة"
-                android:background="@drawable/btnedit"
-                android:drawableRight="@drawable/ic_add_black_24dp"
-                />
             <View
                 android:id="@+id/eduCard"
 
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorLineCV"
+                android:background="@color/colorLine"
                 android:layout_marginBottom="2dp"
                 />
 
 
-            <TextView
-                android:id="@+id/txtExp"
 
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_employee_color_24dp"
-                android:drawablePadding="8dp"
-                android:text="الخبرة"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/txtExp"
 
+                    android:layout_width="match_parent"
+                    android:padding="4dp"
+                    android:drawableRight="@drawable/ic_employee_color_24dp"
+                    android:drawablePadding="6dp"
+                    android:text="الخبرة"
+                    android:gravity="right"
+
+                    android:layout_weight="1"
+                    android:textSize="@dimen/textSizeXL"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewExp"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
 
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/expItem"
@@ -255,17 +335,40 @@
                 android:background="@color/colorLine"
                 android:layout_marginBottom="2dp"
                 />
-            <TextView
-                android:id="@+id/txtLang"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_translation_blue_24dp"
-                android:drawablePadding="8dp"
-                android:text="اللغات"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtLang"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_translation_blue_24dp"
+                    android:drawablePadding="6dp"
+                    android:text="اللغات"
+                    android:gravity="right"
+                    android:layout_weight="1"
+
+                    android:textSize="@dimen/textSizeXL"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewLang"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
 
 
             <libyacvpro.libya_cv.NonScrollListView
@@ -285,18 +388,39 @@
                 android:background="@color/colorLineCV"
                 android:layout_marginBottom="2dp"
                 />
-            <TextView
-                android:id="@+id/txtSpec"
-                android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_boss_24dp"
-                android:drawablePadding="8dp"
-                android:text="التخصصات"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtSpec"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_boss_24dp"
+                    android:drawablePadding="6dp"
+                    android:text="التخصصات"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXL"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewSpec"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
 
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/specItem"
@@ -316,18 +440,40 @@
                 android:background="@color/colorLineCV"
                 android:layout_marginBottom="2dp"
                 />
-            <TextView
-                android:id="@+id/txtSkills"
-                android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_skills_24dp"
-                android:drawablePadding="8dp"
-                android:text="المهارات"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtSkills"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_skills_24dp"
+                    android:drawablePadding="6dp"
+                    android:text="المهارات"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXL"
+                    android:layout_weight="1"
+
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewSkills"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/skillsItem"
                 android:layout_width="match_parent"
@@ -345,18 +491,40 @@
                 android:background="@color/colorLineCV"
                 android:layout_marginBottom="2dp"
                 />
-            <TextView
-                android:id="@+id/txtCert"
-                android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_diploma_24dp"
-                android:drawablePadding="8dp"
-                android:text="الشهادات"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtCert"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_diploma_24dp"
+                    android:drawablePadding="6dp"
+                    android:text="الشهادات"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXL"
+                    android:layout_weight="1"
+
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewCert"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
 
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/certItem"
@@ -375,18 +543,40 @@
                 android:background="@color/colorLineCV"
                 android:layout_marginBottom="2dp"
                 />
-            <TextView
-                android:id="@+id/txtTra"
-                android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_report_24dp"
-                android:drawablePadding="8dp"
-                android:text="الدورات والتدريب"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtTra"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_report_24dp"
+                    android:drawablePadding="6dp"
+                    android:text="الدورات والتدريب"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXL"
+                    android:layout_weight="1"
+
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewTra"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
 
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/traItem"
@@ -405,18 +595,40 @@
                 android:background="@color/colorLineCV"
                 android:layout_marginBottom="2dp"
                 />
-            <TextView
-                android:id="@+id/txtHobby"
-                android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_watercolor_24dp"
-                android:drawablePadding="8dp"
-                android:text="الهويات"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtHobby"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_watercolor_24dp"
+                    android:drawablePadding="6dp"
+                    android:layout_weight="1"
+
+                    android:text="الهويات"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXL"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewHobby"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
             <libyacvpro.libya_cv.NonScrollListView
                 android:id="@+id/hobbyItem"
                 android:layout_width="match_parent"
@@ -435,18 +647,40 @@
                 android:layout_marginBottom="2dp"
                 />
 
-            <TextView
-                android:id="@+id/txtInfo"
-                android:layout_width="match_parent"
-                android:padding="6dp"
-                android:drawableRight="@drawable/ic_info_black_244dp"
-                android:drawablePadding="8dp"
-                android:text="معلومات إضافية"
-                android:gravity="right"
-                android:textSize="@dimen/textSizeXXL"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtInfo"
+                    android:layout_width="match_parent"
+                    android:padding="6dp"
+                    android:drawableRight="@drawable/ic_info_black_244dp"
+                    android:drawablePadding="6dp"
+                    android:layout_weight="1"
+
+                    android:text="معلومات إضافية"
+                    android:gravity="right"
+                    android:textSize="@dimen/textSizeXL"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnNewInfo"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center"
+                    android:padding="6dp"
+                    android:text="إضافة"
+                    android:background="@drawable/btntra"
+                    android:drawableRight="@drawable/ic_add_black_24dp"
+                    />
+            </LinearLayout>
 
 
             <libyacvpro.libya_cv.NonScrollListView

@@ -58,8 +58,8 @@
                 android:background="@color/colorLine"
                 android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
-                ></View>
-            <android.support.design.widget.TextInputLayout
+                />
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="58dp"
@@ -73,34 +73,29 @@
                     android:background="@drawable/select_edit_text"
                     android:layout_width="fill_parent"
                     android:layout_height="58dp"
+
                     android:inputType="textPersonName"
                     android:maxLines="1" />
 
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="150dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="تفاصيل المعلومة"
-                >
-                <EditText
+            </com.google.android.material.textfield.TextInputLayout>
+  <EditText
                     android:id="@+id/txtInfoText"
                     android:layout_width="fill_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+
+                    android:minHeight="150dp"
 
                     android:background="@drawable/select_edit_text"
                     android:gravity="top"
                     android:fitsSystemWindows="true"
                     android:inputType="textMultiLine"
 
+                    android:hint="تفاصيل المعلومة"
 
                     />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="58dp"
@@ -115,8 +110,9 @@
                 android:layout_height="58dp"
                 android:ems="10"
                 android:background="@drawable/select_edit_text"
-                android:inputType="number" />
-        </android.support.design.widget.TextInputLayout>
+                android:inputType="number"
+                android:maxLength="4" />
+        </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnSave"
@@ -125,7 +121,7 @@
                 android:layout_height="54dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
 
                 android:background="@drawable/backgroudspeener"
                 android:paddingLeft="70dp"
@@ -135,6 +131,18 @@
                 android:text="حفـظ"
 
                 android:textColor="#fff" />
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+            </com.google.android.gms.ads.AdView>
         </LinearLayout>
 
     </RelativeLayout>

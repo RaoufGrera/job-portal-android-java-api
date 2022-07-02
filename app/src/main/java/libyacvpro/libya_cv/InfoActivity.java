@@ -3,8 +3,8 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,7 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +51,9 @@ public class InfoActivity extends AppCompatActivity {
     ProgressBar loader;
      Button imgWifi;
 
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
+
     ApiService service;
     TokenManager tokenManager;
     Call<InfoResponse> call;
@@ -57,6 +64,16 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
         imgWifi = (Button) findViewById(R.id.imgWifi);
          ButterKnife.bind(this);
+
+       // MobileAds.initialize(this, APP_ID);
+
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         apiLoad();
     }
     @Override
@@ -119,7 +136,8 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data){
-        apiLoad();
+        if(resultCode == RESULT_OK)
+            apiLoad();
 
     }
     @OnClick(R.id.imgWifi)

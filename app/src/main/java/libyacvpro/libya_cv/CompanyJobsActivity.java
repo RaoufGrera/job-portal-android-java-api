@@ -3,8 +3,8 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -146,6 +146,7 @@ public class CompanyJobsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data){
 
+        if(resultCode == RESULT_OK)
         apiLoad();
 
     }
@@ -196,10 +197,5 @@ public class CompanyJobsActivity extends AppCompatActivity {
         loader.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.btnNew)
-    void addNewItem(){
-        Intent intent = new Intent(CompanyJobsActivity.this, AddJobActivity.class);
-        intent.putExtra("id", 0);
-        startActivityForResult(intent,0);
-    }
+
 }

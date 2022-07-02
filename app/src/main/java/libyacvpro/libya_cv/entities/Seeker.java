@@ -34,6 +34,45 @@ public class Seeker {
     public String type;
     public String exp;
     public Integer req_event;
+    public String see_it;
+    public String image_view;
+    public String phone_view;
+    public String spec;
+
+    public String getSee_it() {
+        return see_it;
+    }
+
+    public void setSee_it(String see_it) {
+        this.see_it = see_it;
+    }
+
+    public String getSpec() {
+        return spec;
+    }
+
+    public void setSpec(String spec) {
+        this.spec = spec;
+    }
+
+    public Seeker(String type) {
+        this.type = type;
+    }
+    public String getImage_view() {
+        return image_view;
+    }
+
+    public void setImage_view(String image_view) {
+        this.image_view = image_view;
+    }
+
+    public String getPhone_view() {
+        return phone_view;
+    }
+
+    public void setPhone_view(String phone_view) {
+        this.phone_view = phone_view;
+    }
 
     public Integer getReq_event() {
         return req_event;

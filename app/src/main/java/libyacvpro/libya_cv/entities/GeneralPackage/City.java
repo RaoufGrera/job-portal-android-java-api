@@ -1,7 +1,7 @@
 package libyacvpro.libya_cv.entities.GeneralPackage;
 import java.util.HashMap;
 import java.util.Map;
-public class City {
+public class City  {
     private String city_id;
     private String city_name;
 

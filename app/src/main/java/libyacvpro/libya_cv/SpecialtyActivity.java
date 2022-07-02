@@ -3,8 +3,8 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,10 +13,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,8 @@ public class SpecialtyActivity extends AppCompatActivity {
     LinearLayout formContainer;
     @BindView(R.id.loader)
     ProgressBar loader;
-
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
      Button imgWifi;
     ApiService service;
     TokenManager tokenManager;
@@ -55,7 +59,14 @@ public class SpecialtyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_specialty);
         imgWifi = (Button) findViewById(R.id.imgWifi);
          ButterKnife.bind(this);
+      //  MobileAds.initialize(this, APP_ID);
 
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         apiLoad();
     }
     private void apiLoad(){
@@ -104,6 +115,7 @@ public class SpecialtyActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data){
+        if(resultCode == RESULT_OK)
         apiLoad();
 
     }

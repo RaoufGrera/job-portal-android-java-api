@@ -4,26 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,8 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
-import libyacvpro.libya_cv.adapter.JobsAdapter;
+import libyacvpro.libya_cv.adapter.ServicesAdapter;
 import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
 import libyacvpro.libya_cv.entities.ShowJobPackage.ShowParaJob;
 import libyacvpro.libya_cv.network.ApiService;
@@ -46,10 +41,10 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ServicesFragment extends  Fragment implements SwipeRefreshLayout.OnRefreshListener {
     RecyclerView recyclerView;
     List<Jobs> jobsList;
-    JobsAdapter adapter;
+    ServicesAdapter adapter;
     //MoviesApi api;
     String TAG = "SearchFragment";
     Context context;
@@ -67,6 +62,7 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
     Call<ShowParaJob> callPara;
     String clist[];
     String dlist[];
+    Button imgWifi;
 
     String dPara;
     String cPara;
@@ -77,7 +73,7 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
     ProgressBar loader;
 
     TextView lblInfo;
-    Button imgWifi;
+    ImageButton imgAdd;
 
    // Context con=null;
   /*  @Override
@@ -111,8 +107,8 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
         loader = (ProgressBar) view.findViewById(R.id.loader);
 
 
-
         imgWifi = (Button) view.findViewById(R.id.imgWifi);
+
         Drawable leftDrawable = AppCompatResources.getDrawable(context, R.drawable.ic_keyboard_arrow_down_black_24dp);
         imgWifi.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
          recyclerView =  view.findViewById(R.id.recycler_view);
@@ -129,12 +125,26 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
 
         final String cityPara = (pCity.equals("كل المدن")? "" :pCity);
         final String domainPara = (pDomain.equals("كل المجالات")? "" :pDomain);
-
+        imgWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadApi();
+            }
+        });
 
         dPara = domainPara;
         cPara=cityPara;
         clist  =  new String[]{"طرابلس", "بنغازي", "مصراتة"};//getIntent().getExtras() .getStringArray("clist");
         dlist  =  new String[]{"هندسة", "تقنية المعلومات", "كل المجالات"};//getIntent().getExtras() .getStringArray("dlist");
+        imgAdd =   view.findViewById(R.id.imgAdd);
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getContext(),MyServicesActivity.class));
+
+            }
+        });
 
         //showLoading();
         //loadApiPara();
@@ -290,8 +300,8 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
 
     }
     void loadApi(){
-        adapter = new JobsAdapter(getContext(), jobsList);
-        adapter.setLoadMoreListener(new JobsAdapter.OnLoadMoreListener() {
+        adapter = new ServicesAdapter(getContext(), jobsList);
+        adapter.setLoadMoreListener(new ServicesAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
 
@@ -334,10 +344,7 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
         }
 
     }
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle("وظائف شاغرة");
-    }
+
 
    /* @Override
     public void setUserVisibleHint(boolean visible) {
@@ -422,7 +429,7 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
         }
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-        call = service.getSearchJobs(index,stName,city,domain);//,type,status
+        call = service.getSearchServices(index,stName,city,domain);//,type,status
 
         if(index == 1)
             jobsList.remove(jobsList.size() - 1);
@@ -497,7 +504,7 @@ public class SearchFragment extends  Fragment implements SwipeRefreshLayout.OnRe
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
         if(index !=0) {
-            call = service.getSearchJobs(index, stName, city, domain); //, type, status
+            call = service.getSearchServices(index, stName, city, domain); //, type, status
             call.enqueue(new Callback<List<Jobs>>() {
                 @Override
                 public void onResponse(Call<List<Jobs>> call, Response<List<Jobs>> response) {

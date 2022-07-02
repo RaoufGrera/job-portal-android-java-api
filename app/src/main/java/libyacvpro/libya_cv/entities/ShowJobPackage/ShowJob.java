@@ -7,9 +7,9 @@ package libyacvpro.libya_cv.entities.ShowJobPackage;
 public class ShowJob {
 
     String job_name,comp_user_name,comp_name,job_start,job_end,type_name,status_name,salary_name
-            ,job_num,edt_name,specialty,job_gender,nat_name,job_desc,code_image
+            ,job_num,edt_name,specialty,job_gender,nat_name,job_desc,code_image,email,phone,website
             ,job_skills,image,city_name,domain_name,compt_name;
-    Integer exp_min,exp_max,age_min,age_max,see_it,req_count;
+    Integer exp_min,exp_max,age_min,age_max,see_it,req_count,how_receive;
 
     boolean isreq;
 
@@ -19,6 +19,42 @@ public class ShowJob {
 
     public void setIsreq(boolean isreq) {
         this.isreq = isreq;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public Integer getHow_receive() {
+        return how_receive;
+    }
+
+    public void setHow_receive(Integer how_receive) {
+        this.how_receive = how_receive;
+    }
+
+    public boolean isIsreq() {
+        return isreq;
     }
 
     public String getCode_image() {

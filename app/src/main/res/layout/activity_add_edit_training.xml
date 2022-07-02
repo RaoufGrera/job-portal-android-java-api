@@ -58,7 +58,7 @@
                 ></View>
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="58dp"
@@ -75,10 +75,10 @@
                  android:background="@drawable/select_edit_text"
 
                 android:inputType="textPersonName" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="58dp"
@@ -96,10 +96,10 @@
                 android:background="@drawable/select_edit_text"
 
                 android:inputType="textPersonName" />
-        </android.support.design.widget.TextInputLayout>>
+        </com.google.android.material.textfield.TextInputLayout>>
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="58dp"
@@ -113,9 +113,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="58dp"
                 android:ems="10"
+                android:maxLength="4"
                 android:background="@drawable/select_edit_text"
                 android:inputType="number"  />
-        </android.support.design.widget.TextInputLayout>>
+        </com.google.android.material.textfield.TextInputLayout>>
             <Button
                 android:id="@+id/btnSave"
 
@@ -133,7 +134,19 @@
                 android:text="حفـظ"
 
                 android:textColor="#fff" />
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+            </com.google.android.gms.ads.AdView>
         </LinearLayout>
+
 
     </RelativeLayout>
 

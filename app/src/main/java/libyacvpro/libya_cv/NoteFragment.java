@@ -3,12 +3,13 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +39,7 @@ public class NoteFragment extends Fragment {
      private  LinearLayout formContainer;
      private   ProgressBar loader;
 
+     Button btnInfo;
     Context con=null;
 
     @Override
@@ -54,7 +56,16 @@ public class NoteFragment extends Fragment {
         framcontainer = (FrameLayout) rootView.findViewById(R.id.framcontainer);
         formContainer = (LinearLayout) rootView.findViewById(R.id.form_container);
         loader = (ProgressBar) rootView.findViewById(R.id.loader);
+        btnInfo = (Button) rootView.findViewById(R.id.btnInfo);
 
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SettingNoteActivity.class);
+                startActivityForResult(intent,0);
+            }
+
+        });
         tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
 
         if (tokenManager.getToken() == null) {

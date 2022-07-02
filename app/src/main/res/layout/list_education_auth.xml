@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     android:paddingRight="4dp"
+    android:id="@+id/tvvItem"
 
     android:layoutDirection="rtl"
     android:paddingLeft="4dp"
@@ -16,6 +17,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dp"
+        android:id="@+id/tvItem"
+
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingBottom="2dp"
         android:orientation="vertical">
     <TextView
         android:id="@+id/lblFirst"
@@ -25,7 +35,7 @@
         android:text="جامعة بنغازي كلية تقنية المعلومات "
 
 
-        android:paddingBottom="4dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"/>
 
@@ -37,7 +47,7 @@
         android:text="ماجستير ، مهندس شبكات "
 
 
-        android:paddingBottom="4dp"
+        android:paddingBottom="3dp"
 
         android:textSize="@dimen/textSize"/>
     <TextView
@@ -47,7 +57,7 @@
 
         android:text="2016 - 2018 "
 
-        android:paddingBottom="4dp"
+        android:paddingBottom="3dp"
 
         android:textSize="14dp" />
         <TextView
@@ -56,11 +66,19 @@
             android:layout_height="wrap_content"
 
             android:text="المجال تقنية معلومات"
-            android:paddingBottom="4dp"
+            android:paddingBottom="3dp"
 
             android:textSize="14dp" />
 
 
     </LinearLayout>
-
+        <ImageButton
+            android:id="@+id/imgButton"
+            android:background="@color/colorWhite"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:contentDescription="Test"
+            />
+    </LinearLayout>
 </RelativeLayout>

@@ -1,12 +1,14 @@
 package libyacvpro.libya_cv;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputLayout;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -25,9 +27,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -84,6 +87,9 @@ GoogleApiClient mGoogleApiClient;
         facebookManager = new FacebookManager(service, tokenManager);
         setupRules();
 
+        CustomDialogPrivacyClass dialogPrivacy = new CustomDialogPrivacyClass(this);
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -92,30 +98,33 @@ GoogleApiClient mGoogleApiClient;
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
+        Button privacyInButton = (Button) findViewById(R.id.privacy_in_button);
+        privacyInButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+               Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.libyacv.com/privacy_policy"));
+                startActivity(browserIntent);
+
+            }
+        });
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
-      //  signInButton.setSize(SignInButton.SIZE_STANDARD);
+
         signInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 signIn();
             }
         });
-     /*   String filePath="android_back.png";
-
-        Drawable d = null;
-        try {
-            d = Drawable.createFromStream(getAssets().open(filePath), null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        container.setBackgroundDrawable(d);*/
 
         if(tokenManager.getToken().getAccessToken() != null){
            // getFireBaseToken();
             startActivity(new Intent(LoginActivity.this, MainNavigationActivity.class));
             finish();
         }
+
+        if(!dialogPrivacy.isShowing())
+            dialogPrivacy.show();
+
     }
 
     int RC_SIGN_IN =10;
@@ -125,6 +134,8 @@ GoogleApiClient mGoogleApiClient;
         showLoading();
         startActivityForResult(signInIntent, RC_SIGN_IN);
         showForm();
+
+
     }
 
     @Override
@@ -141,6 +152,7 @@ GoogleApiClient mGoogleApiClient;
             facebookManager.onActivityResult(requestCode, resultCode, data);
 
         }
+
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -157,7 +169,7 @@ GoogleApiClient mGoogleApiClient;
 
             }else{
                 showForm();
-                Toast.makeText(this,"error",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"يرجي المحاولة مرة أخرى",Toast.LENGTH_LONG).show();
 
             }
             // Signed in successfully, show authenticated UI.
@@ -197,7 +209,7 @@ GoogleApiClient mGoogleApiClient;
             @Override
             public void onError(String message) {
                 showForm();
-                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "يرجي الأتصال بشبكة الأنترنت", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -209,11 +221,24 @@ GoogleApiClient mGoogleApiClient;
 
 
 
-        String fcmToken = FirebaseInstanceId.getInstance().getToken();
+        final String[] fcmToken = new String[1];
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
 
+                        String token = task.getResult();
+                        fcmToken[0] =token;
+
+                    }
+                });
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
-        callFireBase = service.postFireBaseToken(fcmToken,"POST");
+        callFireBase = service.postFireBaseToken( fcmToken[0],"POST");
         callFireBase.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
@@ -221,9 +246,10 @@ GoogleApiClient mGoogleApiClient;
 
                 if(response.isSuccessful()){
 
-                    Toast.makeText(LoginActivity.this, "respons: "+ response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, ""+ response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                 }else {
+                    showForm();
                     tokenManager.deleteToken();
                     startActivity(new Intent(LoginActivity.this, LoginActivity.class));
                     finish();
@@ -241,7 +267,12 @@ GoogleApiClient mGoogleApiClient;
     public void onBackPressed()
     {
         // code here to show dialog
-        super.onBackPressed();  // optional depending on your needs
+
+        showForm();
+        facebookManager.onDestroy();
+        CustomDialogClass cdd = new CustomDialogClass(this);
+        cdd.show();
+
     }
     private void getTokenFromBackend(String name, String email, String provider, String providerUserId){
         showLoading();
@@ -259,7 +290,7 @@ GoogleApiClient mGoogleApiClient;
                     finish();
                 }else{
                     showForm();
-                    Toast.makeText(LoginActivity.this, "Error getTokenFromPhp", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "يرجي المحاولة مرة أخري", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -282,8 +313,8 @@ GoogleApiClient mGoogleApiClient;
 
 
         Boolean isValid = true;
-        if (!ValidationInput.isValidEmail(email)) {
-            tilEmail.setError("البريد الإلكتروني غير صحيح.");
+        if (!ValidationInput.isValidNOT_EMPTY(email)) {
+            tilEmail.setError("الادخال غير صحيح.");
             isValid=false;
         }else{
             tilEmail.setError(null);
@@ -318,7 +349,7 @@ GoogleApiClient mGoogleApiClient;
                         }
                         if (response.code() == 401) {
                             ApiError apiError = Utils.converErrors(response.errorBody());
-                            Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "يرجي الأتصال بشبكة الأنترنت", Toast.LENGTH_LONG).show();
                         }
                         showForm();
                     }
@@ -357,24 +388,19 @@ GoogleApiClient mGoogleApiClient;
 
     public void setupRules() {
 
-        validator.addValidation(this, R.id.til_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
+        validator.addValidation(this, R.id.til_email, RegexTemplate.NOT_EMPTY, R.string.err_name);
         validator.addValidation(this, R.id.til_password, RegexTemplate.NOT_EMPTY, R.string.err_password);
     }
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        facebookManager.onActivityResult(requestCode, resultCode, data);
-    }
-*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (call != null) {
             call.cancel();
+            showForm();
             call = null;
         }
+        showForm();
         facebookManager.onDestroy();
     }
 }

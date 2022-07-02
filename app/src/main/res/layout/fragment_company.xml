@@ -1,55 +1,59 @@
-<android.support.constraint.ConstraintLayout android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/colorBackgroundActivity"
-
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView01"
-        android:background="@color/colorBackgroundActivity"
-
-
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadingEdgeLength="0dp"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:layoutDirection="rtl"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorWhite"
+        android:padding="2dp">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/framcontainer"
-            android:background="@color/colorWhite"
-
-            tools:context="libyacvpro.libya_cv.NoteFragment">
+            android:elevation="889dp"
+            android:visibility="visible"
+            android:layout_height="match_parent">
             <Button
                 android:id="@+id/imgWifi"
-                android:drawableRight="@drawable/ic_wifi"
-                android:visibility="gone"
-                android:paddingRight="8dp"
+                android:drawableTop="@drawable/ic_wifi"
+                android:padding="16dp"
+                android:visibility="invisible"
+                android:drawablePadding="8dp"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:text="@string/noConnection"
                 android:background="@drawable/btnedit"
                 android:layout_height="wrap_content" />
 
-
             <ProgressBar
                 android:id="@+id/loader"
-                android:visibility="invisible"
+
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <RelativeLayout
-                android:id="@+id/form_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/linerAddCompany"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:visibility="gone"
 
-                android:orientation="vertical">
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:elevation="889dp"
+            android:layout_height="match_parent"
+            android:id="@+id/linerAddCompany"
+
+            android:padding="15dp"
+            android:visibility="gone"
+
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/addCompany"
@@ -57,280 +61,331 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
 
-                 android:background="@drawable/btnsave"
+                android:background="@drawable/btnsave"
                 android:layout_marginBottom="10dp"
                 android:textSize="@dimen/textBtn"
                 android:text="إضافة شركة"
                 />
 
-            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/form_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:layout_marginTop="2dp"
+
+            android:gravity="right"
+
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="2dp">
+
+
+
+
             <LinearLayout
-                android:id="@+id/linerControlCompany"
+
+                android:id="@+id/lvvItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/colorWhite"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingLeft="4dp"
 
-                android:orientation="vertical">
+                android:paddingRight="4dp"
+                android:paddingBottom="4dp">
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/imgCompany"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+                    <Button
+                        android:id="@+id/btnImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+
+                        android:layout_gravity="center"
+                        android:background="@drawable/btntra"
+
+
+                        android:drawableTop="@drawable/ic_edit_black_24dp"
+                        android:paddingTop="4dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@color/colorLine" />
+
+                    <TextView
+                        android:id="@+id/lblSeeIT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="4dp"
+
+                        android:drawableRight="@drawable/ic_favorite_black_14dp"
+                        android:layout_gravity="center"
+                        android:padding="4dp"
+                        android:text="215"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/colorLine"
+
+                    android:padding="4dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="4dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
 
-
+                        <TextView
+                            android:id="@+id/lblName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="4dp"
+                            android:text="الاسم"
+                           android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/textSizeXL"
+                             />
 
                         <Button
-                            android:id="@+id/btnChangeCompany"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:drawableLeft="@drawable/ic_more_vert_black_24dp"
-                             android:background="@drawable/btnsave"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="@dimen/textBtn"
-                            android:text="أختر الشركة"
-                            />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@color/colorLine" />
+                            android:id="@+id/btnEditCompany"
+                            android:layout_width="58dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/btntra"
 
+                            android:drawableRight="@drawable/ic_edit_black_24dp"
+                            android:paddingRight="16dp" />
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@color/colorLine" />
 
+                    <TextView
+                        android:id="@+id/lblDomain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_apps_black_24dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="المجال"
+
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/lblCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_place_black_18dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="المدينة"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp" />
+
+
+                    <TextView
+                        android:id="@+id/lblEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_email_black_24dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="البريد الإلكتروني"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/lblPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_phone_iphone_black_24dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="الهاتف"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textIsSelectable="true"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/lblWeb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_website"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="موقع الويب"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textIsSelectable="true"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/lblFace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_face"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="فيسبوك"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btnEditCompany"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_browser" />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textSize="@dimen/mainSize"
-                                android:text="بيانات الشركة"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btnImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_management" />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textSize="@dimen/mainSize"
-                                android:padding="5dp"
-                                android:text="تعديل الصورة"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btnJobList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_ads"
-                                />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textSize="@dimen/mainSize"
-                                android:padding="5dp"
-                                android:text="أعلانات التوظيف"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btn_map"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_smartphone"
-                                />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textSize="@dimen/mainSize"
-                                android:text="تحديد الموقع الجغرافي"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
 
             </LinearLayout>
-            </RelativeLayout>
-        </FrameLayout>
-    </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:background="@color/colorLine" />
+
+
+
+
+                <TextView
+                    android:id="@+id/lblDesrc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableRight="@drawable/ic_about"
+                    android:layout_gravity="center"
+                    android:paddingRight="5dp"
+                    android:drawablePadding="6dp"
+
+                     android:paddingTop="2dp"
+                     android:text="عن الشركة"
+                    android:textColor="@color/colorPrimaryDarkTow"
+                    android:textSize="@dimen/textSize" />
+
+            <TextView
+                android:id="@+id/lblDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:textIsSelectable="true"
+                android:lineSpacingMultiplier="1.4"
+                android:padding="6dp"
+                android:text="عن الشركة"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/textSize" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorLine" />
+            <TextView
+                android:id="@+id/lbljobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/ic_jobs"
+                android:layout_gravity="center"
+                android:paddingRight="5dp"
+                android:drawablePadding="6dp"
+
+                android:paddingTop="2dp"
+                android:text="الوظائف"
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="@dimen/textSize" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/container"
+
+                android:id="@+id/txt"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_weight="1"
+
+                android:layoutDirection="rtl"
+                app:layout_constraintBottom_toTopOf="@+id/btnNew"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/form_container" />
+
+            <Button
+                android:id="@+id/btnNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_weight="1"
+                android:background="@drawable/btn_bb"
+                android:text="نشر وظيفة جديدة"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textSizeXL"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

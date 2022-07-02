@@ -1,13 +1,13 @@
-<android.support.constraint.ConstraintLayout android:layout_width="fill_parent"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="fill_parent"
     android:layout_height="fill_parent"
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollView01"
         android:layout_width="fill_parent"
-android:background="@color/colorWhite"
-
+android:background="@color/colorBack"
 
         android:layout_height="fill_parent" >
 
@@ -16,14 +16,16 @@ android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/framcontainer"
-android:background="@drawable/ic_untitled"
             tools:context="libyacvpro.libya_cv.NoteFragment">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
 
-                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+
+                    android:orientation="vertical">
+
 
 
                 <LinearLayout
@@ -31,62 +33,16 @@ android:background="@drawable/ic_untitled"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-
-
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="80dp"
-                                android:layout_height="85dp"
-
-                   android:padding="8dp"
-                                android:src="@drawable/ic_launcher_foreground"
-                                />
-
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textColor="@color/colorWhite"
-                                 android:layout_marginBottom="10dp"
-                                android:textSize="@dimen/textBtn"
-                                android:text="بوابة التوظيف الليبي  Libya CV"
-                                />
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                        </LinearLayout>
-
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/btn_movepage"
                         android:layout_width="wrap_content"
-                        android:layout_height="140dp"
+                        android:layout_height="105dp"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-
+                        app:cardCornerRadius="8dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
+                       >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -95,12 +51,12 @@ android:background="@drawable/ic_untitled"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
 
                                 android:paddingTop="4dp"
                                 android:paddingBottom="4dp"
-                                android:src="@drawable/ic_cv" />
+                                app:srcCompat="@drawable/ic_bcv" />
 
 
 
@@ -116,24 +72,23 @@ android:background="@drawable/ic_untitled"
                                 android:gravity="center"
                                 android:padding="5dp"
                                 android:textSize="@dimen/mainSize"
-                                android:text="السيـرة الذاتيــة"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:text="السيـرة الذاتية"
                                 />
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btn_note"
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_ser"
                         android:layout_width="wrap_content"
-                        android:layout_height="140dp"
+                        android:layout_height="105dp"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-
+                        app:cardCornerRadius="8dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -142,12 +97,12 @@ android:background="@drawable/ic_untitled"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
 
                                 android:paddingTop="4dp"
                                 android:paddingBottom="4dp"
-                                android:src="@drawable/ic_ring" />
+                                app:srcCompat="@drawable/ic_bworks" />
 
 
 
@@ -161,19 +116,22 @@ android:background="@drawable/ic_untitled"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:textSize="@dimen/mainSize"
                                 android:padding="5dp"
-                                android:text="الإشعـــــارات"
+                                android:textSize="@dimen/mainSize"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:text="     خدماتي     "
                                 />
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
+
 
                 </LinearLayout>
 
 
-                <LinearLayout
+                     <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -181,17 +139,28 @@ android:background="@drawable/ic_untitled"
 
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/btn_search"
                         android:layout_width="wrap_content"
-                        android:layout_height="140dp"
+                        android:layout_height="105dp"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        app:cardCornerRadius="8dp"
 
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground">
-
+                        <TextView
+                            android:id="@+id/badge_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignRight="@id/btn_movepage"
+                            android:background="@drawable/badge_item_count"
+                            android:text="1524"
+                            android:layout_margin="4dp"
+                            android:textColor="#472B29"
+                            android:textSize="11dp"
+                            />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -199,12 +168,12 @@ android:background="@drawable/ic_untitled"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
 
                                 android:paddingTop="4dp"
                                 android:paddingBottom="4dp"
-                                android:src="@drawable/ic_job_search_1"
+                                app:srcCompat="@drawable/ic_bjobs"
                                 />
 
 
@@ -222,232 +191,495 @@ android:background="@drawable/ic_untitled"
                                 android:textSize="@dimen/mainSize"
                                 android:padding="5dp"
                                 android:text="وظائف شاغرة"
+                                android:textColor="@color/colorPrimaryDark"
                                 />
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
+
+
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
 
-
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btn_search_company"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_cityscape"
-                                />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textSize="@dimen/mainSize"
-                                android:padding="5dp"
-                                android:text="الشـركــات"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btn_comp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_office_block"
-                                />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-
-                                android:textSize="@dimen/mainSize"
-                                android:text="إدارة الشـركــة"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/btn_app"
-                        android:layout_width="wrap_content"
-                        android:layout_height="140dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="86dp"
-
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:src="@drawable/ic_resume_3"
-                                />
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="5dp"
-                                android:background="@color/colorLine" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textSize="@dimen/mainSize"
-                                android:text="طلبات التوظيف"
-                                />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/btn_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="140dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="86dp"
-                            android:layout_height="86dp"
-
-
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:src="@drawable/ic_settings_2"
-                            />
+                        android:orientation="horizontal">
 
 
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@color/colorLine" />
 
-                        <TextView
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_search_cv"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
 
-                            android:textSize="@dimen/mainSize"
-                            android:text="الإعــدادات"
-                            />
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+                            <TextView
+                                android:id="@+id/badge_cv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignRight="@id/btn_movepage"
+                                android:background="@drawable/badge_item_count"
+                                android:text="1284"
+
+                                android:layout_margin="4dp"
+                                android:textColor="#472B29"
+                                android:textSize="11dp"
+                                />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_bbseachcv"
+                                    />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/mainSize"
+
+                                    android:text="السير الذاتية"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    />
+
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_search_company"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+                            <TextView
+                                android:id="@+id/badge_company"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignRight="@id/btn_movepage"
+                                android:background="@drawable/badge_item_count"
+                                android:text="1284"
+
+                                android:layout_margin="4dp"
+                                android:textColor="#472B29"
+                                android:textSize="11dp"
+                                />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_bcity"
+                                    />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/mainSize"
+                                    android:padding="5dp"
+                                    android:text="  الشركات  "
+                                    android:textColor="@color/colorPrimaryDark"
+                                    />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_services"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+                            <TextView
+                                android:id="@+id/badge_ser"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignRight="@id/btn_movepage"
+                                android:background="@drawable/badge_item_count"
+                                android:text="1284"
+
+                                android:layout_margin="4dp"
+                                android:textColor="#472B29"
+                                android:textSize="11dp"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_bser" />
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="  الخدمات   "
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/mainSize" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_company"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_bcomp"
+                                    />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/mainSize"
+                                    android:padding="5dp"
+                                    android:text="إدارة الشركة"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <!--<android.support.v7.widget.CardView
+                            android:id="@+id/btn_comp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_browser"
+                                    />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/mainSize"
+                                    android:text="نشر وظيفة"
+                                    />
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>-->
+
+
+
+
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_bnote" />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/mainSize"
+                                    android:padding="5dp"
+                                    android:textColor="@color/colorPrimary"
+
+                                    android:text="الإشعارات"
+                                    />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_setting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_bsetting"
+                                    />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/mainSize"
+                                    android:text="الإعدادات"
+                                    />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <!--<android.support.v7.widget.CardView
+                            android:id="@+id/btn_comp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="8dp"
+
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+
+
+                                    android:paddingTop="4dp"
+                                    android:paddingBottom="4dp"
+                                    app:srcCompat="@drawable/ic_browser"
+                                    />
+
+
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/colorLine" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/mainSize"
+                                    android:text="نشر وظيفة"
+                                    />
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>-->
+
+
+
+
+
+
+                    </LinearLayout>
+
+
+     
             </LinearLayout>
 
-            </LinearLayout>
         </FrameLayout>
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

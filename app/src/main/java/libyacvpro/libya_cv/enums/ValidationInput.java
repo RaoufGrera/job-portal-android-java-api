@@ -51,7 +51,7 @@ public  class ValidationInput {
         }catch (NumberFormatException e){
             yearInt=0;
         }
-        if (yearInt != 0 && year.length() == 10) {
+        if (yearInt != 0 && year.length() == 10) { //092 722 30 01
             return true;
         }
         return false;
@@ -64,4 +64,13 @@ public  class ValidationInput {
         }
         return false;
     }
+    public static boolean isValidWebSite(String web) {
+        String WEB_PATTERN =  "^(https?|http?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+
+        Pattern pattern = Pattern.compile(WEB_PATTERN);
+        Matcher matcher = pattern.matcher(web);
+        return matcher.matches();
+    }
+
+
 }

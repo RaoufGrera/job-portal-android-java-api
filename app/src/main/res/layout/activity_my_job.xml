@@ -1,76 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
-    android:layout_width="fill_parent"
-    android:background="@color/colorBackgroundActivity"
-    android:layout_height="fill_parent"
-    android:fadingEdgeLength="0dp"
-    android:fillViewport="true"
-    android:overScrollMode="never"
-    android:scrollbars="none"
-    >
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/container"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+
+
+>
+
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:padding="8dp">
-        <Button
-            android:id="@+id/imgWifi"
-            android:drawableRight="@drawable/ic_wifi"
-            android:visibility="gone"
-            android:paddingRight="8dp"
-            android:layout_centerInParent="true"
-            android:layout_width="match_parent"
-            android:text="@string/noConnection"
-            android:background="@drawable/btnedit"
-            android:layout_height="wrap_content" />
-        <ProgressBar
-            android:id="@+id/loader"
-            android:visibility="invisible"
-            android:layout_centerInParent="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/container"
+
+        android:id="@+id/txt"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="false"
+        android:focusable="false"
+
+        android:layoutDirection="rtl"
+        app:layout_constraintBottom_toTopOf="@+id/btnNew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt" />
+
+    <Button
+        android:id="@+id/btnNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:id="@+id/form_container"
+        android:layout_weight="1"
+        android:background="@drawable/btn_bb"
+        android:text="نشر وظيفة جديدة"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textSizeXL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            android:gravity="right"
-            android:layoutDirection="rtl"
-            android:orientation="vertical"
-            android:textDirection="anyRtl">
-
-
-            <libyacvpro.libya_cv.NonScrollListView
-                android:id="@+id/lvItems"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:layoutDirection="ltr" />
-
-            <Button
-                android:id="@+id/btnNew"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                android:layout_marginLeft="10px"
-                android:layout_marginRight="12px"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:layout_gravity="right"
-                android:text="إضافة"
-                android:background="@drawable/btnedit"
-                android:drawableRight="@drawable/ic_add_black_24dp"
-                />
-        </LinearLayout>
-    </RelativeLayout></ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimary">#000000</color>
+    <!-- <color name="colorPrimary">#1c1c1c</color> -->
     <color name="colorInfo">#4ca9c5</color>
 
-    <color name="colorPrimaryDark">#383838</color>
+    <color name="colorPrimaryDark">#373737</color>
     <color name="colorPrimaryDarkTow">#232323</color>
+    <color name="colorPrimaryAccent">#545454</color>
+    <color name="colorCV">#F44336</color>
+    <color name="colorProgress">#F44336</color>
+    <color name="colorBlueDark">#F44336</color>
+
+
+
 
     <color name="colorAccent">#676767</color>
+    <color name="colorAccentSmoke">#8e8e8e</color>
+    <color name="textColorError">#ff3737</color>
+
     <color name="textInputErrorColor">#ff3737</color>
     <color name="textInputErrorColorFirst">#d95a5a</color>
 
     <color name="txtBackGrTitleColor">#0f988b</color>
-    <color name="colorGreenLand">#0f758f</color>
+    <color name="colorGreenLand">#0f7684</color>
     <color name="colorBackgroundActivity">#252b8da6</color>
-    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorLine2">#FFECECEC</color>
 
-    <color name="colorLine">#ececec</color>
+    <color name="colorLine">#F1F1F1</color>
+    <color name="colorLineCV">#cccccc</color>
+    <color name="colorBack">#ffffff</color>
+    <color name="colorYellowSmoke">#f4f4f4</color>
+
+    <color name="colorWhiteSmoke">#f6f6f6</color>
+
+    <color name="colorWhiteSmokse">#FCE0A2</color>
+
+
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorYellow">#e9d600</color>
 
 </resources>

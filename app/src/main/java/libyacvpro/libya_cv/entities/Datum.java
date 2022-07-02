@@ -4,14 +4,24 @@ import java.util.List;
 
 import libyacvpro.libya_cv.entities.GeneralPackage.City;
 import libyacvpro.libya_cv.entities.GeneralPackage.Domain;
+import libyacvpro.libya_cv.entities.GeneralPackage.EducationType;
 import libyacvpro.libya_cv.entities.GeneralPackage.Nat;
 
 public class Datum {
     private List<City> city = null;
     private List<Nat> nat = null;
+    private List<EducationType> edt = null;
     private List<Domain> domain = null;
 
     private  Seeker  info = null;
+
+    public List<EducationType> getEdt() {
+        return edt;
+    }
+
+    public void setEdt(List<EducationType> edt) {
+        this.edt = edt;
+    }
 
     public Seeker getInfo() {
         return info;

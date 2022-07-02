@@ -1,23 +1,17 @@
 package libyacvpro.libya_cv.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import libyacvpro.libya_cv.JobActivity;
 import libyacvpro.libya_cv.R;
-import libyacvpro.libya_cv.entities.IntegrString;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class EducationAdapter extends BaseAdapter {
     Context context;

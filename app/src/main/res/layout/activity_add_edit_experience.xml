@@ -13,7 +13,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:padding="8dp">
 
     <ProgressBar
@@ -43,16 +44,14 @@
         android:orientation="vertical"
         >
 
-        <TextView
+        <ImageView
             android:id="@+id/contact_form_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="42dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:drawableTop="@drawable/ic_employee_color"
-            android:drawablePadding="8dp"
-            android:textColor="#4f4f4f"
-            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_briefcase"
+
             />
 
 <View
@@ -60,11 +59,11 @@
     android:background="@color/colorLine"
     android:layout_height="1dp"
     android:layout_marginBottom="5dp"
-    ></View>
-        <android.support.design.widget.TextInputLayout
+    />
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_height="58dp"
+            android:layout_height="48dp"
             android:gravity="bottom"
             android:padding="0dp"
             android:background="@drawable/select_edit_text"
@@ -72,113 +71,111 @@
             >
         <Spinner
             android:id="@+id/spDomain"
-             android:layout_height="58dp"
-             android:layout_width="fill_parent"
+             android:layout_height="48dp"
+             android:layout_width="match_parent"
             android:layoutDirection="rtl" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="18dp"
-            android:layout_height="54dp"
-            android:gravity="bottom"
-            android:paddingTop="4dp"
-            android:clipToPadding="false"
-            android:hint="المسمي الوظيفي"
-            >
-        <EditText
-            android:id="@+id/txtCompName"
-            android:layout_height="54dp"
-            android:background="@drawable/select_edit_text"
-            android:layout_width="fill_parent"
-            android:inputType="textPersonName" />
-</android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_marginTop="18dp"
-            android:layout_height="58dp"
-            android:gravity="bottom"
-            android:paddingTop="4dp"
-            android:clipToPadding="false"
-            android:hint="الشركة"
-            >
-            <EditText
-                android:id="@+id/txtJobName"
-                android:background="@drawable/select_edit_text"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtCompName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:maxLines="1" />
+                android:hint="المسمي الوظيفي"
+                />
 
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_marginTop="18dp"
-            android:layout_height="150dp"
-            android:gravity="bottom"
-            android:paddingTop="4dp"
-            android:clipToPadding="false"
-            android:hint="الإنجازات"
-            >
-        <EditText
+            android:layout_marginTop="10dp"
+
+
+
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtJobName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="الشركة"
+                 />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+
+
+            android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtGoals"
             android:layout_width="fill_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
 
-            android:background="@drawable/select_edit_text"
+
+            android:minHeight="150dp"
             android:gravity="top"
             android:fitsSystemWindows="true"
             android:inputType="textMultiLine"
-
+            android:hint="الإنجازات"
 
             />
-</android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_marginTop="18dp"
-            android:layout_height="58dp"
-            android:gravity="bottom"
-            android:paddingTop="4dp"
-            android:clipToPadding="false"
-            android:hint="من سنة"
-            >
-        <EditText
+            android:layout_marginTop="10dp"
+
+
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtStart"
-            android:layout_height="58dp"
-             android:layout_width="fill_parent"
-            android:background="@drawable/select_edit_text"
-            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:inputType="date"
+
+            android:hint="من سنة"
             />
-</android.support.design.widget.TextInputLayout>
+
+</com.google.android.material.textfield.TextInputLayout>
         <CheckBox android:id="@+id/checkbox_meat"
             android:layout_width="match_parent"
-             android:layout_height="58dp"
+             android:layout_height="wrap_content"
             android:text="الي حد الأن"
             android:paddingTop="4dp"
             android:onClick="onCheckboxClicked"
             android:layoutDirection="rtl"
+            android:layout_marginTop="10dp"
 
             />
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_marginTop="18dp"
-            android:layout_height="58dp"
-            android:gravity="bottom"
-            android:paddingTop="4dp"
-            android:clipToPadding="false"
-            android:hint="الي سنة"
-            >
-        <EditText
+            android:layout_marginTop="10dp"
+
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtEnd"
-            android:layout_width="fill_parent"
-            android:layout_height="58dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="date"
-               android:background="@drawable/select_edit_text"
-  />
-</android.support.design.widget.TextInputLayout>
+                android:hint="الي سنة"
+
+                />
+</com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/btnSave"
 
@@ -196,6 +193,18 @@
             android:text="حفظ"
 
             android:textColor="@color/colorWhite" />
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
 </RelativeLayout>

@@ -2,55 +2,34 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.Uri;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.X509TrustManager;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import libyacvpro.libya_cv.entities.CompanyPackage.Company;
 import libyacvpro.libya_cv.entities.Message;
-import libyacvpro.libya_cv.entities.ShowJobPackage.ShowJob;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShowCompanyActivity extends AppCompatActivity {
-    private static final String TAG = "ShowCompanyActivity";
+public class ShowServicesActivity extends AppCompatActivity {
+    private static final String TAG = "ShowServicesActivity";
 
     ApiService service;
     TokenManager tokenManager;
@@ -68,7 +47,8 @@ public class ShowCompanyActivity extends AppCompatActivity {
     @BindView(R.id.imgCompany)
     ImageView imgCompany;
 
-
+    @BindView(R.id.lblComptName)
+    TextView lblComptName;
 
     @BindView(R.id.lblCompanyName)
     TextView lblCompanyName;
@@ -77,31 +57,29 @@ public class ShowCompanyActivity extends AppCompatActivity {
     @BindView(R.id.lblDomainName)
     TextView lblDomainName;
 
-    @BindView(R.id.btnFacebook)
-    Button btnFacebook;
-    @BindView(R.id.btnWebsite)
-    Button btnWebsite;
-    @BindView(R.id.btnMap)
-    ImageView btnMap;
-    @BindView(R.id.btnEmail)
-    Button btnEmail;
 
-    @BindView(R.id.btnPhone)
-    Button btnPhone;
+
+
+    @BindView(R.id.lblEmail)
+    TextView lblEmail;
+
+    @BindView(R.id.lblPhone)
+    TextView lblPhone;
 
     @BindView(R.id.txtServices)
     TextView txtServices;
-    @BindView(R.id.txtDesc)
-    TextView txtDesc;
-    String itemID;
-    @BindView(R.id.btntojob)
-    TextView btnToJob;
 
-  /*  @BindView(R.id.lblSeeIT)
-    TextView lblSeeIT;*/
+    int itemID;
+
+
+    @BindView(R.id.lblSeeIT)
+    TextView lblSeeIT;
+
+
 
     String webUrl="";
     String faceUrl="";
+    String userID="";
 
     String lat="";
     String lng="";
@@ -110,64 +88,52 @@ public class ShowCompanyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_company);
+        setContentView(R.layout.activity_show_services);
 
         ButterKnife.bind(this);
-        itemID = getIntent().getExtras().getString("user");
+        itemID = getIntent().getExtras().getInt("id");
 
 
-        btnFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // PackageManager packageManager = getApplicationContext().getPackageManager();
-                Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
-                String facebookUrl = getFacebookPageURL(getApplicationContext(),faceUrl);
-                facebookIntent.setData(Uri.parse(facebookUrl));
-                startActivity(facebookIntent);
-            }});
 
-        btnWebsite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
-                String wwwUrl =  webUrl ;
-                websiteIntent.setData(Uri.parse(wwwUrl));
-                startActivity(websiteIntent);
-            }});
 
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), ShowCompanyMapActivity.class);
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng", lng);
-                startActivityForResult(intent, 0);
-            }});
 
-        btnEmail.setOnClickListener(new View.OnClickListener() {
+
+     /*   btnEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
                 Intent testIntent = new Intent(Intent.ACTION_VIEW);
-                Uri data = Uri.parse("mailto:?subject=" + "" + "&body=" + "" + "&to=" + stEmail);
+                testIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                 Uri data = Uri.parse("mailto:?subject=" + "" + "&body=" + "" + "&to=" + stEmail);
                 testIntent.setData(data);
                 startActivity(testIntent);
+            }});*/
+
+        lblComptName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), CVActivity.class);
+                intent.putExtra("seeker_id", userID);
+
+
+                startActivity(intent);
             }});
 
-        btnPhone.setOnClickListener(new View.OnClickListener() {
+       /* btnPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phone = stPhone;
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
                 startActivity(intent);
-            }});
+            }});*/
         showLoading();
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         if (tokenManager.getToken() == null) {
-            startActivity(new Intent(  ShowCompanyActivity.this, LoginActivity.class));
+            startActivity(new Intent(  ShowServicesActivity.this, LoginActivity.class));
             finish();
         }
 
@@ -176,7 +142,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
         // showLoading();
 
 
-        call = service.getShowCompany(itemID);
+        call = service.getShowServices(itemID);
 
 
         call.enqueue(new Callback<Company>() {
@@ -195,7 +161,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
 
                 } else {
                     tokenManager.deleteToken();
-                    startActivity(new Intent(ShowCompanyActivity.this, LoginActivity.class));
+                    startActivity(new Intent(ShowServicesActivity.this, LoginActivity.class));
                     finish();
 
                 }
@@ -242,64 +208,13 @@ public class ShowCompanyActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.btntojob)
-    void postMyJob(){
-        String itemID = getIntent().getExtras().getString("user");
 
-
-       //showLoading();
-
-        String st = btnToJob.getText().toString();
-        boolean islocal = true;
-        if(st.equals("متابعة")){
-            callMessage = service.addFollow(itemID);
-
-            islocal= true;
-        }else {
-            callMessage = service.removeFollow(itemID);
-            islocal= false;
-
-        }
-
-        final boolean  istrue= islocal;
-
-        callMessage.enqueue(new Callback<Message>() {
-            @Override
-            public void onResponse(Call<Message> callSave, Response<Message> response) {
-                Log.w(TAG, "onResponse: " + response );
-
-                if(response.isSuccessful()){
-
-                    String msg = response.body().getMessage();
-                    Context context = getApplicationContext();
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG)
-                            .show();
-
-
-                    changeBtn(istrue);
-
-
-                //    showForm();
-                }else {
-                    tokenManager.deleteToken();
-                    startActivity(new Intent(ShowCompanyActivity.this, LoginActivity.class));
-                    finish();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Message> call, Throwable t) {
-                Log.w(TAG, "onFailure: " + t.getMessage() );
-            }
-        });
-
-    }
     private void setDataInfo(Company ii){
 
-       // lblSeeIT.setText(ii.getSee_it());
+        lblSeeIT.setText(ii.getSee_it());
+        userID = ii.getComp_id();
         lblCompanyName.setText(ii.getComp_name());
-        //lblComptName.setText(ii.getCompt_name());
+         lblComptName.setText(ii.getCompt_name());
         String Address ="";
         if(ii.getAddress() != null){
             if(!ii.getAddress().equals("")){
@@ -309,9 +224,8 @@ public class ShowCompanyActivity extends AppCompatActivity {
         String aa= ii.getCity_name()+Address;
         lblCity.setText(aa);
         lblDomainName.setText(ii.getDomain_name());
-        txtDesc.setText(ii.getComp_desc());
-        txtServices.setText(ii.getServices());
-        if (ii.getFacebook() != null ) {
+         txtServices.setText(ii.getServices());
+    /*    if (ii.getFacebook() != null ) {
             if (!ii.getFacebook().equals("")) {
                 btnFacebook.setVisibility(View.VISIBLE);
                 faceUrl = ii.getFacebook();
@@ -324,48 +238,30 @@ public class ShowCompanyActivity extends AppCompatActivity {
             webUrl =ii.getUrl();
             btnFacebook.setVisibility(View.VISIBLE);}
 
-        }
+        }*/
 
 
-        if (ii.getLat() != null ) {
 
-            if (!ii.getLat().equals("") && !ii.getLng().equals("")) {
-                btnMap.setVisibility(View.VISIBLE);
-
-                lat = ii.getLat();
-                lng = ii.getLng();
-
-            }
-        }
         if (ii.getPhone() != null ) {
 
             if (!ii.getPhone().equals("")) {
-                btnPhone.setVisibility(View.VISIBLE);
+             //  btnPhone.setVisibility(View.VISIBLE);
                 stPhone = ii.getPhone();
-                btnPhone.setText(stPhone);
+                lblPhone.setText(stPhone);
             }
         }
 
         if (ii.getEmail() != null ) {
 
             if (!ii.getEmail().equals("")) {
-                btnEmail.setVisibility(View.VISIBLE);
-                stEmail = ii.getEmail();
+             //   btnEmail.setVisibility(View.VISIBLE);
+                lblEmail.setText( ii.getEmail());
              }
         }
 
 
         String imgST =  ii.getImage();
 
-        if(ii.getisreq()){
-            btnToJob.setText("إلغاء المتابعة");
-            btnToJob.setBackgroundResource(R.drawable.btndeletestyle);
-
-
-        }else{
-            btnToJob.setText("متابعة");
-            btnToJob.setBackgroundResource(R.drawable.btn_info);
-        }
 
 
 
@@ -378,17 +274,7 @@ public class ShowCompanyActivity extends AppCompatActivity {
         Picasso.get().load(imgST).placeholder(R.drawable.pro).into(imgCompany);
 
     }
-    private void changeBtn(boolean istrue){
-        if(istrue){
-            btnToJob.setText("إلغاء المتابعة");
-            btnToJob.setBackgroundResource(R.drawable.btndeletestyle);
 
-
-        }else{
-            btnToJob.setText("متابعة");
-            btnToJob.setBackgroundResource(R.drawable.btn_info);
-        }
-    }
 
     private void showForm(){
         // TransitionManager.beginDelayedTransition(container);

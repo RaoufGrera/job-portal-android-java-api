@@ -1,10 +1,10 @@
 package libyacvpro.libya_cv.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,32 +18,19 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import libyacvpro.libya_cv.AppJobCVActivity;
 import libyacvpro.libya_cv.CVActivity;
-import libyacvpro.libya_cv.DeleteActivity;
-import libyacvpro.libya_cv.JobActivity;
-import libyacvpro.libya_cv.LoginActivity;
 import libyacvpro.libya_cv.R;
 import libyacvpro.libya_cv.TokenManager;
-import libyacvpro.libya_cv.entities.IntegrString;
-import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
-import libyacvpro.libya_cv.entities.JobSearchPackage.JobsResponse;
 import libyacvpro.libya_cv.entities.Message;
-import libyacvpro.libya_cv.entities.Seeker;
-import libyacvpro.libya_cv.entities.ShowJobPackage.ShowParaJob;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
-import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static libyacvpro.libya_cv.TokenManager.getInstance;
 
 
@@ -163,7 +150,7 @@ public class AppCvAdapter extends BaseAdapter {
         holder.tvAbout.setText(tvAbout.get(position));
 
         if(req_event.get(position) == 1) {
-            holder.btnAccept.setText("تم قبولك مبدئيا");
+            holder.btnAccept.setText("مقبول مبدئيا");
           holder.btnAccept.setEnabled(false);
        //   holder.btnAccept.setBackgroundResource(0);
         }
@@ -190,35 +177,81 @@ public class AppCvAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    tokenManager = getInstance(context.getSharedPreferences("prefs", MODE_PRIVATE));
+                    if( holder.btnAccept.getText().equals("مقبول مبدئيا")){
+                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                    builder1.setMessage("هل أنت متأكد من حذف الباحث؟");
+                    builder1.setCancelable(true);
 
-                    if (tokenManager.getToken() == null) {
-                        // startActivity(new Intent(context, LoginActivity.class));
-                        //finish();
+                    builder1.setPositiveButton(
+                            "نعم",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    tokenManager = getInstance(context.getSharedPreferences("prefs", MODE_PRIVATE));
+
+
+
+                                    service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
+                                    callMessage = service.removeSeeker( job_id, holder.userID ,"");
+                                    callMessage.enqueue(new Callback<Message>() {
+                                        @Override
+                                        public void onResponse(Call<Message> call, Response<Message> response) {
+                                            if (response.isSuccessful()) {
+
+                                                String msg = response.body().getMessage();
+                                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+
+                                                holder.tvItem.setVisibility(View.GONE);
+
+                                                //      holder.btnAccept.setBackgroundResource(0);
+                                            } else {
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Message> call, Throwable t) {
+                                            //  Log.e(TAG, " Response Error " + t.getMessage());
+                                        }
+                                    });
+                               // }
+                            }});
+
+                  builder1.setNegativeButton(
+                            "لا",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();}else{
+                        tokenManager = getInstance(context.getSharedPreferences("prefs", MODE_PRIVATE));
+
+
+
+                        service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
+                        callMessage = service.removeSeeker( job_id, holder.userID ,"");
+                        callMessage.enqueue(new Callback<Message>() {
+                            @Override
+                            public void onResponse(Call<Message> call, Response<Message> response) {
+                                if (response.isSuccessful()) {
+
+                                    String msg = response.body().getMessage();
+                                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+
+                                    holder.tvItem.setVisibility(View.GONE);
+
+                                    //      holder.btnAccept.setBackgroundResource(0);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Message> call, Throwable t) {
+                                //  Log.e(TAG, " Response Error " + t.getMessage());
+                            }
+                        });
                     }
 
-                    service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-                    callMessage = service.removeSeeker( job_id, holder.userID ,"");
-                    callMessage.enqueue(new Callback<Message>() {
-                        @Override
-                        public void onResponse(Call<Message> call, Response<Message> response) {
-                            if (response.isSuccessful()) {
-
-                                String msg = response.body().getMessage();
-                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-
-                                holder.tvItem.setVisibility(View.GONE);
-
-                                //      holder.btnAccept.setBackgroundResource(0);
-                            } else {
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Message> call, Throwable t) {
-                            //  Log.e(TAG, " Response Error " + t.getMessage());
-                        }
-                    });
 
                 }
             });
@@ -246,7 +279,7 @@ public class AppCvAdapter extends BaseAdapter {
                                 String msg = response.body().getMessage();
                                 Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 
-                                holder.btnAccept.setText("مقبول مبدئياً");
+                                holder.btnAccept.setText("مقبول مبدئيا");
                                 holder.btnAccept.setEnabled(false);
                           //      holder.btnAccept.setBackgroundResource(0);
                             } else {

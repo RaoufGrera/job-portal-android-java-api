@@ -1,27 +1,67 @@
 {
   "project_info": {
-    "project_number": "133458970559",
-    "firebase_url": "https://libyacproject.firebaseio.com",
-    "project_id": "libyacproject",
-    "storage_bucket": "libyacproject.appspot.com"
+    "project_number": "996842140943",
+    "firebase_url": "https://libyacv22.firebaseio.com",
+    "project_id": "libyacv22",
+    "storage_bucket": "libyacv22.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:133458970559:android:a7cd13e65a9f45ae",
+        "mobilesdk_app_id": "1:996842140943:android:a7cd13e65a9f45ae",
         "android_client_info": {
           "package_name": "libyacvpro.libya_cv"
         }
       },
       "oauth_client": [
         {
-          "client_id": "133458970559-e4tbd57pl3t68pjbu9c2niidcjn369de.apps.googleusercontent.com",
+          "client_id": "996842140943-0o80n9avvlcp8vmqrj8fd6ntsaldighd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "libyacvpro.libya_cv",
+            "certificate_hash": "6d58f5022b46cad9f5b6aeab1e182c21ac61b3ea"
+          }
+        },
+        {
+          "client_id": "996842140943-rbrtov0p6rteo3emmn9253di328qusrg.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996842140943-jogvlqrhel8v5eif2oedphnm5c1mcv5c.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996842140943-c0ooivpmvgqre0h2jr0q62u42sv8bkh0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996842140943-db8592q22rnjiln360ogc0ip0nt7jn4k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996842140943-8hqia6gjofqq42p575ov2ip44lant20q.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996842140943-pc13rc2h7jk3f3fnppfq690d4mko8cmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "libyacvpro.libya_cv",
+            "certificate_hash": "90dc2cc43c28c17e10c655569e8aff6f6c9c4191"
+          }
+        },
+        {
+          "client_id": "996842140943-4916fs6afh7jtqc419645rtgse6sgi70.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996842140943-rbrtov0p6rteo3emmn9253di328qusrg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDc2Agetf8CPP89DWCRy1egUtelzJ_225M"
+          "current_key": "AIzaSyAnsv9w9xw1qq8wuE1p2QEdQz79LoK1AqA"
         }
       ],
       "services": {
@@ -29,8 +69,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996842140943-rbrtov0p6rteo3emmn9253di328qusrg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

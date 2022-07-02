@@ -3,7 +3,9 @@ package libyacvpro.libya_cv.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +13,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import libyacvpro.libya_cv.JobActivity;
 import libyacvpro.libya_cv.R;
 import libyacvpro.libya_cv.ShowCompanyActivity;
 import libyacvpro.libya_cv.entities.CompanyPackage.Company;
-import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 
 /**
@@ -32,8 +36,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public final int TYPE_MOVIE = 0;
     public final int TYPE_LOAD = 1;
+    public final int AD_TYPE = 2;
 
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
 
+    static Context _context;
 
     static Context context;
     static List<Company> movies;
@@ -50,12 +57,18 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public CompanyAdapter(Context context, List<Company> jobses) {
         this.context = context;
         this.movies = jobses;
+        this._context = context;
+
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
+        if(viewType == AD_TYPE){
+           // return new AdsHolder(inflater.inflate(R.layout.item_adview,parent,false));
+
+        }
         if(viewType==TYPE_MOVIE){
 
 
@@ -81,6 +94,8 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
+        if(movies.get(position).type.equals("ads"))
+            return AD_TYPE;
         if(movies.get(position).type.equals("movie")){
             return TYPE_MOVIE;
         }else{
@@ -93,11 +108,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return movies.size();
     }
 
-    /* VIEW HOLDERS */
 
-    static class MovieHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
+    static class MovieHolder extends RecyclerView.ViewHolder{
         TextView tvName;
-        TextView tvCompany;
+       // TextView tvCompany;
         TextView tvCity;
         TextView tvDomain;
         TextView tvSeeIT;
@@ -110,36 +124,13 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public MovieHolder(View itemView) {
             super(itemView);
             tvName=(TextView)itemView.findViewById(R.id.lblCompanyName);
-            tvCompany=(TextView)itemView.findViewById(R.id.lblComptName);
+          //  tvCompany=(TextView)itemView.findViewById(R.id.lblComptName);
             tvCity=(TextView)itemView.findViewById(R.id.lblCity);
              tvSeeIT=(TextView)itemView.findViewById(R.id.lblSeeIT);
             tvServices=(TextView)itemView.findViewById(R.id.lblServices);
             tvDomain=(TextView)itemView.findViewById(R.id.lblDomainName);
             tvItem    = (LinearLayout) itemView.findViewById(R.id.lvvIdtems);
             imgView    = (ImageView) itemView.findViewById(R.id.imgCompany);
-            itemView.setOnClickListener(this);
-
-//            Picasso.setSingletonInstance(picasso);
-
-        }
-
-        void bindData(Company jobsModel){
-            tvName.setText(jobsModel.getComp_name());
-            tvCompany.setText(jobsModel.getCompt_name());
-            tvCity.setText(jobsModel.getCity_name());
-            tvDomain.setText(jobsModel.getDomain_name());
-             tvSeeIT.setText(jobsModel.getSee_it().toString());
-            tvServices.setText(jobsModel.getServices());
-       /*     new DownloadImageTask(imgView)
-                    .execute(jobsModel.getImage());*/
-
-            Picasso.get().load(jobsModel.getImage())  .into(imgView);
-
-
-        }
-//"http://192.168.1.20/libyacv/public/images/company/"+
-        @Override
-        public void onClick(View v) {
             tvItem.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -155,9 +146,63 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             .show();*/
                 }
             });
+//            Picasso.setSingletonInstance(picasso);
+
+        }
+
+        void bindData(Company jobsModel){
+            tvName.setText(jobsModel.getComp_name());
+          //  tvCompany.setText(jobsModel.getCompt_name());
+            tvCity.setText(jobsModel.getCity_name());
+            switch(jobsModel.getCity_name()){
+                case "طرابلس":
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_tripoli));
+                    break;
+                case "بنغازي":
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_bing));
+                    break;
+                case "مصراتة":
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_mis));
+                    break;
+                default:
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_other));
+                    break;
+            }
+
+            tvDomain.setText(jobsModel.getDomain_name());
+             tvSeeIT.setText(jobsModel.getSee_it().toString());
+
+
+
+            tvServices.setText(jobsModel.getServices());
+
+            if(jobsModel.getServices()!= null) {
+                if (jobsModel.getServices().equals("")) {
+                    tvServices.setVisibility(View.GONE);
+                } else {
+                    tvServices.setVisibility(View.VISIBLE);
+                }
+
+            } else {
+                tvServices.setVisibility(View.GONE);
+            }
+       /*     new DownloadImageTask(imgView)
+                    .execute(jobsModel.getImage());*/
+
+            Picasso.get().load(jobsModel.getImage()).placeholder( R.drawable.pro)  .into(imgView);
+
+
+        }
+
+    }
+    public static final Drawable getDrawable(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 21) {
+            return _context.getDrawable(id);
+        } else {
+            return context.getResources().getDrawable(id,null);
         }
     }
-
     static class LoadHolder extends RecyclerView.ViewHolder{
         public LoadHolder(View itemView) {
             super(itemView);

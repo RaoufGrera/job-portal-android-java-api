@@ -11,7 +11,7 @@
     android:scrollbars="none"
     android:layoutDirection="rtl"
     >
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/container"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -59,7 +59,28 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="2dp">
 
+            <LinearLayout
+                android:id="@+id/linerAddCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:visibility="gone"
 
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/addCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+                    android:background="@drawable/btnsave"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="@dimen/textBtn"
+                    android:text="إضافة شركة"
+                    />
+
+            </LinearLayout>
             <LinearLayout
 
                 android:id="@+id/lvvItems"
@@ -91,7 +112,7 @@
                         app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
                     <Button
-                        android:id="@+id/btnNewImage"
+                        android:id="@+id/btnImage"
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
 
@@ -154,7 +175,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/btnNewSeeker"
+                            android:id="@+id/btnEditCompany"
                             android:layout_width="58dp"
                             android:layout_height="38dp"
                             android:background="@drawable/btntra"
@@ -225,7 +246,7 @@
                         android:id="@+id/lblWeb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/ic_phone_iphone_black_24dp"
+                        android:drawableRight="@drawable/ic_website"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:padding="3dp"
@@ -238,7 +259,7 @@
                         android:id="@+id/lblFace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/ic_phone_iphone_black_24dp"
+                        android:drawableRight="@drawable/ic_face"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:padding="3dp"
@@ -295,7 +316,7 @@
             app:layout_constraintTop_toBottomOf="@+id/form_container"
             tools:layout_editor_absoluteX="2dp" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -326,5 +347,5 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

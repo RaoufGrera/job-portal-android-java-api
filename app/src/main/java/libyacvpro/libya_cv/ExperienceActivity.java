@@ -3,9 +3,9 @@ package libyacvpro.libya_cv;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.transition.TransitionManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.transition.TransitionManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,10 +13,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +27,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import libyacvpro.libya_cv.entities.ExperiencePackage.Experience;
 import libyacvpro.libya_cv.entities.ExperiencePackage.ExperienceResponse;
 import libyacvpro.libya_cv.entities.IntegrString;
 import libyacvpro.libya_cv.enums.SectionEnum;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExperienceActivity extends AppCompatActivity {
 
@@ -43,6 +46,9 @@ public class ExperienceActivity extends AppCompatActivity {
     TokenManager tokenManager;
     Call<ExperienceResponse> call;
      Button imgWifi;
+
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
 
     @BindView(R.id.container)
     RelativeLayout container;
@@ -56,7 +62,14 @@ public class ExperienceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_experience);
         imgWifi = (Button) findViewById(R.id.imgWifi);
          ButterKnife.bind(this);
+    //    MobileAds.initialize(this, APP_ID);
 
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         apiLoad();
@@ -146,6 +159,7 @@ public class ExperienceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data){
 
+        if(resultCode == RESULT_OK)
         apiLoad();
 
     }

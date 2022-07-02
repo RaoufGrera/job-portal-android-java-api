@@ -3,15 +3,16 @@ package libyacvpro.libya_cv.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -19,22 +20,16 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
-import java.util.Collections;
 import java.util.List;
 
-import libyacvpro.libya_cv.DownloadImageTask;
-import libyacvpro.libya_cv.JobActivity;
+import libyacvpro.libya_cv.CVActivity;
 import libyacvpro.libya_cv.R;
-import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
-import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
+import libyacvpro.libya_cv.entities.Seeker;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
-import static com.facebook.FacebookSdk.getApplicationContext;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 
-
-public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SeekersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public final int TYPE_MOVIE = 0;
     public final int TYPE_LOAD = 1;
@@ -44,13 +39,16 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     static Context context;
-    static List<Jobs> movies;
+    static List<Seeker> movies;
     OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
+    static Context _context;
 
 
-    public JobsAdapter(Context context, List<Jobs> jobses) {
+    public SeekersAdapter(Context context, List<Seeker> jobses) {
         this.context = context;
+        this._context = context;
+
         this.movies = jobses;
     }
 
@@ -67,7 +65,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(viewType==TYPE_MOVIE){
 
 
-            return new MovieHolder(inflater.inflate(R.layout.row_jobs,parent,false));
+            return new MovieHolder(inflater.inflate(R.layout.row_cvs2,parent,false));
         }
         if(viewType==TYPE_LOAD){
             return new LoadHolder(inflater.inflate(R.layout.row_load,parent,false));
@@ -85,7 +83,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         if(getItemViewType(position)==TYPE_MOVIE){
-            ((MovieHolder)holder).bindData(movies.get(position));
+            ((MovieHolder)holder).bindData(movies.get(position), (MovieHolder)holder);
         }
         //No else part needed as load holder doesn't bind any data
     }
@@ -118,7 +116,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public AdsHolder(View itemView) {
             super(itemView);
-            MobileAds.initialize(context, APP_ID);
+            //MobileAds.initialize(context, APP_ID);
 
             AdView adView = new AdView(context);
             adView.setAdSize(AdSize.BANNER);
@@ -130,35 +128,41 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
     static class MovieHolder extends RecyclerView.ViewHolder  {
+
         TextView tvName;
-        TextView tvCompany;
+        TextView tvSpec;
+        String userID;
+        TextView tvDomain;
         TextView tvCity;
-        TextView tvDate;
-        TextView tvSeeIT;
-       // TextView tvJob_desc;
-        ImageView imgView;
+        TextView tvEdt;
+        TextView tvExp;
+        TextView tvMathc;
+        ImageView tvimgView;
         LinearLayout tvItem;
+        TextView tvAbout;
 
 
+         MovieHolder(View child) {
+            super(child);
 
-        public MovieHolder(View itemView) {
-            super(itemView);
-            tvName=(TextView)itemView.findViewById(R.id.lblJobName);
-            tvCompany=(TextView)itemView.findViewById(R.id.lblCompanyName);
-            tvCity=(TextView)itemView.findViewById(R.id.lblCity);
-            tvDate=(TextView)itemView.findViewById(R.id.lblStartDate);
-            tvSeeIT=(TextView)itemView.findViewById(R.id.lblSeeIT);
-          //  tvJob_desc=(TextView)itemView.findViewById(R.id.lblTextJob);
-            tvItem    = (LinearLayout) itemView.findViewById(R.id.lvvIdtems);
-            imgView    = (ImageView) itemView.findViewById(R.id.imgCompany);
+              tvName=(TextView)child.findViewById(R.id.lblName);
+            tvSpec=(TextView)child.findViewById(R.id.lblSpec);
+            tvDomain=(TextView)child.findViewById(R.id.lblDomain);
+           tvCity=(TextView)child.findViewById(R.id.lblCity);
+           tvEdt=(TextView)child.findViewById(R.id.lblEdtName);
+           tvExp=(TextView)child.findViewById(R.id.lblExp);
+            tvMathc=(TextView)child.findViewById(R.id.lblMatch);
+           tvAbout=(TextView)child.findViewById(R.id.lblAbout);
+            tvItem    = (LinearLayout) child.findViewById(R.id.lvvIdtems);
+            tvimgView    = (ImageView) child.findViewById(R.id.imgCompany);
             tvItem.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
 
 
-                    Intent intent = new Intent(v.getContext(), JobActivity.class);
-                    intent.putExtra("id", movies.get(getAdapterPosition()).getDesc_id());
+                    Intent intent = new Intent(v.getContext(), CVActivity.class);
+                    intent.putExtra("seeker_id", movies.get(getAdapterPosition()).getSeeker_id().toString());
                     startActivityForResult((Activity)context,intent,0,null);
 
                 }
@@ -167,12 +171,48 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
 
-        void bindData(Jobs jobsModel){
-            tvName.setText(jobsModel.getJob_name());
-            tvCompany.setText(jobsModel.getComp_name());
-            tvCity.setText(jobsModel.getCity_name());
-            tvDate.setText(jobsModel.getJob_start());
-            tvSeeIT.setText(jobsModel.getSee_it().toString());
+        void bindData(Seeker seekerModel, MovieHolder holder){
+
+            holder.userID = seekerModel.getSeeker_id().toString();
+            holder.tvName.setText(seekerModel.getFname());
+            holder.tvDomain.setText(seekerModel.getDomain_name());
+            holder.tvCity.setText(seekerModel.getCity_name());
+            switch(seekerModel.getCity_name()){
+                case "طرابلس":
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_tripoli));
+                    break;
+                case "بنغازي":
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_bing));
+                    break;
+                case "مصراتة":
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_mis));
+                    break;
+                default:
+                    tvCity.setBackground(getDrawable(context, R.drawable.text_other));
+                    break;
+            }
+
+            holder.tvEdt.setText(seekerModel.getEdt_name());
+            holder.tvExp.setText(seekerModel.getExp());
+            holder.tvAbout.setText(seekerModel.getAbout());
+            holder.tvMathc.setText(seekerModel.getSee_it());
+
+            holder.tvSpec.setText(seekerModel.getSpec());
+            Picasso.get().load(seekerModel.getImage()).placeholder( AppCompatResources.getDrawable(context, R.drawable.pro))  .into(tvimgView);
+
+             if(seekerModel.getSpec().equals(""))
+                holder.tvSpec.setVisibility(View.GONE);
+             else
+                 holder.tvSpec.setVisibility(View.VISIBLE);
+
+
+
+
+
+            //  tvMathc.setText(tvMathc.get(position));
+
+            Picasso.get().load(seekerModel.getImage()).into(holder.tvimgView);
+
            /* tvJob_desc.setText(jobsModel.getJob_desc());
 
             if(jobsModel.getJob_desc().isEmpty()){
@@ -181,14 +221,20 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
        /*     new DownloadImageTask(imgView)
                     .execute(jobsModel.getImage());*/
 
-            Picasso.get().load(jobsModel.getImage()).placeholder( R.drawable.pro)  .into(imgView);
 
 
         }
 //"http://192.168.1.20/libyacv/public/images/company/"+
 
     }
-
+    public static final Drawable getDrawable(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 21) {
+            return _context.getDrawable(id);
+        } else {
+            return context.getResources().getDrawable(id,null);
+        }
+    }
     static class LoadHolder extends RecyclerView.ViewHolder{
         public LoadHolder(View itemView) {
             super(itemView);

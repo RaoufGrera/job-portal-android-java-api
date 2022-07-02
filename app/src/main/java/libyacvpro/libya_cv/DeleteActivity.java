@@ -2,11 +2,18 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +37,8 @@ public class DeleteActivity extends AppCompatActivity {
     ApiService service;
     TokenManager tokenManager;
     Call<Message> call;
-
+    private static final String APP_ID = "ca-app-pub-9929016091047307~2213947061";
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,14 @@ public class DeleteActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+       // MobileAds.initialize(this, APP_ID);
 
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-9929016091047307/3960713000");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         if(tokenManager.getToken() == null){
             startActivity(new Intent(DeleteActivity.this, LoginActivity.class));
             finish();
@@ -55,7 +70,24 @@ public class DeleteActivity extends AppCompatActivity {
         String sttt= st + " "+stt;
         txtDeleteName.setText(sttt.toString());
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;//super.onOptionsItemSelected(item);
+        }
+    }
     @OnClick(R.id.btn_Delete)
     void confirmDelete(){
 

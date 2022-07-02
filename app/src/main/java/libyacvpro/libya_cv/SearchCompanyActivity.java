@@ -2,11 +2,14 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -14,9 +17,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import libyacvpro.libya_cv.adapter.CompanyAdapter;
-import libyacvpro.libya_cv.adapter.JobsAdapter;
 import libyacvpro.libya_cv.entities.CompanyPackage.Company;
-import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
 import retrofit2.Call;
@@ -33,7 +34,7 @@ public class SearchCompanyActivity extends AppCompatActivity {
     Context context;
 
 
-
+ImageButton imgAdd;
 
 
     ApiService service;
@@ -83,7 +84,24 @@ public class SearchCompanyActivity extends AppCompatActivity {
         //api = ServiceGenerator.createService(MoviesApi.class);
         loadMore(0,stPara,cityPara,domainPara);//,typePara,statusPara
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;//super.onOptionsItemSelected(item);
+        }
+    }
 
     private void loadMore(int index,String stName,String city,String domain){ //,String type,String status
 

@@ -43,29 +43,29 @@ android:background="@drawable/btnedit"
             android:orientation="vertical"
             >
 
-            <TextView
+            <ImageView
                 android:id="@+id/contact_form_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:drawableTop="@drawable/ic_mortarboard_color"
-                android:drawablePadding="8dp"
+                android:src="@drawable/ic_mortarboard_color"
 
+                android:layout_marginBottom="10dp"
                 />
 
             <View
                 android:layout_width="match_parent"
                 android:background="@color/colorLine"
                 android:layout_height="1dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="4dp"
                 ></View>
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_height="58dp"
+                android:layout_height="48dp"
                 android:gravity="bottom"
                 android:padding="0dp"
                 android:background="@drawable/select_edit_text"
@@ -75,15 +75,15 @@ android:background="@drawable/btnedit"
             <Spinner
                 android:id="@+id/spEdt"
                 android:layout_width="fill_parent"
-                android:layout_height="58dp"
+                android:layout_height="48dp"
                 android:layoutDirection="rtl"
            />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_height="58dp"
+                android:layout_height="48dp"
                 android:gravity="bottom"
                 android:padding="0dp"
                 android:background="@drawable/select_edit_text"
@@ -92,136 +92,110 @@ android:background="@drawable/btnedit"
             <Spinner
                 android:id="@+id/spDomain"
                 android:layout_width="fill_parent"
-                android:layout_height="58dp"
+                android:layout_height="48dp"
                 android:layoutDirection="rtl"
              />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="الجامعة"
-                >
-                <EditText
-                android:id="@+id/txtUniv"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
-                android:paddingRight="8dp"
-                android:background="@drawable/select_edit_text"
-                android:inputType="textPersonName" />
-</android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtUniv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="الجامعة"
+                    />
+</com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="الكلية"
-                >
-                <EditText
-                android:id="@+id/txtFaculty"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
-                 android:paddingRight="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFaculty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="الكلية"
+                    />
 
-                android:background="@drawable/select_edit_text"
-                android:inputType="textPersonName" />
-</android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+</com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="التخصص"
-                >
-                <EditText
-                android:id="@+id/txtSed"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
 
 
-                    android:background="@drawable/select_edit_text"
-                android:inputType="textPersonName"
-                />
-</android.support.design.widget.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtSed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="التخصص"
+                    />
+</com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="المعدل"
-                >
-                <EditText
-                android:id="@+id/txtAvg"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
-                    android:paddingRight="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtAvg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions|number"
+                    android:maxLength="2"
+                     android:hint="المعدل"
+                    />
+</com.google.android.material.textfield.TextInputLayout>
 
-                     android:inputType="textNoSuggestions|number"
-                    android:maxLength="4"
-                    android:background="@drawable/select_edit_text"
-                 />
-</android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="من سنة"
-                >
-                <EditText
-                android:id="@+id/txtStart"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
-                    android:paddingRight="8dp"
-
-                    android:background="@drawable/select_edit_text"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="textNoSuggestions|number"
                     android:maxLength="4"
-                />
-</android.support.design.widget.TextInputLayout>
+                    android:hint="من سنة"
+                    />
 
-            <android.support.design.widget.TextInputLayout
+</com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="18dp"
-                android:layout_height="58dp"
-                android:gravity="bottom"
-                android:paddingTop="4dp"
-                android:clipToPadding="false"
-                android:hint="الي سنة"
-                >
-        <EditText
-                android:id="@+id/txtEnd"
-            android:layout_width="fill_parent"
-            android:layout_height="58dp"
-            android:paddingRight="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
 
-            android:background="@drawable/select_edit_text"
-            android:inputType="textNoSuggestions|number"
-            android:maxLength="4"
-            />
-            </android.support.design.widget.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions|number"
+                    android:maxLength="4"
+                    android:hint="الي سنة"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/backgroudspeener"
                 android:paddingLeft="70dp"
                 android:textSize="@dimen/textBtn"

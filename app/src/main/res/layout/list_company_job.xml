@@ -5,92 +5,64 @@
     android:paddingTop="12dp"
     android:paddingBottom="12dp"
     android:paddingRight="4dp"
+    android:id="@+id/RItem"
+    android:clickable="false"
+    android:focusable="false"
 
+    android:layoutDirection="ltr"
     android:paddingLeft="4dp"
     android:background="@color/colorWhite"
 
     >
 
     <TextView
-        android:id="@+id/tvItem"
+        android:id="@+id/jobName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnOnlineData"
-        android:layout_alignBottom="@+id/btnOnlineData"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_toEndOf="@+id/line"
-        android:layout_toRightOf="@+id/line"
-        android:gravity="right"
+        android:layout_marginStart="14dp"
+
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/btnOnlineData"
+        android:layout_toRightOf="@+id/btnOnlineData"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="جامعة جامعة   جامعة جامعة طرابلس"
-        android:textDirection="rtl"
-        android:textSize="14dp" />
+        android:text="جاdsمعة جامعd  fds fds dsfds  جامعة جامعة طرابلس"
+        android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/tvcount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_app"
-        android:layout_alignBottom="@+id/btn_app"
-        android:layout_alignLeft="@+id/line"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/line"
-        android:gravity="right"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:text="جامعة جامعة   جامعة جامعة طرابلس"
-        android:textDirection="rtl"
-        android:textSize="14dp" />
-    <Button
-        android:id="@+id/btn_Delete"
-         android:layout_width="58dp"
-        android:layout_height="38dp"
-        android:paddingRight="17dp"
-        android:layout_marginRight="18px"
-        android:layout_alignParentRight="false"
-        android:background="@drawable/btnedit"
-
-        android:drawableRight="@drawable/ic_delete_forever_black_24dp"
-         />
 
     <Button
         android:id="@+id/btnOnlineData"
-        android:layout_width="58dp"
+        android:layout_width="45dp"
         android:layout_height="38dp"
-       android:paddingRight="16dp"
         android:layout_alignParentTop="true"
-         android:background="@drawable/btnedit"
-        android:drawableRight="@drawable/ic_edit_black_24dp"
-         android:layout_toEndOf="@+id/btn_Delete"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/btn_Delete"
         android:layout_toRightOf="@+id/btn_Delete"
-        />
-<View
-    android:id="@+id/line"
-    android:layout_width="1dp"
-    android:layout_height="38dp"
-    android:layout_marginLeft="10dp"
-    android:background="@color/colorLine"
-    android:layout_toEndOf="@+id/btnOnlineData"
-    android:layout_toRightOf="@+id/btnOnlineData"
-    >
-
-</View>
+        android:background="@drawable/btnedit"
+        android:drawableRight="@drawable/ic_edit_black_24dp"
+        android:paddingRight="10dp" />
 
     <Button
-        android:id="@+id/btn_app"
-        android:layout_width="50dp"
+        android:id="@+id/btn_Delete"
+        android:layout_width="45dp"
         android:layout_height="38dp"
-
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btn_Delete"
-        android:layout_marginBottom="10px"
-        android:layout_marginTop="11dp"
-        android:layout_toLeftOf="@+id/line"
-        android:layout_toStartOf="@+id/line"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="false"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="18px"
+        android:layout_marginTop="4dp"
+
+        android:layout_marginRight="18px"
         android:background="@drawable/btnedit"
-        android:text="عرض الطلبات" />
+        android:drawableRight="@drawable/ic_delete_forever_black_24dp"
+        android:paddingRight="10dp" />
+
 </RelativeLayout>

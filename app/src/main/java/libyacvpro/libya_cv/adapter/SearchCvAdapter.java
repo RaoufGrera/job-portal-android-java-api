@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static libyacvpro.libya_cv.TokenManager.getInstance;
 
 
@@ -38,7 +39,7 @@ import static libyacvpro.libya_cv.TokenManager.getInstance;
  * Created by Asasna on 10/5/2017.
  */
 
-public class AppCvAdapter extends BaseAdapter {
+public class SearchCvAdapter extends BaseAdapter {
 
     ApiService service;
     TokenManager tokenManager;
@@ -57,7 +58,7 @@ public class AppCvAdapter extends BaseAdapter {
     ArrayList<Integer> req_event ;
 
 
-    public AppCvAdapter(
+    public SearchCvAdapter(
             Context context2,
             int job_id,
             ArrayList<String> id,
@@ -145,7 +146,9 @@ public class AppCvAdapter extends BaseAdapter {
         holder.tvExp.setText(tvExp.get(position));
         holder.tvMathc.setText(tvMathc.get(position));
 
+        Picasso.get().load(tvimgView.get(position)).into(holder.tvimgView);
 
+        Picasso.get().load(tvimgView.get(position)).placeholder( AppCompatResources.getDrawable(context, R.drawable.pro)).into(holder.tvimgView);
 
         holder.tvAbout.setText(tvAbout.get(position));
 
@@ -155,7 +158,6 @@ public class AppCvAdapter extends BaseAdapter {
        //   holder.btnAccept.setBackgroundResource(0);
         }
 
-        Picasso.get().load(tvimgView.get(position)).into(holder.tvimgView);
 
 
            holder.tvItem.setOnClickListener(new View.OnClickListener() {

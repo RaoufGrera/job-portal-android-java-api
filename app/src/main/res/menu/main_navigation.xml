@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_rate"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="تقييم التطبيق"
         app:showAsAction="never" />
-
-
+    <item
+        android:id="@+id/action_contact_us"
+        android:orderInCategory="100"
+        android:title="تواصل معنا"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_about_us"
+        android:orderInCategory="100"
+        android:title="عن التطبيق"
+        app:showAsAction="never" />
+    <item
+    android:id="@+id/action_settings"
+    android:orderInCategory="100"
+    android:title="الإعدادات"
+    app:showAsAction="never" />
 
 </menu>

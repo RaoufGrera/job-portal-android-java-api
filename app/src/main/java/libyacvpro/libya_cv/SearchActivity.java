@@ -2,17 +2,22 @@ package libyacvpro.libya_cv;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,17 +37,25 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
-
+    Button btnCity;
+    Button btnDomain;
 
     ApiService service;
     TokenManager tokenManager;
     Call<List<Jobs>> call;
+    String clist[];
+    String dlist[];
+
+    String dPara;
+    String cPara;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         context = this;
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView =  findViewById(R.id.recycler_view);
+        btnDomain =  findViewById(R.id.btnDomain);
+        btnCity =  findViewById(R.id.btnCity);
         jobsList = new ArrayList<>();
 
         final String stPara = "";//getIntent().getExtras().getString("string");
@@ -53,23 +66,12 @@ public class SearchActivity extends AppCompatActivity {
         final String domainPara = (pDomain.equals("كل المجالات")? "" :pDomain);
 
 
-        adapter = new JobsAdapter(this, jobsList);
-        adapter.setLoadMoreListener(new JobsAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
+          dPara = domainPara;
+          cPara=cityPara;
+          clist  = getIntent().getExtras() .getStringArray("clist");
+          dlist  = getIntent().getExtras() .getStringArray("dlist");
 
-                recyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                         int index = (jobsList.size() / 10) +1;
-                         loadMore(index,stPara,cityPara,domainPara); //                         loadMore(index,stPara,cityPara,domainPara,typePara,statusPara);
-                    }
-                });
-                //Calling loadMore function in Runnable to fix the
-                // java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
-            }
-        });
-
+       loadApi();
 
 
         recyclerView.setHasFixedSize(true);
@@ -78,18 +80,115 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         //api = ServiceGenerator.createService(MoviesApi.class);
-        loadMore(0,stPara,cityPara,domainPara);//,typePara,statusPara
+        loadMore(0,stPara,cPara,dPara);//,typePara,statusPara
+
+
+        registerForContextMenu(btnCity);
+
+        btnCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                v.showContextMenu();
+
+
+            }});
+
+        registerForContextMenu(btnDomain);
+
+        btnDomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                v.showContextMenu();
+
+
+            }});
     }
+    void loadApi(){
+        adapter = new JobsAdapter(this, jobsList);
+        adapter.setLoadMoreListener(new JobsAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
 
-    private void load(int index,String stName,String city,String domain,String type,String status){
-        ButterKnife.bind(this);
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int index = (jobsList.size() / 10) +1;
+
+                        loadMore(index,"",cPara,dPara); //                         loadMore(index,stPara,cityPara,domainPara,typePara,statusPara);
+                    }
+                });
+                //Calling loadMore function in Runnable to fix the
+                // java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
+            }
+        });
+
+    }
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if(v.getId() == R.id.btnCity){
+            menu.setHeaderTitle("أختر المدينة");
+            if(clist.length != 0) {
+
+                for (String strTemp : clist){
+                    menu.add(0, v.getId(), 0, strTemp);
+                }
+            }
+        }
+
+
+        else if(v.getId() == R.id.btnDomain){
+        menu.setHeaderTitle("أختر المجال");
+
+            if(dlist.length != 0) {
+            for (String strTemp : dlist){
+                menu.add(0, v.getId(), 0, strTemp);
+            }
+
+         }
+        }
+
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getTitle()!=""){
+            boolean contains = Arrays.asList(clist).contains(item.getTitle().toString());
+
+            if(contains) {
+                btnCity.setText(item.getTitle());
+                cPara = (item.getTitle().toString().equals("كل المدن")? "" :item.getTitle().toString());
+                clear();
+
+                load(1,"",cPara,dPara);//,typePara,statusPara
+
+            }else {
+                btnDomain.setText(item.getTitle());
+                dPara = (item.getTitle().toString().equals("كل المجالات")? "" :item.getTitle().toString());
+                clear();
+
+                load(1,"",cPara,dPara);
+
+            }
+
+        }else{
+            return false;
+        }
+        return true;
+    }
+    private void load(int index,String stName,String city,String domain){
+        jobsList.add(new Jobs("load"));
+        adapter.notifyItemInserted(jobsList.size() - 1);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-
+        adapter.setMoreDataAvailable(true);
         if (tokenManager.getToken() == null) {
             startActivity(new Intent(SearchActivity.this, LoginActivity.class));
             finish();
         }
-
+        if(index == 1)
+            jobsList.remove(jobsList.size() - 1);
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
         call = service.getSearchJobs(index,stName,city,domain);//,type,status
         call.enqueue(new Callback<List<Jobs>>() {
@@ -98,16 +197,21 @@ public class SearchActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     List<Jobs> result = response.body();
 
-                    if(result.size()>0){
-                        //add loaded data
-                        jobsList.addAll(result);
-                        adapter.notifyDataChanged();
 
-                    }else{//result size 0 means there is no more data available at server
+                    if (result.size() > 0) {
+
+                        jobsList.addAll(result);
+                        if(result.size() < 10){
+                            adapter.setMoreDataAvailable(false);
+                            Toast.makeText(context, "أنتهت نتائج البحث.", Toast.LENGTH_LONG).show();
+
+                        }
+                    } else {//result size 0 means there is no more data available at server
                         adapter.setMoreDataAvailable(false);
                         //telling adapter to stop calling load more as no more server data available
-                        Toast.makeText(context,"أنتهت نتائج البحث.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "أنتهت نتائج البحث.", Toast.LENGTH_LONG).show();
                     }
+                    adapter.notifyDataChanged();
                 }else{
                     Log.e(TAG," Response Error "+String.valueOf(response.code()));
                 }
@@ -120,6 +224,7 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+
     private void loadMore(int index,String stName,String city,String domain){ //,String type,String status
 
 
@@ -127,7 +232,6 @@ public class SearchActivity extends AppCompatActivity {
             jobsList.add(new Jobs("load"));
             adapter.notifyItemInserted(jobsList.size() - 1);
 
-            ButterKnife.bind(this);
             tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
             if (tokenManager.getToken() == null) {
@@ -175,6 +279,29 @@ public class SearchActivity extends AppCompatActivity {
                     Log.e(TAG, " Load More Response Error " + t.getMessage());
                 }
             });
+        }
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
+    public void clear() {
+        int size = jobsList.size();
+        jobsList.clear();
+        adapter.notifyItemRangeRemoved(0, size);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;//super.onOptionsItemSelected(item);
         }
     }
 }

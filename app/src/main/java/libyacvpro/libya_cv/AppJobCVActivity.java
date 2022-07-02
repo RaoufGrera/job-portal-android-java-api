@@ -1,19 +1,18 @@
 package libyacvpro.libya_cv;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import libyacvpro.libya_cv.adapter.AppCvAdapter;
-import libyacvpro.libya_cv.entities.ExperiencePackage.Experience;
-import libyacvpro.libya_cv.entities.ExperiencePackage.ExperienceResponse;
-import libyacvpro.libya_cv.entities.IntegrString;
 import libyacvpro.libya_cv.entities.Seeker;
 import libyacvpro.libya_cv.network.ApiService;
 import libyacvpro.libya_cv.network.RetrofitBuilder;
@@ -42,6 +41,7 @@ public class AppJobCVActivity extends AppCompatActivity {
     TokenManager tokenManager;
     Call<List<Seeker>> call;
     Button imgWifi;
+    Button btnReload;
 
     String pUser;
     Integer itemID;
@@ -50,7 +50,13 @@ public class AppJobCVActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_job_cv);
         LISTVIEW = (NonScrollListView) findViewById(R.id.listView2);
+        btnReload = (Button) findViewById(R.id.btnReload);
 
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowSQLiteDBdata() ;
+            }});
         pUser = getIntent().getExtras().getString("user");
 
         itemID = getIntent().getExtras().getInt("id");
@@ -64,7 +70,24 @@ public class AppJobCVActivity extends AppCompatActivity {
 
         super.onResume();
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.side_bar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.toolback:
+                onBackPressed();
+
+                return true;
+
+            default:
+                return true;//super.onOptionsItemSelected(item);
+        }
+    }
     private void ShowSQLiteDBdata() {
 
 
@@ -145,6 +168,9 @@ public class AppJobCVActivity extends AppCompatActivity {
         );
 
         LISTVIEW.setAdapter(ListAdapter);
+
+        LISTVIEW.invalidateViews();
+
     }
 
 

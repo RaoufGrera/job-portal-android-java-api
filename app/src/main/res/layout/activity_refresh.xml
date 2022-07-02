@@ -44,7 +44,7 @@ android:padding="8dp">
         android:layout_gravity="right"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:text="يمكنك تحديث السيرة الذاتية في نتائج البحث بعد 10 ايام من تاريخ اخر تحديث"
+        android:text="يمكنك تحديث السيرة الذاتية في نتائج البحث بعد يوم من تاريخ اخر تحديث"
 
         />
 
@@ -78,6 +78,17 @@ android:padding="8dp">
         android:text="تحديث"
 
         android:textColor="#fff" />
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+
+    ads:adUnitId="ca-app-pub-9929016091047307/3960713000">
+    </com.google.android.gms.ads.AdView>
 </LinearLayout>
 
 </RelativeLayout>

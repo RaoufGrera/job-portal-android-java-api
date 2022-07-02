@@ -28,7 +28,7 @@
         android:paddingBottom="4dp"
         android:textDirection="rtl"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/textSizeXL" />
+        android:textSize="@dimen/textSize" />
 
     <TextView
         android:id="@+id/lblSecond"

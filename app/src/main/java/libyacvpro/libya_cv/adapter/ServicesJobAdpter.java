@@ -5,28 +5,20 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import libyacvpro.libya_cv.AddJobActivity;
-import libyacvpro.libya_cv.AppJobCVActivity;
-import libyacvpro.libya_cv.DeleteActivity;
-import libyacvpro.libya_cv.ItemClickListener;
+import libyacvpro.libya_cv.AddServicesActivity;
 import libyacvpro.libya_cv.R;
 import libyacvpro.libya_cv.TokenManager;
-import libyacvpro.libya_cv.entities.IntegrString;
 import libyacvpro.libya_cv.entities.JobSearchPackage.Jobs;
 import libyacvpro.libya_cv.entities.Message;
 import libyacvpro.libya_cv.network.ApiService;
@@ -36,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static libyacvpro.libya_cv.TokenManager.getInstance;
 
 
@@ -44,7 +36,7 @@ import static libyacvpro.libya_cv.TokenManager.getInstance;
  * Created by Asasna on 9/22/2017.
  */
 
-public class CompanyJobAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ServicesJobAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public final int TYPE_MOVIE = 0;
     public final int TYPE_LOAD = 1;
@@ -55,9 +47,9 @@ public class CompanyJobAdpter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private  View.OnClickListener mOnClickListener ;
 
-    CompanyJobAdpter.OnLoadMoreListener loadMoreListener;
+    ServicesJobAdpter.OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
-    public CompanyJobAdpter(Context context,String pname, List<Jobs> jobses) {
+    public ServicesJobAdpter(Context context, String pname, List<Jobs> jobses) {
         this.context = context;
         this.tcc = context;
         this.movies = jobses;
@@ -176,7 +168,7 @@ public class CompanyJobAdpter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
                                     ApiService  service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-                                    Call<Message>   callMessage = service.removeJob( name,descID,"DELETE" );
+                                    Call<Message>   callMessage = service.removeJob( descID,"DELETE" );
                                     callMessage.enqueue(new Callback<Message>() {
                                         @Override
                                         public void onResponse(Call<Message> call, Response<Message> response) {
@@ -232,7 +224,7 @@ public class CompanyJobAdpter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
                                     ApiService  service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-                                    Call<Message>   callMessage = service.removeJob( name,descID,"DELETE" );
+                                    Call<Message>   callMessage = service.removeServices( descID,"DELETE" );
                                     callMessage.enqueue(new Callback<Message>() {
                                         @Override
                                         public void onResponse(Call<Message> call, Response<Message> response) {
@@ -275,9 +267,8 @@ public class CompanyJobAdpter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), AddJobActivity.class);
+                    Intent intent = new Intent(v.getContext(), AddServicesActivity.class);
                     intent.putExtra("id",descID);
-                    intent.putExtra("user", name);
 
                     startActivityForResult((Activity)tcc,intent,0,null);
 
