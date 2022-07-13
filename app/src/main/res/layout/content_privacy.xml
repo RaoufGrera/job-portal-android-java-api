@@ -1,0 +1,298 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:background="@color/colorBackgroundActivity"
+    android:layout_height="fill_parent"
+    android:fadingEdgeLength="0dp"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    >
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/form_container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="privacy policy "
+                android:textColor="@color/colorGreenLand"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="LibyaCV app is a Free app. This services at no cost."
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:lineHeight="20dp"
+                android:text="This page is used to inform visitors regarding our policies with the collection use, and disclosure of Personal Information if anyone decided to use our Service and Sign up to our app."
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:lineHeight="20dp"
+                android:text="If you choose to use our Service, then you agree to the collection and use of information in relation to this policy.
+The Personal Information that we collect is used will not use or share your information with anyone except as described in this Privacy Policy."
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Information Collection and Use"
+                android:textColor="@color/colorGreenLand"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="For a better experience to build your resume we require you to provide us with certain personality information. you may provide fake infromation, this is up to you. The information that we request or you provided for us will sended to LibyaCV.com that is web app for this app.
+and this information will store in this site and can every one show it, when vist or used our web app or mobile app, and also you can manage your infromation and deleted it and delete you account by your self as described in this privacy policy."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="1. Collection of Information"
+                android:textColor="@color/colorGreenLand"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="We may collect the following kinds of Information when you use the app:
+\nInformation you provide directly to us. For
+Certain activities, such as when you register Or submit an order, we may collect some or All of the following types of information:
+\n  - Contact information, such as your full Name, email address, phone number, and address.
+\n  - Email and Username and password; and Any other information you provide to us.
+\nWe may combine such information with information we may already have about you.
+"
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="Information we collect automatically. We may collect certain information automatically when you use our app, such as your Internet protocol (IP) address, device, and advertising identifiers, operating system, Internet service provider, pages that you visit before and after using the app, the date and time of your visit, information about the links you click, the pages you view, the general manner in which you navigate the app, and other standard server log information. We may also collect certain location information when you use our app, your mobile device's GPS signal."
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="Information we collect automatically. We may collect certain information automatically when you use our app, such as your Internet protocol (IP) address, device, and advertising identifiers, operating system, Internet service provider, pages that you visit before and after using the app, the date and time of your visit, information about the links you click, the pages you view, the general manner in which you navigate the app, and other standard server log information. We may also collect certain location information when you use our app, your mobile device's GPS signal."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="We and third parties that provide content or functionality on our app may use cookies, pixel tags, Local Shared Objects, and similar technologies to automatically collect this information."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="We may also collect technical data to address and fix technical problems and improve our app, including the memory state of your device when a system or app crash occurs while using our app. Your device settings may permit you to control the collection of this technical data. This data may include parts of a document you were using when a problem occurred or the contents of your communications. By using Libya CV app, you are consenting to the collection of this technical data."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="We may also receive information about you from other sources, including through third-party services and organizations. For example, if you access third-party services, such as Facebook or Google, through the app to log in or to share information about your experience on the app with others, we may collect information from these third-party services."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="2. Use of Information"
+                android:textColor="@color/colorGreenLand"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="We generally use the information we collect online to
+\n - Provide and improve the app;
+\n - Contact you, for customer service purposes;
+\n - Fulfill your requests for products, Fulfill your requests for products, services, and information;
+\n - Analyze the use of the app and user data to understand and improve the app;
+\n - For any other purposes disclosed to you at the time we collect your information or pursuant to your consent.
+"
+                               android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="3. Sharing of Information"
+                android:textColor="@color/colorGreenLand"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="If you access third-party services, such as Facebook, Google, or Twitter, through the app to log in to the app or to share information about your experience on the Sites with others, these third-party services may be able to collect information about you, including information about your activity on the app, and they may notify your connections on the third-party services
+about your use of the Sites, in accordance with their own privacy policies."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="LibyaCV.com any data you provided it in Libya CV app they will sent to main web app Libya CV and stored there. and you can manage your data and deleted it."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Contact Us"
+                android:textColor="@color/colorGreenLand"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:lineHeight="20dp"
+                android:text="If you have any questions or suggestions about our Privacy Policy, do not hesitateto contact us at info@libyacv.com."
+                android:textColor="@color/colorPrimaryDarkTow"
+                android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_yes"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/btn_bb"
+                    android:clickable="true"
+                    android:text="Ok"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_no"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/btnedit"
+                    android:clickable="true"
+                    android:text="Exit"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+</RelativeLayout>
+</ScrollView>

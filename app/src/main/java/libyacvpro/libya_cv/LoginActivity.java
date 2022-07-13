@@ -102,8 +102,8 @@ GoogleApiClient mGoogleApiClient;
         privacyInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-               Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.libyacv.com/privacy_policy"));
-                startActivity(browserIntent);
+               //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.libyacv.com/privacy_policy"));
+                startActivity(new Intent(LoginActivity.this,privacy.class));
 
             }
         });
@@ -122,8 +122,8 @@ GoogleApiClient mGoogleApiClient;
             finish();
         }
 
-        if(!dialogPrivacy.isShowing())
-            dialogPrivacy.show();
+        ////  if(!dialogPrivacy.isShowing())
+        ////  dialogPrivacy.show();
 
     }
 
@@ -365,12 +365,12 @@ GoogleApiClient mGoogleApiClient;
 
         }
 
-
+/*
     @OnClick(R.id.go_to_register)
     void goToRegister(){
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
-
+*/
     private void handleErrors(ResponseBody response) {
 
         ApiError apiError = Utils.converErrors(response);

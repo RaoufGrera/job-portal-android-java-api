@@ -64,7 +64,7 @@ public class MainNavigationActivity extends AppCompatActivity
                     fragment = new TabFragment();
                     break;
                 case R.id.navigation_dashboard:
-                    fragment = new DashboardFragment();
+                    //fragment = new DashboardFragment();
                     break;
                 case R.id.navigation_notifications:
                     //fragment = new MycvFargment();
@@ -459,6 +459,12 @@ public class MainNavigationActivity extends AppCompatActivity
 
                 startActivity(intent);
 
+
+                break;
+
+            case R.id.nav_privacy:
+
+                startActivity(new Intent(getApplicationContext(), privacy.class));
 
                 break;
           /*  case R.id.nav_search_job:

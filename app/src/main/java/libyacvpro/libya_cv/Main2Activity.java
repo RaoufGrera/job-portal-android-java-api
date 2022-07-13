@@ -23,7 +23,7 @@ public class Main2Activity extends AppCompatActivity {
                     fragment = new TabFragment();
                     break;
                 case R.id.navigation_dashboard:
-                    fragment = new DashboardFragment();
+                   // fragment = new DashboardFragment();
                     break;
                 case R.id.navigation_notifications:
                  //   fragment = new MycvFargment();

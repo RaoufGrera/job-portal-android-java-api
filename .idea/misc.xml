@@ -3,7 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/backgroudspeener.xml" value="0.121" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/btn_google.xml" value="0.152" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_edit_cv.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_f.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_file.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_file_download_black_24dp.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_file_w.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_info.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/drawable/ic_info_black_244dp.xml" value="0.1775" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_about.xml" value="0.10989583333333333" />
         <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_add_edit_info.xml" value="0.1" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_login.xml" value="0.128125" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_main_navigation.xml" value="0.22826086956521738" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_privacy.xml" value="0.12733856366928184" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_seeker.xml" value="0.1" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/activity_skills.xml" value="0.1" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/content_privacy.xml" value="0.2524986849026828" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/layout/custom_dialog_privacy.xml" value="0.2" />
+        <entry key="..\:/apps_msi/libyacv/app/src/main/res/menu/activity_main_navigation_drawer.xml" value="0.25" />
       </map>
     </option>
   </component>
